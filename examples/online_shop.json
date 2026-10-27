@@ -1,0 +1,24 @@
+{
+  "business_name": "Example Online Shop (imports from China, sells in EU)",
+  "answers": {
+    "sells_products": true,
+    "many_products": true,
+    "multi_language": true,
+    "support_volume": true,
+    "repeat_questions": true,
+    "email_heavy": true,
+    "posts_social": true,
+    "small_team": true,
+    "has_leads": false,
+    "uses_crm": false,
+    "writes_quotes": false,
+    "paper_invoices": true,
+    "manual_bookkeeping": true,
+    "monthly_reports": false,
+    "holds_stock": true,
+    "foreign_suppliers": true,
+    "many_meetings": false,
+    "many_documents": false,
+    "staff_ask_same": false
+  }
+}
