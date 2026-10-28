@@ -18,6 +18,10 @@ classifiers = [
     "Environment :: Console",
 ]
 
+# The "aiaudit" command runs aiaudit.cli:main.
+[project.scripts]
+aiaudit = "aiaudit.cli:main"
+
 [project.optional-dependencies]
 test = ["pytest"]
 

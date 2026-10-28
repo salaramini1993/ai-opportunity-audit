@@ -35,3 +35,14 @@ def test_package_list_includes_aiaudit():
     assert "aiaudit" in packages
     for name in packages:
         assert (ROOT / name / "__init__.py").is_file()
+
+
+def test_console_script_points_to_cli_main():
+    data = load_pyproject()
+    target = data["project"]["scripts"]["aiaudit"]
+    assert target == "aiaudit.cli:main"
+
+    # The target must be a function that can be called.
+    module_name, func_name = target.split(":")
+    module = __import__(module_name, fromlist=[func_name])
+    assert callable(getattr(module, func_name))

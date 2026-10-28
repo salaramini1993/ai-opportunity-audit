@@ -31,13 +31,16 @@ To install the test tools too, use `pip install ".[test]"`.
 Run the audit from a JSON file:
 
 ```bash
-python -m aiaudit --answers examples/online_shop.json
+aiaudit --answers examples/online_shop.json
 ```
+
+The `aiaudit` command is available after `pip install .`.
+If you did not install the package, use `python -m aiaudit` instead.
 
 Run the audit in the terminal:
 
 ```bash
-python -m aiaudit --interactive --name "My Business" --out report.md
+aiaudit --interactive --name "My Business" --out report.md
 ```
 
 ## Opportunity types
