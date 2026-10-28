@@ -21,7 +21,10 @@ You must have Python 3.10 or later.
 ```bash
 git clone https://github.com/salaramini1993/ai-opportunity-audit.git
 cd ai-opportunity-audit
+pip install .
 ```
+
+To install the test tools too, use `pip install ".[test]"`.
 
 ## Use
 

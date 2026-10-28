@@ -10,7 +10,7 @@ with `[x]` in the same commit as the change. Add new tasks when you find them.
 - [x] Scoring: fit, impact, effort, priority, quadrant
 - [x] Markdown report
 - [x] CLI with JSON input and interactive mode
-- [ ] Add `pyproject.toml` so users can install with `pip install .`
+- [x] Add `pyproject.toml` so users can install with `pip install .`
 - [ ] Add an `aiaudit` console script entry point
 - [ ] Load the catalog from a YAML/JSON data file, not from Python code
 - [ ] Add weights per area (for example, a user can say "support is most important")
