@@ -52,6 +52,23 @@ aiaudit --interactive --name "My Business" --out report.md
 | Small improvement | Low | Low | Do these when you have time |
 | Not now | Low | High | Do not do these now |
 
+## Edit the catalog
+
+The catalog is in the file `aiaudit/data/catalog.json`. To add or change
+an opportunity, edit this file. You do not need to change Python code.
+
+Each opportunity has these fields:
+
+- `key`: a unique name.
+- `area`: one of the names in the `areas` list.
+- `title` and `description`: text for the report.
+- `signals`: the question keys that show this task exists in the business.
+- `base_effort`: an integer from 1 (easy) to 5 (difficult).
+- `example_tools`: optional. A list of example tools.
+
+The tool checks the file when it starts. If a field is not correct,
+the tool stops and shows an error.
+
 ## Run the tests
 
 ```bash

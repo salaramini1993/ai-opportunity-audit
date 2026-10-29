@@ -3,9 +3,16 @@
 Each opportunity is one task in a business that AI can make faster,
 cheaper or better. The audit asks questions to find which
 opportunities apply to a business, then scores them.
+
+The catalog data is in the file "data/catalog.json". To add or change
+an opportunity, edit that file. You do not need to change Python code.
 """
 
+import json
 from dataclasses import dataclass, field
+from importlib import resources
+from pathlib import Path
+from typing import Any, Union
 
 
 @dataclass(frozen=True)
@@ -24,161 +31,118 @@ class Opportunity:
     example_tools: tuple[str, ...] = field(default_factory=tuple)
 
 
-AREAS = (
-    "sales",
-    "marketing",
-    "customer_support",
-    "operations",
-    "finance",
-    "admin",
-)
+class CatalogError(ValueError):
+    """The catalog data is not correct."""
 
-CATALOG: tuple[Opportunity, ...] = (
-    Opportunity(
-        key="support_faq_assistant",
-        area="customer_support",
-        title="FAQ assistant for customer questions",
-        description=(
-            "Use an AI assistant to answer common customer questions. "
-            "Send difficult questions to a person."
-        ),
-        signals=("support_volume", "repeat_questions"),
-        base_effort=2,
-        example_tools=("Helpdesk AI add-on", "Chat widget with LLM"),
-    ),
-    Opportunity(
-        key="support_reply_drafts",
-        area="customer_support",
-        title="Draft replies for support emails",
-        description=(
-            "Let AI write a first draft of each reply. "
-            "A person checks and sends the reply."
-        ),
-        signals=("support_volume", "email_heavy"),
-        base_effort=1,
-        example_tools=("Email client AI", "Helpdesk AI add-on"),
-    ),
-    Opportunity(
-        key="product_descriptions",
-        area="marketing",
-        title="Product descriptions and listings",
-        description=(
-            "Generate product titles and descriptions from a short "
-            "specification. Translate them to more languages."
-        ),
-        signals=("sells_products", "many_products", "multi_language"),
-        base_effort=1,
-        example_tools=("LLM with a prompt template",),
-    ),
-    Opportunity(
-        key="social_content",
-        area="marketing",
-        title="Social media content plan",
-        description=(
-            "Make a weekly plan of posts and first drafts of the text. "
-            "A person approves each post."
-        ),
-        signals=("posts_social", "small_team"),
-        base_effort=1,
-        example_tools=("LLM", "Scheduling tool with AI"),
-    ),
-    Opportunity(
-        key="lead_qualification",
-        area="sales",
-        title="Lead sorting and follow-up",
-        description=(
-            "Sort new leads by fit and draft follow-up messages. "
-            "Record the result in the CRM."
-        ),
-        signals=("has_leads", "uses_crm"),
-        base_effort=3,
-        example_tools=("CRM AI features", "Automation platform + LLM"),
-    ),
-    Opportunity(
-        key="quote_generation",
-        area="sales",
-        title="Faster quotes and offers",
-        description=(
-            "Make quote documents from a template and the customer "
-            "request. A person checks prices."
-        ),
-        signals=("writes_quotes",),
-        base_effort=2,
-        example_tools=("Document template + LLM",),
-    ),
-    Opportunity(
-        key="invoice_extraction",
-        area="finance",
-        title="Read invoices and receipts automatically",
-        description=(
-            "Extract data from invoices and receipts and put it into "
-            "the accounting system."
-        ),
-        signals=("paper_invoices", "manual_bookkeeping"),
-        base_effort=2,
-        example_tools=("Accounting OCR", "Document AI"),
-    ),
-    Opportunity(
-        key="cashflow_summary",
-        area="finance",
-        title="Monthly finance summary",
-        description=(
-            "Make a short summary of income, costs and trends "
-            "from the monthly export."
-        ),
-        signals=("manual_bookkeeping", "monthly_reports"),
-        base_effort=2,
-        example_tools=("Spreadsheet AI", "LLM with data export"),
-    ),
-    Opportunity(
-        key="inventory_forecast",
-        area="operations",
-        title="Stock and reorder forecast",
-        description=(
-            "Use sales history to estimate when to reorder stock "
-            "and how much to order."
-        ),
-        signals=("holds_stock", "sells_products"),
-        base_effort=4,
-        example_tools=("Inventory system forecasts", "Spreadsheet model"),
-    ),
-    Opportunity(
-        key="supplier_communication",
-        area="operations",
-        title="Supplier messages and translation",
-        description=(
-            "Draft and translate messages to suppliers. "
-            "Summarise long supplier threads."
-        ),
-        signals=("foreign_suppliers", "multi_language"),
-        base_effort=1,
-        example_tools=("LLM", "Email client AI"),
-    ),
-    Opportunity(
-        key="meeting_notes",
-        area="admin",
-        title="Meeting notes and action items",
-        description=(
-            "Record meetings, make a summary and a list of tasks "
-            "for each person."
-        ),
-        signals=("many_meetings",),
-        base_effort=1,
-        example_tools=("Meeting recorder with AI",),
-    ),
-    Opportunity(
-        key="document_search",
-        area="admin",
-        title="Search internal documents",
-        description=(
-            "Let staff ask questions about internal documents, "
-            "for example procedures and price lists."
-        ),
-        signals=("many_documents", "staff_ask_same"),
-        base_effort=3,
-        example_tools=("Workspace AI search", "RAG assistant"),
-    ),
-)
+
+_REQUIRED_FIELDS = ("key", "area", "title", "description", "signals", "base_effort")
+_KNOWN_FIELDS = set(_REQUIRED_FIELDS) | {"example_tools"}
+
+
+def _parse_opportunity(raw: Any, areas: tuple[str, ...], index: int) -> Opportunity:
+    """Make one Opportunity from raw JSON data. Check each field."""
+    where = f"opportunity #{index}"
+    if not isinstance(raw, dict):
+        raise CatalogError(f"{where}: must be an object")
+    missing = [name for name in _REQUIRED_FIELDS if name not in raw]
+    if missing:
+        raise CatalogError(f"{where}: missing field(s): {', '.join(missing)}")
+    unknown = sorted(set(raw) - _KNOWN_FIELDS)
+    if unknown:
+        raise CatalogError(f"{where}: unknown field(s): {', '.join(unknown)}")
+
+    where = f"opportunity '{raw['key']}'"
+    for name in ("key", "area", "title", "description"):
+        if not isinstance(raw[name], str) or not raw[name].strip():
+            raise CatalogError(f"{where}: '{name}' must be a text that is not empty")
+    if raw["area"] not in areas:
+        raise CatalogError(f"{where}: unknown area '{raw['area']}'")
+
+    signals = raw["signals"]
+    if (
+        not isinstance(signals, list)
+        or not signals
+        or not all(isinstance(s, str) and s for s in signals)
+    ):
+        raise CatalogError(f"{where}: 'signals' must be a list of question keys")
+
+    effort = raw["base_effort"]
+    # bool is a subclass of int. Do not accept true/false as a number.
+    if isinstance(effort, bool) or not isinstance(effort, int) or not 1 <= effort <= 5:
+        raise CatalogError(f"{where}: 'base_effort' must be an integer from 1 to 5")
+
+    tools = raw.get("example_tools", [])
+    if not isinstance(tools, list) or not all(isinstance(t, str) for t in tools):
+        raise CatalogError(f"{where}: 'example_tools' must be a list of text")
+
+    return Opportunity(
+        key=raw["key"],
+        area=raw["area"],
+        title=raw["title"],
+        description=raw["description"],
+        signals=tuple(signals),
+        base_effort=effort,
+        example_tools=tuple(tools),
+    )
+
+
+def parse_catalog(data: Any) -> tuple[tuple[str, ...], tuple[Opportunity, ...]]:
+    """Check catalog data and return (areas, opportunities).
+
+    The data must be an object with two lists: "areas" and "opportunities".
+    Raise CatalogError if the data is not correct.
+    """
+    if not isinstance(data, dict):
+        raise CatalogError("catalog must be an object")
+    areas = data.get("areas")
+    if (
+        not isinstance(areas, list)
+        or not areas
+        or not all(isinstance(a, str) and a for a in areas)
+    ):
+        raise CatalogError("'areas' must be a list of area names")
+    if len(set(areas)) != len(areas):
+        raise CatalogError("'areas' has duplicate names")
+    raw_items = data.get("opportunities")
+    if not isinstance(raw_items, list) or not raw_items:
+        raise CatalogError("'opportunities' must be a list that is not empty")
+
+    area_tuple = tuple(areas)
+    items = tuple(
+        _parse_opportunity(raw, area_tuple, i) for i, raw in enumerate(raw_items, 1)
+    )
+    keys = [item.key for item in items]
+    duplicates = sorted({k for k in keys if keys.count(k) > 1})
+    if duplicates:
+        raise CatalogError(f"duplicate opportunity key(s): {', '.join(duplicates)}")
+    return area_tuple, items
+
+
+def load_catalog(
+    path: Union[str, Path, None] = None,
+) -> tuple[tuple[str, ...], tuple[Opportunity, ...]]:
+    """Load the catalog from a JSON file.
+
+    If you do not give a path, load the default catalog in the package.
+    """
+    if path is None:
+        text = (
+            resources.files("aiaudit")
+            .joinpath("data/catalog.json")
+            .read_text(encoding="utf-8")
+        )
+        source = "built-in catalog"
+    else:
+        text = Path(path).read_text(encoding="utf-8")
+        source = str(path)
+    try:
+        data = json.loads(text)
+    except json.JSONDecodeError as exc:
+        raise CatalogError(f"{source}: not valid JSON: {exc}") from exc
+    return parse_catalog(data)
+
+
+AREAS, CATALOG = load_catalog()
 
 
 def by_key(key: str) -> Opportunity:

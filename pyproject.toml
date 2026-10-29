@@ -31,6 +31,10 @@ Homepage = "https://github.com/salaramini1993/ai-opportunity-audit"
 [tool.setuptools]
 packages = ["aiaudit"]
 
+# Include the catalog data file in the package.
+[tool.setuptools.package-data]
+aiaudit = ["data/*.json"]
+
 [tool.setuptools.dynamic]
 version = { attr = "aiaudit.__version__" }
 
