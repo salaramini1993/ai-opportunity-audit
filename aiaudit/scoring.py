@@ -10,6 +10,9 @@ Score rules:
   makes the priority of all opportunities in that area two times higher.
   The weight changes only the sort order. It does not change the type
   (quadrant) of an opportunity.
+- Hours saved: the catalog range (low, high) multiplied by the fit.
+  A business that has half of the signals gets half of the hours.
+  This is a rough estimate. Use it to compare opportunities, not as a promise.
 """
 
 from dataclasses import dataclass
@@ -37,6 +40,18 @@ class ScoredOpportunity:
         return round(self.impact * self.weight / self.effort, 2)
 
     @property
+    def hours_saved(self) -> tuple[float, float] | None:
+        """Return the estimated hours saved per week as (low, high).
+
+        Return None if the catalog has no estimate for this opportunity.
+        """
+        hours = self.opportunity.hours_saved_per_week
+        if hours is None:
+            return None
+        low, high = hours
+        return (round(low * self.fit, 1), round(high * self.fit, 1))
+
+    @property
     def quadrant(self) -> str:
         high_impact = self.impact >= 3
         low_effort = self.effort <= 2
@@ -47,6 +62,20 @@ class ScoredOpportunity:
         if low_effort:
             return "small improvement"
         return "not now"
+
+
+def total_hours_saved(results: list[ScoredOpportunity]) -> tuple[float, float]:
+    """Return the sum of the hours saved per week for all results.
+
+    Results that have no estimate add zero.
+    """
+    low = high = 0.0
+    for r in results:
+        hours = r.hours_saved
+        if hours is not None:
+            low += hours[0]
+            high += hours[1]
+    return (round(low, 1), round(high, 1))
 
 
 def validate_answers(answers: dict[str, bool]) -> None:

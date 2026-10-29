@@ -81,6 +81,17 @@ the tool uses the value from the command line.
 | Small improvement | Low | Low | Do these when you have time |
 | Not now | Low | High | Do not do these now |
 
+## Hours saved per week
+
+The report shows an estimate of the hours that each opportunity can save
+each week. The catalog gives a range for a small business, for example
+2-6 hours. The tool multiplies this range by the fit. If the business has
+half of the signals, the estimate is half of the range.
+
+The summary shows the total for all opportunities. These numbers are
+rough estimates. Use them to compare opportunities. Measure the real time
+before and after you start.
+
 ## Edit the catalog
 
 The catalog is in the file `aiaudit/data/catalog.json`. To add or change
@@ -94,6 +105,8 @@ Each opportunity has these fields:
 - `signals`: the question keys that show this task exists in the business.
 - `base_effort`: an integer from 1 (easy) to 5 (difficult).
 - `example_tools`: optional. A list of example tools.
+- `hours_saved_per_week`: optional. A list of two numbers `[low, high]`
+  from 0 to 40. This is the time saved each week when the task fits fully.
 
 The tool checks the file when it starts. If a field is not correct,
 the tool stops and shows an error.

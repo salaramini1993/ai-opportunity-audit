@@ -12,7 +12,7 @@ import json
 from dataclasses import dataclass, field
 from importlib import resources
 from pathlib import Path
-from typing import Any, Union
+from typing import Any, Optional, Union
 
 
 @dataclass(frozen=True)
@@ -29,6 +29,9 @@ class Opportunity:
     base_effort: int
     # Example tools. These are examples only, not endorsements.
     example_tools: tuple[str, ...] = field(default_factory=tuple)
+    # Hours saved per week when the task fits fully: (low, high).
+    # This is a rough estimate for a small business. None means no estimate.
+    hours_saved_per_week: Optional[tuple[float, float]] = None
 
 
 class CatalogError(ValueError):
@@ -36,7 +39,8 @@ class CatalogError(ValueError):
 
 
 _REQUIRED_FIELDS = ("key", "area", "title", "description", "signals", "base_effort")
-_KNOWN_FIELDS = set(_REQUIRED_FIELDS) | {"example_tools"}
+_KNOWN_FIELDS = set(_REQUIRED_FIELDS) | {"example_tools", "hours_saved_per_week"}
+MAX_HOURS_PER_WEEK = 40
 
 
 def _parse_opportunity(raw: Any, areas: tuple[str, ...], index: int) -> Opportunity:
@@ -75,6 +79,8 @@ def _parse_opportunity(raw: Any, areas: tuple[str, ...], index: int) -> Opportun
     if not isinstance(tools, list) or not all(isinstance(t, str) for t in tools):
         raise CatalogError(f"{where}: 'example_tools' must be a list of text")
 
+    hours = _parse_hours(raw.get("hours_saved_per_week"), where)
+
     return Opportunity(
         key=raw["key"],
         area=raw["area"],
@@ -83,7 +89,33 @@ def _parse_opportunity(raw: Any, areas: tuple[str, ...], index: int) -> Opportun
         signals=tuple(signals),
         base_effort=effort,
         example_tools=tuple(tools),
+        hours_saved_per_week=hours,
     )
+
+
+def _parse_hours(raw: Any, where: str) -> Optional[tuple[float, float]]:
+    """Check the "hours_saved_per_week" field and return (low, high).
+
+    The field is optional. It must be a list of two numbers [low, high].
+    Each number must be from 0 to MAX_HOURS_PER_WEEK, and low must not
+    be more than high.
+    """
+    if raw is None:
+        return None
+    message = (
+        f"{where}: 'hours_saved_per_week' must be [low, high] with numbers "
+        f"from 0 to {MAX_HOURS_PER_WEEK} and low <= high"
+    )
+    if not isinstance(raw, list) or len(raw) != 2:
+        raise CatalogError(message)
+    for value in raw:
+        # bool is a subclass of int. Do not accept true/false as a number.
+        if isinstance(value, bool) or not isinstance(value, (int, float)):
+            raise CatalogError(message)
+    low, high = float(raw[0]), float(raw[1])
+    if not 0 <= low <= high <= MAX_HOURS_PER_WEEK:
+        raise CatalogError(message)
+    return (low, high)
 
 
 def parse_catalog(data: Any) -> tuple[tuple[str, ...], tuple[Opportunity, ...]]:
