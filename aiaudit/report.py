@@ -43,6 +43,10 @@ def render_markdown(
             f"| {i} | {o.title} | {o.area} | {r.impact} | {r.effort} "
             f"| {r.priority} | {r.quadrant} |"
         )
+    weighted = sorted({(r.opportunity.area, r.weight) for r in results if r.weight != 1.0})
+    if weighted:
+        lines += ["", "Area weights used for the priority:", ""]
+        lines += [f"- {area}: {weight:g}" for area, weight in weighted]
     lines += ["", "## Details", ""]
     for r in results:
         o = r.opportunity

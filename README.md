@@ -43,6 +43,35 @@ Run the audit in the terminal:
 aiaudit --interactive --name "My Business" --out report.md
 ```
 
+## Area weights
+
+You can make some areas more important than others. A weight multiplies
+the priority of each opportunity in that area. The default weight is 1.
+A weight must be from 0.1 to 5. The weight changes only the sort order.
+It does not change the opportunity type.
+
+The areas are: `sales`, `marketing`, `customer_support`, `operations`,
+`finance` and `admin`.
+
+Give weights on the command line:
+
+```bash
+aiaudit --answers examples/online_shop.json --weight customer_support=2 --weight admin=0.5
+```
+
+Or add an `area_weights` object to the answers file:
+
+```json
+{
+  "business_name": "My Shop",
+  "answers": {"support_volume": true},
+  "area_weights": {"customer_support": 2}
+}
+```
+
+If the file and the command line give a weight for the same area,
+the tool uses the value from the command line.
+
 ## Opportunity types
 
 | Type | Impact | Effort | What to do |
