@@ -78,6 +78,10 @@ def render_markdown(
         if o.example_tools:
             lines.append("Example tools: " + ", ".join(o.example_tools))
             lines.append("")
+        if o.risks:
+            lines += ["Risks and checks:", ""]
+            lines += [f"- {risk}" for risk in o.risks]
+            lines.append("")
     lines += [
         "Time estimates are rough. They are for a small business and they",
         "change with the fit. Measure the real time before and after.",

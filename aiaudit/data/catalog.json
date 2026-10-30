@@ -26,6 +26,11 @@
       "example_tools": [
         "Helpdesk AI add-on",
         "Chat widget with LLM"
+      ],
+      "risks": [
+        "The assistant can give wrong answers. Check the answers each week.",
+        "Tell customers that they talk to an AI assistant.",
+        "Do not let the assistant see payment data or health data."
       ]
     },
     {
@@ -46,6 +51,10 @@
       "example_tools": [
         "Email client AI",
         "Helpdesk AI add-on"
+      ],
+      "risks": [
+        "A person must check each draft before it is sent.",
+        "Customer emails contain personal data. Use a tool with a data processing agreement."
       ]
     },
     {
@@ -66,6 +75,10 @@
       "cost_per_month": "low",
       "example_tools": [
         "LLM with a prompt template"
+      ],
+      "risks": [
+        "Check facts such as size, material and safety claims before you publish.",
+        "Let a native speaker check each translation."
       ]
     },
     {
@@ -86,6 +99,10 @@
       "example_tools": [
         "LLM",
         "Scheduling tool with AI"
+      ],
+      "risks": [
+        "A person must approve each post before it is published.",
+        "Do not use images or text that you do not have the rights to."
       ]
     },
     {
@@ -106,6 +123,10 @@
       "example_tools": [
         "CRM AI features",
         "Automation platform + LLM"
+      ],
+      "risks": [
+        "Lead data is personal data. Use a tool with a data processing agreement.",
+        "A person must make the final decision about each lead."
       ]
     },
     {
@@ -124,6 +145,10 @@
       "cost_per_month": "low",
       "example_tools": [
         "Document template + LLM"
+      ],
+      "risks": [
+        "A person must check prices, discounts and terms before the quote is sent.",
+        "Keep the price list up to date. Old prices give wrong quotes."
       ]
     },
     {
@@ -144,6 +169,10 @@
       "example_tools": [
         "Accounting OCR",
         "Document AI"
+      ],
+      "risks": [
+        "Check the amounts and VAT numbers before you book them.",
+        "Keep the original invoice for the accounting records."
       ]
     },
     {
@@ -164,6 +193,10 @@
       "example_tools": [
         "Spreadsheet AI",
         "LLM with data export"
+      ],
+      "risks": [
+        "Financial data is confidential. Do not upload it to a tool that trains on your data.",
+        "Check the numbers in the summary against the export."
       ]
     },
     {
@@ -184,6 +217,10 @@
       "example_tools": [
         "Inventory system forecasts",
         "Spreadsheet model"
+      ],
+      "risks": [
+        "The forecast can be wrong after a large change, for example a new product or a sale.",
+        "A person must approve each order."
       ]
     },
     {
@@ -204,6 +241,10 @@
       "example_tools": [
         "LLM",
         "Email client AI"
+      ],
+      "risks": [
+        "Check prices, dates and quantities in each message before you send it.",
+        "Do not share confidential contract terms with the tool."
       ]
     },
     {
@@ -222,6 +263,11 @@
       "cost_per_month": "low",
       "example_tools": [
         "Meeting recorder with AI"
+      ],
+      "risks": [
+        "Tell all persons in the meeting before you record it.",
+        "A person must check the summary and the list of tasks.",
+        "Delete the recordings when you do not need them."
       ]
     },
     {
@@ -242,6 +288,10 @@
       "example_tools": [
         "Workspace AI search",
         "RAG assistant"
+      ],
+      "risks": [
+        "The answers can be wrong or old. Show the source document with each answer.",
+        "Control which staff can see which documents."
       ]
     }
   ]

@@ -35,6 +35,9 @@ class Opportunity:
     # Tool cost per month: "low", "medium" or "high". See COST_LEVELS.
     # None means no estimate.
     cost_per_month: Optional[str] = None
+    # Risks to check before and after you start, for example data privacy
+    # or human review. Each item is one short sentence.
+    risks: tuple[str, ...] = field(default_factory=tuple)
 
 
 class CatalogError(ValueError):
@@ -46,6 +49,7 @@ _KNOWN_FIELDS = set(_REQUIRED_FIELDS) | {
     "example_tools",
     "hours_saved_per_week",
     "cost_per_month",
+    "risks",
 }
 MAX_HOURS_PER_WEEK = 40
 
@@ -102,6 +106,12 @@ def _parse_opportunity(raw: Any, areas: tuple[str, ...], index: int) -> Opportun
             f"{where}: 'cost_per_month' must be one of: {', '.join(COST_LEVELS)}"
         )
 
+    risks = raw.get("risks", [])
+    if not isinstance(risks, list) or not all(
+        isinstance(r, str) and r.strip() for r in risks
+    ):
+        raise CatalogError(f"{where}: 'risks' must be a list of text that is not empty")
+
     return Opportunity(
         key=raw["key"],
         area=raw["area"],
@@ -112,6 +122,7 @@ def _parse_opportunity(raw: Any, areas: tuple[str, ...], index: int) -> Opportun
         example_tools=tuple(tools),
         hours_saved_per_week=hours,
         cost_per_month=cost,
+        risks=tuple(risks),
     )
 
 

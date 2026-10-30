@@ -106,6 +106,12 @@ The cost has three levels:
 The cost is for the tools only. It does not include the time to set up
 the tools. Check the real prices before you buy.
 
+## Risks and checks
+
+The report shows a list of risks and checks for each opportunity. For
+example, a person must check each draft, or the data is personal data.
+Read the list before you start. Do the checks when the tool is in use.
+
 ## Edit the catalog
 
 The catalog is in the file `aiaudit/data/catalog.json`. To add or change
@@ -122,6 +128,8 @@ Each opportunity has these fields:
 - `hours_saved_per_week`: optional. A list of two numbers `[low, high]`
   from 0 to 40. This is the time saved each week when the task fits fully.
 - `cost_per_month`: optional. One of `low`, `medium` or `high`.
+- `risks`: optional. A list of short sentences about risks and checks,
+  for example data privacy or human review.
 
 The tool checks the file when it starts. If a field is not correct,
 the tool stops and shows an error.
