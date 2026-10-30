@@ -22,6 +22,7 @@
         3,
         8
       ],
+      "cost_per_month": "medium",
       "example_tools": [
         "Helpdesk AI add-on",
         "Chat widget with LLM"
@@ -41,6 +42,7 @@
         2,
         6
       ],
+      "cost_per_month": "low",
       "example_tools": [
         "Email client AI",
         "Helpdesk AI add-on"
@@ -61,6 +63,7 @@
         2,
         6
       ],
+      "cost_per_month": "low",
       "example_tools": [
         "LLM with a prompt template"
       ]
@@ -79,6 +82,7 @@
         1,
         3
       ],
+      "cost_per_month": "low",
       "example_tools": [
         "LLM",
         "Scheduling tool with AI"
@@ -98,6 +102,7 @@
         2,
         5
       ],
+      "cost_per_month": "medium",
       "example_tools": [
         "CRM AI features",
         "Automation platform + LLM"
@@ -116,6 +121,7 @@
         1,
         4
       ],
+      "cost_per_month": "low",
       "example_tools": [
         "Document template + LLM"
       ]
@@ -134,6 +140,7 @@
         2,
         5
       ],
+      "cost_per_month": "medium",
       "example_tools": [
         "Accounting OCR",
         "Document AI"
@@ -153,6 +160,7 @@
         1,
         3
       ],
+      "cost_per_month": "low",
       "example_tools": [
         "Spreadsheet AI",
         "LLM with data export"
@@ -172,6 +180,7 @@
         1,
         4
       ],
+      "cost_per_month": "high",
       "example_tools": [
         "Inventory system forecasts",
         "Spreadsheet model"
@@ -191,6 +200,7 @@
         1,
         3
       ],
+      "cost_per_month": "low",
       "example_tools": [
         "LLM",
         "Email client AI"
@@ -209,6 +219,7 @@
         1,
         3
       ],
+      "cost_per_month": "low",
       "example_tools": [
         "Meeting recorder with AI"
       ]
@@ -227,6 +238,7 @@
         1,
         4
       ],
+      "cost_per_month": "medium",
       "example_tools": [
         "Workspace AI search",
         "RAG assistant"

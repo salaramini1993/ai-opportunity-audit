@@ -92,6 +92,20 @@ The summary shows the total for all opportunities. These numbers are
 rough estimates. Use them to compare opportunities. Measure the real time
 before and after you start.
 
+## Cost per month
+
+The report shows a rough tool cost per month for each opportunity.
+The cost has three levels:
+
+| Level | Cost per month |
+|---|---|
+| low | under 50 EUR |
+| medium | 50-300 EUR |
+| high | more than 300 EUR |
+
+The cost is for the tools only. It does not include the time to set up
+the tools. Check the real prices before you buy.
+
 ## Edit the catalog
 
 The catalog is in the file `aiaudit/data/catalog.json`. To add or change
@@ -107,6 +121,7 @@ Each opportunity has these fields:
 - `example_tools`: optional. A list of example tools.
 - `hours_saved_per_week`: optional. A list of two numbers `[low, high]`
   from 0 to 40. This is the time saved each week when the task fits fully.
+- `cost_per_month`: optional. One of `low`, `medium` or `high`.
 
 The tool checks the file when it starts. If a field is not correct,
 the tool stops and shows an error.

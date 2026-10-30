@@ -2,6 +2,7 @@
 
 from datetime import date
 
+from .catalog import COST_LEVELS
 from .scoring import ScoredOpportunity, total_hours_saved
 
 
@@ -16,6 +17,14 @@ def format_hours(hours: tuple[float, float] | None) -> str:
     if low == high:
         return f"{low:g}"
     return f"{low:g}-{high:g}"
+
+
+def format_cost(cost: str | None) -> str:
+    """Return the cost level as text, for example "low".
+
+    Return "-" if there is no estimate.
+    """
+    return cost if cost is not None else "-"
 
 
 def render_markdown(
@@ -48,14 +57,15 @@ def render_markdown(
         "",
         "## Priority list",
         "",
-        "| # | Opportunity | Area | Impact | Effort | Priority | Type | Hours/week |",
-        "|---|---|---|---|---|---|---|---|",
+        "| # | Opportunity | Area | Impact | Effort | Priority | Type | Hours/week | Cost/month |",
+        "|---|---|---|---|---|---|---|---|---|",
     ]
     for i, r in enumerate(results, start=1):
         o = r.opportunity
         lines.append(
             f"| {i} | {o.title} | {o.area} | {r.impact} | {r.effort} "
-            f"| {r.priority} | {r.quadrant} | {format_hours(r.hours_saved)} |"
+            f"| {r.priority} | {r.quadrant} | {format_hours(r.hours_saved)} "
+            f"| {format_cost(o.cost_per_month)} |"
         )
     weighted = sorted({(r.opportunity.area, r.weight) for r in results if r.weight != 1.0})
     if weighted:
@@ -71,6 +81,10 @@ def render_markdown(
     lines += [
         "Time estimates are rough. They are for a small business and they",
         "change with the fit. Measure the real time before and after.",
+        "",
+        "Cost levels are for the tool cost per month:",
+        "",
+        *[f"- {level}: {text}" for level, text in COST_LEVELS.items()],
         "",
         "## Next step",
         "",

@@ -32,6 +32,9 @@ class Opportunity:
     # Hours saved per week when the task fits fully: (low, high).
     # This is a rough estimate for a small business. None means no estimate.
     hours_saved_per_week: Optional[tuple[float, float]] = None
+    # Tool cost per month: "low", "medium" or "high". See COST_LEVELS.
+    # None means no estimate.
+    cost_per_month: Optional[str] = None
 
 
 class CatalogError(ValueError):
@@ -39,8 +42,20 @@ class CatalogError(ValueError):
 
 
 _REQUIRED_FIELDS = ("key", "area", "title", "description", "signals", "base_effort")
-_KNOWN_FIELDS = set(_REQUIRED_FIELDS) | {"example_tools", "hours_saved_per_week"}
+_KNOWN_FIELDS = set(_REQUIRED_FIELDS) | {
+    "example_tools",
+    "hours_saved_per_week",
+    "cost_per_month",
+}
 MAX_HOURS_PER_WEEK = 40
+
+# Cost levels for the tool cost per month, from low to high.
+# The value is a rough range in euro for a small business.
+COST_LEVELS = {
+    "low": "under 50 EUR",
+    "medium": "50-300 EUR",
+    "high": "more than 300 EUR",
+}
 
 
 def _parse_opportunity(raw: Any, areas: tuple[str, ...], index: int) -> Opportunity:
@@ -81,6 +96,12 @@ def _parse_opportunity(raw: Any, areas: tuple[str, ...], index: int) -> Opportun
 
     hours = _parse_hours(raw.get("hours_saved_per_week"), where)
 
+    cost = raw.get("cost_per_month")
+    if cost is not None and (not isinstance(cost, str) or cost not in COST_LEVELS):
+        raise CatalogError(
+            f"{where}: 'cost_per_month' must be one of: {', '.join(COST_LEVELS)}"
+        )
+
     return Opportunity(
         key=raw["key"],
         area=raw["area"],
@@ -90,6 +111,7 @@ def _parse_opportunity(raw: Any, areas: tuple[str, ...], index: int) -> Opportun
         base_effort=effort,
         example_tools=tuple(tools),
         hours_saved_per_week=hours,
+        cost_per_month=cost,
     )
 
 
