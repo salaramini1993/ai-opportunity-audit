@@ -5,7 +5,8 @@
     "customer_support",
     "operations",
     "finance",
-    "admin"
+    "admin",
+    "hr"
   ],
   "opportunities": [
     {
@@ -292,6 +293,56 @@
       "risks": [
         "The answers can be wrong or old. Show the source document with each answer.",
         "Control which staff can see which documents."
+      ]
+    },
+    {
+      "key": "hr_job_ads",
+      "area": "hr",
+      "title": "Job ads and role descriptions",
+      "description": "Let AI write a first draft of each job ad from a short list of tasks and skills. A person checks and publishes the ad.",
+      "signals": [
+        "hires_often",
+        "writes_job_ads"
+      ],
+      "base_effort": 1,
+      "hours_saved_per_week": [
+        0.5,
+        2
+      ],
+      "cost_per_month": "low",
+      "example_tools": [
+        "LLM with a prompt template",
+        "Job board AI writer"
+      ],
+      "risks": [
+        "Check the ad for words that can exclude groups of people, for example age or gender words.",
+        "Make sure that the salary, location and contract type are correct."
+      ]
+    },
+    {
+      "key": "hr_cv_screening",
+      "area": "hr",
+      "title": "CV screening with human review",
+      "description": "Let AI compare each application with the job requirements and write a short summary. A person reads the summaries and makes all decisions.",
+      "signals": [
+        "hires_often",
+        "many_applicants"
+      ],
+      "base_effort": 3,
+      "hours_saved_per_week": [
+        1,
+        5
+      ],
+      "cost_per_month": "medium",
+      "example_tools": [
+        "Applicant tracking system with AI",
+        "LLM with a scoring checklist"
+      ],
+      "risks": [
+        "The AI must not reject candidates. A person must read each summary and make the decision.",
+        "Applications contain personal data. Use a tool with a data processing agreement and delete old applications.",
+        "The EU AI Act puts AI for hiring in the high-risk group. Check the rules before you start.",
+        "Check the results for bias, for example against age, gender or country of birth."
       ]
     }
   ]

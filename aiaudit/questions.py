@@ -34,6 +34,9 @@ QUESTIONS: tuple[Question, ...] = (
     Question("many_meetings", "Do you have more than 5 meetings each week?"),
     Question("many_documents", "Do you have many internal documents or procedures?"),
     Question("staff_ask_same", "Do staff often ask the same internal questions?"),
+    Question("hires_often", "Do you hire new staff 2 or more times each year?"),
+    Question("writes_job_ads", "Do you write your own job ads?"),
+    Question("many_applicants", "Do you get more than 20 applications for each job?"),
 )
 
 
