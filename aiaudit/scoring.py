@@ -1,8 +1,12 @@
 """Score opportunities from audit answers.
 
 Score rules:
-- Fit: the part of the opportunity signals that the business has (0.0 to 1.0).
-- Impact: 1 to 5. More signals give more impact.
+- Answer: true/false or a number on a scale from 0 to 3.
+  0 means "no", 1 "a little", 2 "some", 3 "a lot". true is the same as 3
+  and false is the same as 0. The strength of a signal is the answer
+  divided by 3 (0.0 to 1.0).
+- Fit: the mean signal strength of the opportunity signals (0.0 to 1.0).
+- Impact: 1 to 5. Stronger signals give more impact.
 - Effort: the base effort from the catalog, 1 to 5.
 - Priority: impact multiplied by the area weight, divided by effort.
   "Quick wins" have high impact and low effort.
@@ -23,6 +27,7 @@ from .catalog import AREAS, CATALOG, Opportunity
 from .questions import keys as question_keys
 
 MIN_FIT = 0.5
+MAX_SCALE = 3
 MIN_WEIGHT = 0.1
 MAX_WEIGHT = 5.0
 
@@ -78,14 +83,37 @@ def total_hours_saved(results: list[ScoredOpportunity]) -> tuple[float, float]:
     return (round(low, 1), round(high, 1))
 
 
-def validate_answers(answers: dict[str, bool]) -> None:
-    """Raise ValueError if an answer key is unknown or a value is not bool."""
+Answer = bool | int
+
+
+def validate_answers(answers: Mapping[str, object]) -> None:
+    """Raise ValueError if an answer key or value is not correct.
+
+    A value must be true, false or a whole number from 0 to MAX_SCALE.
+    """
     known = question_keys()
     for key, value in answers.items():
         if key not in known:
             raise ValueError(f"Unknown question key: {key}")
-        if not isinstance(value, bool):
-            raise ValueError(f"Answer for {key} must be true or false")
+        if isinstance(value, bool):
+            continue
+        if not isinstance(value, int) or not 0 <= value <= MAX_SCALE:
+            raise ValueError(
+                f"Answer for {key} must be true, false or a number from 0 to {MAX_SCALE}"
+            )
+
+
+def signal_strength(value: object) -> float:
+    """Return the strength of one answer, from 0.0 to 1.0.
+
+    true gives 1.0. false and a missing answer give 0.0.
+    A number on the scale gives the number divided by MAX_SCALE.
+    """
+    if isinstance(value, bool):
+        return 1.0 if value else 0.0
+    if isinstance(value, int):
+        return value / MAX_SCALE
+    return 0.0
 
 
 def validate_weights(weights: Mapping[str, object]) -> dict[str, float]:
@@ -110,7 +138,7 @@ def validate_weights(weights: Mapping[str, object]) -> dict[str, float]:
 
 
 def score(
-    answers: dict[str, bool],
+    answers: Mapping[str, Answer],
     weights: Mapping[str, object] | None = None,
 ) -> list[ScoredOpportunity]:
     """Return the opportunities that fit, sorted by priority (highest first).
@@ -121,11 +149,13 @@ def score(
     area_weights = validate_weights(weights or {})
     results: list[ScoredOpportunity] = []
     for opp in CATALOG:
-        matched = sum(1 for s in opp.signals if answers.get(s, False))
+        matched = sum(signal_strength(answers.get(s, False)) for s in opp.signals)
         fit = matched / len(opp.signals)
         if fit < MIN_FIT:
             continue
-        impact = min(5, 2 + matched)
+        # Round to a whole number. With only yes/no answers, "matched" is
+        # already a whole number, so the result does not change.
+        impact = min(5, 2 + round(matched))
         results.append(
             ScoredOpportunity(
                 opportunity=opp,

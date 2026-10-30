@@ -17,7 +17,7 @@ with `[x]` in the same commit as the change. Add new tasks when you find them.
 - [x] Estimate hours saved per week for each opportunity
 - [x] Estimate cost per month for each opportunity (low / medium / high)
 - [x] Add a "risks and checks" field to each opportunity (data privacy, human review)
-- [ ] Add answers with a scale (0-3) in addition to yes/no
+- [x] Add answers with a scale (0-3) in addition to yes/no
 
 ## Catalog
 

@@ -13,25 +13,38 @@ from pathlib import Path
 
 from .questions import QUESTIONS
 from .report import render_markdown
-from .scoring import score
+from .scoring import MAX_SCALE, score
 
 
-def ask_interactive() -> dict[str, bool]:
-    answers: dict[str, bool] = {}
+def parse_interactive_answer(raw: str) -> bool | int | None:
+    """Parse one typed answer.
+
+    Accept y/yes, n/no or a number from 0 to MAX_SCALE.
+    Return None if the text is not a correct answer.
+    """
+    raw = raw.strip().lower()
+    if raw in ("y", "yes"):
+        return True
+    if raw in ("n", "no"):
+        return False
+    if raw.isdigit() and 0 <= int(raw) <= MAX_SCALE:
+        return int(raw)
+    return None
+
+
+def ask_interactive() -> dict[str, bool | int]:
+    answers: dict[str, bool | int] = {}
     for q in QUESTIONS:
         while True:
-            raw = input(f"{q.text} [y/n] ").strip().lower()
-            if raw in ("y", "yes"):
-                answers[q.key] = True
+            value = parse_interactive_answer(input(f"{q.text} [y/n or 0-{MAX_SCALE}] "))
+            if value is not None:
+                answers[q.key] = value
                 break
-            if raw in ("n", "no"):
-                answers[q.key] = False
-                break
-            print("Type y or n.")
+            print(f"Type y, n or a number from 0 to {MAX_SCALE}.")
     return answers
 
 
-def load_answers(path: Path) -> tuple[str, dict[str, bool], dict[str, object]]:
+def load_answers(path: Path) -> tuple[str, dict[str, bool | int], dict[str, object]]:
     """Read (business name, answers, area weights) from a JSON file.
 
     The "area_weights" object is optional.

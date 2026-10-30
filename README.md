@@ -43,6 +43,28 @@ Run the audit in the terminal:
 aiaudit --interactive --name "My Business" --out report.md
 ```
 
+## Answers on a scale
+
+An answer can be `true` or `false`. An answer can also be a whole number
+from 0 to 3. Use the scale when "yes" or "no" is not exact.
+
+| Value | Meaning |
+|---|---|
+| 0 | No (the same as `false`) |
+| 1 | A little |
+| 2 | Some |
+| 3 | A lot (the same as `true`) |
+
+```json
+{
+  "business_name": "My Shop",
+  "answers": {"support_volume": 3, "repeat_questions": 2, "email_heavy": false}
+}
+```
+
+A lower value gives a lower fit, a lower impact and fewer hours saved.
+In interactive mode, type `y`, `n` or a number from 0 to 3.
+
 ## Area weights
 
 You can make some areas more important than others. A weight multiplies

@@ -1,7 +1,8 @@
 """Audit questions.
 
 Each question has a key. The catalog uses the same keys as signals.
-All answers are yes/no, so a business owner can answer them quickly.
+An answer is yes/no, so a business owner can answer quickly.
+An answer can also be a number from 0 to 3 (see aiaudit.scoring).
 """
 
 from dataclasses import dataclass
