@@ -73,7 +73,7 @@ A weight must be from 0.1 to 5. The weight changes only the sort order.
 It does not change the opportunity type.
 
 The areas are: `sales`, `marketing`, `customer_support`, `operations`,
-`finance`, `admin`, `hr` and `ecommerce`.
+`finance`, `admin`, `hr`, `ecommerce` and `logistics`.
 
 Give weights on the command line:
 

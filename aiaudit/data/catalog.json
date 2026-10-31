@@ -7,7 +7,8 @@
     "finance",
     "admin",
     "hr",
-    "ecommerce"
+    "ecommerce",
+    "logistics"
   ],
   "opportunities": [
     {
@@ -392,6 +393,54 @@
       "risks": [
         "Remove names, addresses and order numbers before you send the comments to an AI tool.",
         "Check a sample of the groups by hand. The AI can put a comment in the wrong group."
+      ]
+    },
+    {
+      "key": "logistics_shipment_status_replies",
+      "area": "logistics",
+      "title": "Replies to shipment status questions",
+      "description": "Let AI read the tracking data from the carrier and write a reply to \"where is my order?\" messages. A person checks replies about lost or late parcels.",
+      "signals": [
+        "ships_parcels",
+        "where_is_my_order"
+      ],
+      "base_effort": 2,
+      "hours_saved_per_week": [
+        1,
+        5
+      ],
+      "cost_per_month": "medium",
+      "example_tools": [
+        "Help desk with carrier tracking integration",
+        "LLM with a link to the tracking API"
+      ],
+      "risks": [
+        "Use only the tracking data from the carrier. Do not let the AI guess a delivery date.",
+        "Send messages about lost or damaged parcels to a person."
+      ]
+    },
+    {
+      "key": "logistics_customs_document_check",
+      "area": "logistics",
+      "title": "Customs document check",
+      "description": "Let AI compare the invoice, the packing list and the customs declaration before you send a shipment. The AI shows the fields that do not agree.",
+      "signals": [
+        "ships_abroad",
+        "customs_documents"
+      ],
+      "base_effort": 3,
+      "hours_saved_per_week": [
+        0.5,
+        3
+      ],
+      "cost_per_month": "medium",
+      "example_tools": [
+        "Document AI with field extraction",
+        "LLM with a checklist of customs fields"
+      ],
+      "risks": [
+        "A person must approve each customs declaration. Wrong data can cause fines or delays.",
+        "Do not use the AI to select tariff codes without a check by a person who knows the rules."
       ]
     }
   ]

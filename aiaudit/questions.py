@@ -40,6 +40,10 @@ QUESTIONS: tuple[Question, ...] = (
     Question("sells_online", "Do you sell through a web shop or a marketplace?"),
     Question("gets_reviews", "Do customers write reviews of your products online?"),
     Question("many_returns", "Do you get more than 10 returns each month?"),
+    Question("ships_parcels", "Do you send parcels or goods to customers?"),
+    Question("where_is_my_order", "Do customers often ask where their order is?"),
+    Question("ships_abroad", "Do you send goods to countries outside the EU?"),
+    Question("customs_documents", "Do you make customs documents yourself?"),
 )
 
 
