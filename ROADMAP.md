@@ -24,7 +24,7 @@ with `[x]` in the same commit as the change. Add new tasks when you find them.
 - [x] Add HR opportunities (job ads, CV screening with human review)
 - [x] Add e-commerce opportunities (review replies, return reasons analysis)
 - [x] Add logistics opportunities (shipment status replies, customs document check)
-- [ ] Add an industry filter (retail, services, manufacturing, restaurant)
+- [x] Add an industry filter (retail, services, manufacturing, restaurant)
 - [ ] Add GDPR notes for opportunities that use personal data
 
 ## Reports

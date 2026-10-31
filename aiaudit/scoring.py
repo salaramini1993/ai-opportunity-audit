@@ -17,13 +17,16 @@ Score rules:
 - Hours saved: the catalog range (low, high) multiplied by the fit.
   A business that has half of the signals gets half of the hours.
   This is a rough estimate. Use it to compare opportunities, not as a promise.
+- Industry: optional. If you give an industry, the audit shows only the
+  opportunities that apply to that industry. An opportunity with no
+  industry list applies to all industries.
 """
 
 from dataclasses import dataclass
 
 from collections.abc import Mapping
 
-from .catalog import AREAS, CATALOG, Opportunity
+from .catalog import AREAS, CATALOG, INDUSTRIES, Opportunity
 from .questions import keys as question_keys
 
 MIN_FIT = 0.5
@@ -137,18 +140,39 @@ def validate_weights(weights: Mapping[str, object]) -> dict[str, float]:
     return checked
 
 
+def validate_industry(industry: object) -> str | None:
+    """Check an industry name and return it.
+
+    None means "no industry filter". Raise ValueError if the name is
+    not a known industry.
+    """
+    if industry is None:
+        return None
+    if not isinstance(industry, str) or industry not in INDUSTRIES:
+        raise ValueError(
+            f"Unknown industry: {industry}. Known industries: {', '.join(INDUSTRIES)}"
+        )
+    return industry
+
+
 def score(
     answers: Mapping[str, Answer],
     weights: Mapping[str, object] | None = None,
+    industry: object = None,
 ) -> list[ScoredOpportunity]:
     """Return the opportunities that fit, sorted by priority (highest first).
 
     Use "weights" to make some areas more important (see validate_weights).
+    Use "industry" to show only the opportunities for one industry
+    (see validate_industry).
     """
     validate_answers(answers)
     area_weights = validate_weights(weights or {})
+    checked_industry = validate_industry(industry)
     results: list[ScoredOpportunity] = []
     for opp in CATALOG:
+        if not opp.fits_industry(checked_industry):
+            continue
         matched = sum(signal_strength(answers.get(s, False)) for s in opp.signals)
         fit = matched / len(opp.signals)
         if fit < MIN_FIT:

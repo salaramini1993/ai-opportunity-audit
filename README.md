@@ -65,6 +65,31 @@ from 0 to 3. Use the scale when "yes" or "no" is not exact.
 A lower value gives a lower fit, a lower impact and fewer hours saved.
 In interactive mode, type `y`, `n` or a number from 0 to 3.
 
+## Industry filter
+
+You can show only the opportunities for one industry. The industries are:
+`retail`, `services`, `manufacturing` and `restaurant`. Some opportunities
+apply to all industries. The filter always shows these opportunities.
+
+Give the industry on the command line:
+
+```bash
+aiaudit --answers examples/online_shop.json --industry retail
+```
+
+Or add an `industry` name to the answers file:
+
+```json
+{
+  "business_name": "My Shop",
+  "industry": "retail",
+  "answers": {"support_volume": true}
+}
+```
+
+The option on the command line replaces the industry in the file.
+The report shows the industry below the date.
+
 ## Area weights
 
 You can make some areas more important than others. A weight multiplies
@@ -152,6 +177,9 @@ Each opportunity has these fields:
 - `cost_per_month`: optional. One of `low`, `medium` or `high`.
 - `risks`: optional. A list of short sentences about risks and checks,
   for example data privacy or human review.
+- `industries`: optional. A list of names from the `industries` list.
+  If the list is empty or not there, the opportunity applies to all
+  industries.
 
 The tool checks the file when it starts. If a field is not correct,
 the tool stops and shows an error.

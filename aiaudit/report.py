@@ -31,6 +31,7 @@ def render_markdown(
     business_name: str,
     results: list[ScoredOpportunity],
     today: date | None = None,
+    industry: str | None = None,
 ) -> str:
     today = today or date.today()
     lines = [
@@ -39,6 +40,9 @@ def render_markdown(
         f"Date: {today.isoformat()}",
         "",
     ]
+    if industry:
+        # Tell the reader that the list shows only one industry.
+        lines += [f"Industry: {industry}", ""]
     if not results:
         lines += [
             "The audit found no clear AI opportunities from the answers.",

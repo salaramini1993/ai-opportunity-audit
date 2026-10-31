@@ -38,6 +38,18 @@ class Opportunity:
     # Risks to check before and after you start, for example data privacy
     # or human review. Each item is one short sentence.
     risks: tuple[str, ...] = field(default_factory=tuple)
+    # Industries where this opportunity applies. An empty tuple means
+    # that the opportunity applies to all industries.
+    industries: tuple[str, ...] = field(default_factory=tuple)
+
+    def fits_industry(self, industry: Optional[str]) -> bool:
+        """Return True if the opportunity applies to this industry.
+
+        None means "no industry filter". Then all opportunities apply.
+        """
+        if industry is None or not self.industries:
+            return True
+        return industry in self.industries
 
 
 class CatalogError(ValueError):
@@ -50,6 +62,7 @@ _KNOWN_FIELDS = set(_REQUIRED_FIELDS) | {
     "hours_saved_per_week",
     "cost_per_month",
     "risks",
+    "industries",
 }
 MAX_HOURS_PER_WEEK = 40
 
@@ -62,7 +75,12 @@ COST_LEVELS = {
 }
 
 
-def _parse_opportunity(raw: Any, areas: tuple[str, ...], index: int) -> Opportunity:
+def _parse_opportunity(
+    raw: Any,
+    areas: tuple[str, ...],
+    index: int,
+    industries: tuple[str, ...] = (),
+) -> Opportunity:
     """Make one Opportunity from raw JSON data. Check each field."""
     where = f"opportunity #{index}"
     if not isinstance(raw, dict):
@@ -112,6 +130,15 @@ def _parse_opportunity(raw: Any, areas: tuple[str, ...], index: int) -> Opportun
     ):
         raise CatalogError(f"{where}: 'risks' must be a list of text that is not empty")
 
+    tags = raw.get("industries", [])
+    if not isinstance(tags, list) or not all(isinstance(t, str) for t in tags):
+        raise CatalogError(f"{where}: 'industries' must be a list of industry names")
+    unknown_tags = sorted(set(tags) - set(industries))
+    if unknown_tags:
+        raise CatalogError(f"{where}: unknown industry: {', '.join(unknown_tags)}")
+    if len(set(tags)) != len(tags):
+        raise CatalogError(f"{where}: 'industries' has duplicate names")
+
     return Opportunity(
         key=raw["key"],
         area=raw["area"],
@@ -123,6 +150,7 @@ def _parse_opportunity(raw: Any, areas: tuple[str, ...], index: int) -> Opportun
         hours_saved_per_week=hours,
         cost_per_month=cost,
         risks=tuple(risks),
+        industries=tuple(tags),
     )
 
 
@@ -151,30 +179,41 @@ def _parse_hours(raw: Any, where: str) -> Optional[tuple[float, float]]:
     return (low, high)
 
 
+def _parse_name_list(data: dict, name: str, required: bool) -> tuple[str, ...]:
+    """Check a top-level list of names (for example "areas") and return it."""
+    if name not in data and not required:
+        return ()
+    values = data.get(name)
+    if (
+        not isinstance(values, list)
+        or not values
+        or not all(isinstance(v, str) and v for v in values)
+    ):
+        raise CatalogError(f"'{name}' must be a list of names")
+    if len(set(values)) != len(values):
+        raise CatalogError(f"'{name}' has duplicate names")
+    return tuple(values)
+
+
 def parse_catalog(data: Any) -> tuple[tuple[str, ...], tuple[Opportunity, ...]]:
     """Check catalog data and return (areas, opportunities).
 
     The data must be an object with two lists: "areas" and "opportunities".
+    The list "industries" is optional. If an opportunity has an
+    "industries" field, each name in it must be in this list.
     Raise CatalogError if the data is not correct.
     """
     if not isinstance(data, dict):
         raise CatalogError("catalog must be an object")
-    areas = data.get("areas")
-    if (
-        not isinstance(areas, list)
-        or not areas
-        or not all(isinstance(a, str) and a for a in areas)
-    ):
-        raise CatalogError("'areas' must be a list of area names")
-    if len(set(areas)) != len(areas):
-        raise CatalogError("'areas' has duplicate names")
+    area_tuple = _parse_name_list(data, "areas", required=True)
+    industry_tuple = _parse_name_list(data, "industries", required=False)
     raw_items = data.get("opportunities")
     if not isinstance(raw_items, list) or not raw_items:
         raise CatalogError("'opportunities' must be a list that is not empty")
 
-    area_tuple = tuple(areas)
     items = tuple(
-        _parse_opportunity(raw, area_tuple, i) for i, raw in enumerate(raw_items, 1)
+        _parse_opportunity(raw, area_tuple, i, industry_tuple)
+        for i, raw in enumerate(raw_items, 1)
     )
     keys = [item.key for item in items]
     duplicates = sorted({k for k in keys if keys.count(k) > 1})
@@ -208,6 +247,14 @@ def load_catalog(
 
 
 AREAS, CATALOG = load_catalog()
+
+
+def known_industries(items: tuple[Opportunity, ...] = CATALOG) -> tuple[str, ...]:
+    """Return the industry names that the catalog uses, in sorted order."""
+    return tuple(sorted({name for item in items for name in item.industries}))
+
+
+INDUSTRIES = known_industries()
 
 
 def by_key(key: str) -> Opportunity:

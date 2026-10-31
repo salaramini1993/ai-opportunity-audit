@@ -10,6 +10,12 @@
     "ecommerce",
     "logistics"
   ],
+  "industries": [
+    "retail",
+    "services",
+    "manufacturing",
+    "restaurant"
+  ],
   "opportunities": [
     {
       "key": "support_faq_assistant",
@@ -82,6 +88,10 @@
       "risks": [
         "Check facts such as size, material and safety claims before you publish.",
         "Let a native speaker check each translation."
+      ],
+      "industries": [
+        "retail",
+        "manufacturing"
       ]
     },
     {
@@ -130,6 +140,10 @@
       "risks": [
         "Lead data is personal data. Use a tool with a data processing agreement.",
         "A person must make the final decision about each lead."
+      ],
+      "industries": [
+        "services",
+        "manufacturing"
       ]
     },
     {
@@ -152,6 +166,10 @@
       "risks": [
         "A person must check prices, discounts and terms before the quote is sent.",
         "Keep the price list up to date. Old prices give wrong quotes."
+      ],
+      "industries": [
+        "services",
+        "manufacturing"
       ]
     },
     {
@@ -224,6 +242,11 @@
       "risks": [
         "The forecast can be wrong after a large change, for example a new product or a sale.",
         "A person must approve each order."
+      ],
+      "industries": [
+        "retail",
+        "manufacturing",
+        "restaurant"
       ]
     },
     {
@@ -248,6 +271,11 @@
       "risks": [
         "Check prices, dates and quantities in each message before you send it.",
         "Do not share confidential contract terms with the tool."
+      ],
+      "industries": [
+        "retail",
+        "manufacturing",
+        "restaurant"
       ]
     },
     {
@@ -369,6 +397,10 @@
       "risks": [
         "Do not publish replies without a check. A wrong promise to a customer can cause problems.",
         "Do not put order numbers or other personal data in a public reply."
+      ],
+      "industries": [
+        "retail",
+        "restaurant"
       ]
     },
     {
@@ -393,6 +425,9 @@
       "risks": [
         "Remove names, addresses and order numbers before you send the comments to an AI tool.",
         "Check a sample of the groups by hand. The AI can put a comment in the wrong group."
+      ],
+      "industries": [
+        "retail"
       ]
     },
     {
@@ -417,6 +452,10 @@
       "risks": [
         "Use only the tracking data from the carrier. Do not let the AI guess a delivery date.",
         "Send messages about lost or damaged parcels to a person."
+      ],
+      "industries": [
+        "retail",
+        "manufacturing"
       ]
     },
     {
@@ -441,6 +480,10 @@
       "risks": [
         "A person must approve each customs declaration. Wrong data can cause fines or delays.",
         "Do not use the AI to select tariff codes without a check by a person who knows the rules."
+      ],
+      "industries": [
+        "retail",
+        "manufacturing"
       ]
     }
   ]

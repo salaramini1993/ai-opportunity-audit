@@ -4,6 +4,7 @@ Usage:
     python -m aiaudit --answers examples/online_shop.json
     python -m aiaudit --interactive --name "My Shop"
     python -m aiaudit --answers shop.json --weight customer_support=2
+    python -m aiaudit --answers shop.json --industry retail
 """
 
 import argparse
@@ -13,6 +14,7 @@ from pathlib import Path
 
 from .questions import QUESTIONS
 from .report import render_markdown
+from .catalog import INDUSTRIES
 from .scoring import MAX_SCALE, score
 
 
@@ -44,16 +46,24 @@ def ask_interactive() -> dict[str, bool | int]:
     return answers
 
 
-def load_answers(path: Path) -> tuple[str, dict[str, bool | int], dict[str, object]]:
-    """Read (business name, answers, area weights) from a JSON file.
+def load_answers(
+    path: Path,
+) -> tuple[str, dict[str, bool | int], dict[str, object], object]:
+    """Read (business name, answers, area weights, industry) from a JSON file.
 
-    The "area_weights" object is optional.
+    The "area_weights" object and the "industry" name are optional.
+    The industry is None if the file does not have it.
     """
     data = json.loads(path.read_text(encoding="utf-8"))
     weights = data.get("area_weights", {})
     if not isinstance(weights, dict):
         raise ValueError("'area_weights' must be an object")
-    return data.get("business_name", "Unnamed business"), data["answers"], weights
+    return (
+        data.get("business_name", "Unnamed business"),
+        data["answers"],
+        weights,
+        data.get("industry"),
+    )
 
 
 def parse_weight(text: str) -> tuple[str, float]:
@@ -84,12 +94,20 @@ def main(argv: list[str] | None = None) -> int:
         help="Make an area more (or less) important, for example customer_support=2. "
         "You can use this option more than one time.",
     )
+    parser.add_argument(
+        "--industry",
+        choices=INDUSTRIES,
+        default=None,
+        help="Show only the opportunities for this industry. "
+        "This replaces the industry in the answers file.",
+    )
     args = parser.parse_args(argv)
 
     weights: dict[str, object] = {}
+    industry: object = None
     try:
         if args.answers:
-            name, answers, weights = load_answers(args.answers)
+            name, answers, weights, industry = load_answers(args.answers)
         else:
             name, answers = "Unnamed business", ask_interactive()
     except ValueError as err:
@@ -99,14 +117,17 @@ def main(argv: list[str] | None = None) -> int:
         name = args.name
     # A weight on the command line replaces the same weight in the file.
     weights = {**weights, **dict(args.weight)}
+    if args.industry:
+        industry = args.industry
 
     try:
-        results = score(answers, weights)
+        results = score(answers, weights, industry)
     except ValueError as err:
         print(f"Error: {err}", file=sys.stderr)
         return 2
 
-    report = render_markdown(name, results)
+    # score() checked the industry, so it is a known name or None here.
+    report = render_markdown(name, results, industry=str(industry) if industry else None)
     if args.out:
         args.out.write_text(report, encoding="utf-8")
         print(f"Report written to {args.out}")
