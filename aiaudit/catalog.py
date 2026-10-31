@@ -41,6 +41,15 @@ class Opportunity:
     # Industries where this opportunity applies. An empty tuple means
     # that the opportunity applies to all industries.
     industries: tuple[str, ...] = field(default_factory=tuple)
+    # GDPR notes for opportunities that use personal data. Each item is
+    # one short sentence. An empty tuple means that the catalog has no
+    # GDPR notes for this opportunity.
+    gdpr_notes: tuple[str, ...] = field(default_factory=tuple)
+
+    @property
+    def uses_personal_data(self) -> bool:
+        """Return True if the opportunity has GDPR notes."""
+        return bool(self.gdpr_notes)
 
     def fits_industry(self, industry: Optional[str]) -> bool:
         """Return True if the opportunity applies to this industry.
@@ -63,6 +72,7 @@ _KNOWN_FIELDS = set(_REQUIRED_FIELDS) | {
     "cost_per_month",
     "risks",
     "industries",
+    "gdpr_notes",
 }
 MAX_HOURS_PER_WEEK = 40
 
@@ -124,11 +134,8 @@ def _parse_opportunity(
             f"{where}: 'cost_per_month' must be one of: {', '.join(COST_LEVELS)}"
         )
 
-    risks = raw.get("risks", [])
-    if not isinstance(risks, list) or not all(
-        isinstance(r, str) and r.strip() for r in risks
-    ):
-        raise CatalogError(f"{where}: 'risks' must be a list of text that is not empty")
+    risks = _parse_sentences(raw, "risks", where)
+    gdpr_notes = _parse_sentences(raw, "gdpr_notes", where)
 
     tags = raw.get("industries", [])
     if not isinstance(tags, list) or not all(isinstance(t, str) for t in tags):
@@ -149,9 +156,23 @@ def _parse_opportunity(
         example_tools=tuple(tools),
         hours_saved_per_week=hours,
         cost_per_month=cost,
-        risks=tuple(risks),
+        risks=risks,
         industries=tuple(tags),
+        gdpr_notes=gdpr_notes,
     )
+
+
+def _parse_sentences(raw: dict, name: str, where: str) -> tuple[str, ...]:
+    """Check an optional list of short sentences and return it.
+
+    Each item must be a text that is not empty.
+    """
+    values = raw.get(name, [])
+    if not isinstance(values, list) or not all(
+        isinstance(v, str) and v.strip() for v in values
+    ):
+        raise CatalogError(f"{where}: '{name}' must be a list of text that is not empty")
+    return tuple(values)
 
 
 def _parse_hours(raw: Any, where: str) -> Optional[tuple[float, float]]:

@@ -159,6 +159,16 @@ The report shows a list of risks and checks for each opportunity. For
 example, a person must check each draft, or the data is personal data.
 Read the list before you start. Do the checks when the tool is in use.
 
+## GDPR notes
+
+Some opportunities use personal data, for example names, email
+addresses or CVs. For these opportunities, the report shows GDPR notes.
+The notes tell you what personal data the task uses and what to do,
+for example a data processing agreement (DPA) with the tool supplier.
+
+The GDPR notes are a checklist. They are not legal advice. Ask a data
+protection expert if you are not sure.
+
 ## Edit the catalog
 
 The catalog is in the file `aiaudit/data/catalog.json`. To add or change
@@ -177,6 +187,9 @@ Each opportunity has these fields:
 - `cost_per_month`: optional. One of `low`, `medium` or `high`.
 - `risks`: optional. A list of short sentences about risks and checks,
   for example data privacy or human review.
+- `gdpr_notes`: optional. A list of short sentences for opportunities
+  that use personal data. Use it to show what personal data the task
+  uses and what the business must do.
 - `industries`: optional. A list of names from the `industries` list.
   If the list is empty or not there, the opportunity applies to all
   industries.

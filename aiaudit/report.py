@@ -27,6 +27,23 @@ def format_cost(cost: str | None) -> str:
     return cost if cost is not None else "-"
 
 
+def _gdpr_footer(results: list[ScoredOpportunity]) -> list[str]:
+    """Return the report lines about GDPR notes.
+
+    Return an empty list if no opportunity in the results uses
+    personal data.
+    """
+    count = sum(1 for r in results if r.opportunity.uses_personal_data)
+    if not count:
+        return []
+    return [
+        f"{count} of {len(results)} opportunities use personal data. Read the",
+        "GDPR notes for these opportunities before you start. The notes are a",
+        "checklist. They are not legal advice.",
+        "",
+    ]
+
+
 def render_markdown(
     business_name: str,
     results: list[ScoredOpportunity],
@@ -86,10 +103,15 @@ def render_markdown(
             lines += ["Risks and checks:", ""]
             lines += [f"- {risk}" for risk in o.risks]
             lines.append("")
+        if o.gdpr_notes:
+            lines += ["GDPR notes (this opportunity uses personal data):", ""]
+            lines += [f"- {note}" for note in o.gdpr_notes]
+            lines.append("")
     lines += [
         "Time estimates are rough. They are for a small business and they",
         "change with the fit. Measure the real time before and after.",
         "",
+        *_gdpr_footer(results),
         "Cost levels are for the tool cost per month:",
         "",
         *[f"- {level}: {text}" for level, text in COST_LEVELS.items()],
