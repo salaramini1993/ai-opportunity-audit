@@ -5,6 +5,7 @@ Usage:
     python -m aiaudit --interactive --name "My Shop"
     python -m aiaudit --answers shop.json --weight customer_support=2
     python -m aiaudit --answers shop.json --industry retail
+    python -m aiaudit --answers shop.json --format html --out report.html
 """
 
 import argparse
@@ -13,6 +14,7 @@ import sys
 from pathlib import Path
 
 from .questions import QUESTIONS
+from .html_report import render_html
 from .report import render_markdown
 from .catalog import INDUSTRIES
 from .scoring import MAX_SCALE, score
@@ -101,6 +103,12 @@ def main(argv: list[str] | None = None) -> int:
         help="Show only the opportunities for this industry. "
         "This replaces the industry in the answers file.",
     )
+    parser.add_argument(
+        "--format",
+        choices=("markdown", "html"),
+        default="markdown",
+        help="Report format. The default is markdown.",
+    )
     args = parser.parse_args(argv)
 
     weights: dict[str, object] = {}
@@ -127,7 +135,8 @@ def main(argv: list[str] | None = None) -> int:
         return 2
 
     # score() checked the industry, so it is a known name or None here.
-    report = render_markdown(name, results, industry=str(industry) if industry else None)
+    render = render_html if args.format == "html" else render_markdown
+    report = render(name, results, industry=str(industry) if industry else None)
     if args.out:
         args.out.write_text(report, encoding="utf-8")
         print(f"Report written to {args.out}")

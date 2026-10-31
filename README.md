@@ -43,6 +43,18 @@ Run the audit in the terminal:
 aiaudit --interactive --name "My Business" --out report.md
 ```
 
+## HTML report
+
+The default report format is Markdown. To get an HTML report, use
+`--format html`:
+
+```bash
+aiaudit --answers examples/online_shop.json --format html --out report.html
+```
+
+The HTML report is one file. It does not use external files. Open it in a
+web browser, print it, or send it by e-mail.
+
 ## Answers on a scale
 
 An answer can be `true` or `false`. An answer can also be a whole number
