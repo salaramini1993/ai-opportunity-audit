@@ -37,6 +37,9 @@ QUESTIONS: tuple[Question, ...] = (
     Question("hires_often", "Do you hire new staff 2 or more times each year?"),
     Question("writes_job_ads", "Do you write your own job ads?"),
     Question("many_applicants", "Do you get more than 20 applications for each job?"),
+    Question("sells_online", "Do you sell through a web shop or a marketplace?"),
+    Question("gets_reviews", "Do customers write reviews of your products online?"),
+    Question("many_returns", "Do you get more than 10 returns each month?"),
 )
 
 

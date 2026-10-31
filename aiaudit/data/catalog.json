@@ -6,7 +6,8 @@
     "operations",
     "finance",
     "admin",
-    "hr"
+    "hr",
+    "ecommerce"
   ],
   "opportunities": [
     {
@@ -343,6 +344,54 @@
         "Applications contain personal data. Use a tool with a data processing agreement and delete old applications.",
         "The EU AI Act puts AI for hiring in the high-risk group. Check the rules before you start.",
         "Check the results for bias, for example against age, gender or country of birth."
+      ]
+    },
+    {
+      "key": "ecommerce_review_replies",
+      "area": "ecommerce",
+      "title": "Replies to product reviews",
+      "description": "Let AI write a first draft of a reply to each product review. A person checks the draft and then publishes it.",
+      "signals": [
+        "sells_online",
+        "gets_reviews"
+      ],
+      "base_effort": 1,
+      "hours_saved_per_week": [
+        0.5,
+        3
+      ],
+      "cost_per_month": "low",
+      "example_tools": [
+        "Review platform with AI replies",
+        "LLM with a prompt template"
+      ],
+      "risks": [
+        "Do not publish replies without a check. A wrong promise to a customer can cause problems.",
+        "Do not put order numbers or other personal data in a public reply."
+      ]
+    },
+    {
+      "key": "ecommerce_return_reasons",
+      "area": "ecommerce",
+      "title": "Return reasons analysis",
+      "description": "Let AI read the return reasons and customer comments and sort them into groups. Use the groups to find products with problems.",
+      "signals": [
+        "sells_online",
+        "many_returns"
+      ],
+      "base_effort": 2,
+      "hours_saved_per_week": [
+        0.5,
+        2
+      ],
+      "cost_per_month": "low",
+      "example_tools": [
+        "Spreadsheet with an AI add-on",
+        "LLM with a list of return groups"
+      ],
+      "risks": [
+        "Remove names, addresses and order numbers before you send the comments to an AI tool.",
+        "Check a sample of the groups by hand. The AI can put a comment in the wrong group."
       ]
     }
   ]
