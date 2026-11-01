@@ -59,6 +59,19 @@ The HTML report has an impact/effort chart. Each circle is one
 opportunity. The number in the circle is its position in the priority
 list. The top-left area of the chart shows the quick wins.
 
+## Report language
+
+The Markdown report can have Swedish headings and labels. Use `--lang sv`:
+
+```bash
+aiaudit --answers examples/online_shop.json --lang sv --out rapport.md
+```
+
+The default language is English (`en`). The `--lang` option changes the
+headings, the table columns, the types and the cost levels. The text of
+each opportunity and the action plan stay in English. The HTML and CSV
+formats do not use this option.
+
 ## CSV export
 
 To get the priority list as a CSV file, use `--format csv`:

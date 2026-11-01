@@ -7,6 +7,7 @@ Usage:
     python -m aiaudit --answers shop.json --industry retail
     python -m aiaudit --answers shop.json --format html --out report.html
     python -m aiaudit --answers shop.json --format csv --out priorities.csv
+    python -m aiaudit --answers shop.json --lang sv
 """
 
 import argparse
@@ -19,6 +20,7 @@ from .csv_report import render_csv
 from .html_report import render_html
 from .report import render_markdown
 from .catalog import INDUSTRIES
+from .i18n import DEFAULT_LANGUAGE, LANGUAGES
 from .scoring import MAX_SCALE, score
 
 
@@ -112,6 +114,13 @@ def main(argv: list[str] | None = None) -> int:
         help="Report format. The default is markdown. "
         "csv gives only the priority list, for a spreadsheet.",
     )
+    parser.add_argument(
+        "--lang",
+        choices=LANGUAGES,
+        default=DEFAULT_LANGUAGE,
+        help="Language of the report headings and labels. The default is en. "
+        "Only the markdown format uses this option now.",
+    )
     args = parser.parse_args(argv)
 
     weights: dict[str, object] = {}
@@ -140,9 +149,12 @@ def main(argv: list[str] | None = None) -> int:
     # score() checked the industry, so it is a known name or None here.
     if args.format == "csv":
         report = render_csv(results)
+    elif args.format == "html":
+        report = render_html(name, results, industry=str(industry) if industry else None)
     else:
-        render = render_html if args.format == "html" else render_markdown
-        report = render(name, results, industry=str(industry) if industry else None)
+        report = render_markdown(
+            name, results, industry=str(industry) if industry else None, lang=args.lang
+        )
     if args.out:
         # newline="" keeps the "\r\n" line ends of the CSV text as they are.
         args.out.write_text(report, encoding="utf-8", newline="")

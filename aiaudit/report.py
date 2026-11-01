@@ -4,6 +4,7 @@ from datetime import date
 
 from .action_plan import render_action_plan_markdown
 from .catalog import COST_LEVELS
+from .i18n import DEFAULT_LANGUAGE, lines, t, validate_language
 from .scoring import ScoredOpportunity, total_hours_saved
 
 
@@ -28,7 +29,7 @@ def format_cost(cost: str | None) -> str:
     return cost if cost is not None else "-"
 
 
-def _gdpr_footer(results: list[ScoredOpportunity]) -> list[str]:
+def _gdpr_footer(results: list[ScoredOpportunity], lang: str = DEFAULT_LANGUAGE) -> list[str]:
     """Return the report lines about GDPR notes.
 
     Return an empty list if no opportunity in the results uses
@@ -37,12 +38,7 @@ def _gdpr_footer(results: list[ScoredOpportunity]) -> list[str]:
     count = sum(1 for r in results if r.opportunity.uses_personal_data)
     if not count:
         return []
-    return [
-        f"{count} of {len(results)} opportunities use personal data. Read the",
-        "GDPR notes for these opportunities before you start. The notes are a",
-        "checklist. They are not legal advice.",
-        "",
-    ]
+    return [*lines(lang, "gdpr_footer", count=count, total=len(results)), ""]
 
 
 def render_markdown(
@@ -50,77 +46,90 @@ def render_markdown(
     results: list[ScoredOpportunity],
     today: date | None = None,
     industry: str | None = None,
+    lang: str = DEFAULT_LANGUAGE,
 ) -> str:
+    """Return the Markdown report.
+
+    The lang code selects the language of the fixed report text. The
+    opportunity text from the catalog and the action plan stay in English.
+    """
+    validate_language(lang)
     today = today or date.today()
-    lines = [
-        f"# AI Opportunity Audit: {business_name}",
+
+    def quadrant(r: ScoredOpportunity) -> str:
+        return t(lang, f"quadrant.{r.quadrant}")
+
+    def cost(level: str | None) -> str:
+        return t(lang, f"cost.{level}") if level in COST_LEVELS else format_cost(level)
+
+    lines_ = [
+        "# " + t(lang, "title", name=business_name),
         "",
-        f"Date: {today.isoformat()}",
+        t(lang, "date", date=today.isoformat()),
         "",
     ]
     if industry:
         # Tell the reader that the list shows only one industry.
-        lines += [f"Industry: {industry}", ""]
+        lines_ += [t(lang, "industry", industry=industry), ""]
     if not results:
-        lines += [
-            "The audit found no clear AI opportunities from the answers.",
-            "Do the audit again when the business changes.",
-            "",
-        ]
-        return "\n".join(lines)
+        lines_ += [t(lang, "empty_1"), t(lang, "empty_2"), ""]
+        return "\n".join(lines_)
 
     quick = [r for r in results if r.quadrant == "quick win"]
-    lines += [
-        "## Summary",
+    columns = ["#"] + [
+        t(lang, f"col_{c}")
+        for c in ("opportunity", "area", "impact", "effort", "priority", "type", "hours", "cost")
+    ]
+    lines_ += [
+        "## " + t(lang, "summary"),
         "",
-        f"- Opportunities found: {len(results)}",
-        f"- Quick wins: {len(quick)}",
-        f"- Estimated time saved: {format_hours(total_hours_saved(results))} hours per week",
+        "- " + t(lang, "found", count=len(results)),
+        "- " + t(lang, "quick_wins", count=len(quick)),
+        "- " + t(lang, "time_saved", hours=format_hours(total_hours_saved(results))),
         "",
-        "## Priority list",
+        "## " + t(lang, "priority_list"),
         "",
-        "| # | Opportunity | Area | Impact | Effort | Priority | Type | Hours/week | Cost/month |",
-        "|---|---|---|---|---|---|---|---|---|",
+        "| " + " | ".join(columns) + " |",
+        "|" + "---|" * len(columns),
     ]
     for i, r in enumerate(results, start=1):
         o = r.opportunity
-        lines.append(
+        lines_.append(
             f"| {i} | {o.title} | {o.area} | {r.impact} | {r.effort} "
-            f"| {r.priority} | {r.quadrant} | {format_hours(r.hours_saved)} "
-            f"| {format_cost(o.cost_per_month)} |"
+            f"| {r.priority} | {quadrant(r)} | {format_hours(r.hours_saved)} "
+            f"| {cost(o.cost_per_month)} |"
         )
     weighted = sorted({(r.opportunity.area, r.weight) for r in results if r.weight != 1.0})
     if weighted:
-        lines += ["", "Area weights used for the priority:", ""]
-        lines += [f"- {area}: {weight:g}" for area, weight in weighted]
-    lines += ["", "## Details", ""]
+        lines_ += ["", t(lang, "weights_used"), ""]
+        lines_ += [f"- {area}: {weight:g}" for area, weight in weighted]
+    lines_ += ["", "## " + t(lang, "details"), ""]
     for r in results:
         o = r.opportunity
-        lines += [f"### {o.title}", "", o.description, ""]
+        lines_ += [f"### {o.title}", "", o.description, ""]
         if o.example_tools:
-            lines.append("Example tools: " + ", ".join(o.example_tools))
-            lines.append("")
+            lines_.append(t(lang, "example_tools", tools=", ".join(o.example_tools)))
+            lines_.append("")
         if o.risks:
-            lines += ["Risks and checks:", ""]
-            lines += [f"- {risk}" for risk in o.risks]
-            lines.append("")
+            lines_ += [t(lang, "risks"), ""]
+            lines_ += [f"- {risk}" for risk in o.risks]
+            lines_.append("")
         if o.gdpr_notes:
-            lines += ["GDPR notes (this opportunity uses personal data):", ""]
-            lines += [f"- {note}" for note in o.gdpr_notes]
-            lines.append("")
-    lines += [
-        "Time estimates are rough. They are for a small business and they",
-        "change with the fit. Measure the real time before and after.",
+            lines_ += [t(lang, "gdpr_notes"), ""]
+            lines_ += [f"- {note}" for note in o.gdpr_notes]
+            lines_.append("")
+    lines_ += [
+        *lines(lang, "time_note"),
         "",
-        *_gdpr_footer(results),
-        "Cost levels are for the tool cost per month:",
+        *_gdpr_footer(results, lang),
+        t(lang, "cost_levels"),
         "",
-        *[f"- {level}: {text}" for level, text in COST_LEVELS.items()],
+        *[f"- {cost(level)}: {t(lang, f'cost_text.{level}')}" for level in COST_LEVELS],
         "",
         *render_action_plan_markdown(results),
-        "## Next step",
+        "## " + t(lang, "next_step"),
         "",
-        "Start with the first quick win. Measure the time it saves for 4 weeks.",
+        t(lang, "next_step_text"),
         "",
     ]
-    return "\n".join(lines)
+    return "\n".join(lines_)
