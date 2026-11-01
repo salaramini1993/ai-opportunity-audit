@@ -14,6 +14,7 @@ Plan rules:
 """
 
 from dataclasses import dataclass
+from html import escape
 
 from .scoring import ScoredOpportunity
 
@@ -111,4 +112,33 @@ def render_action_plan_markdown(results: list[ScoredOpportunity]) -> list[str]:
         lines += ["", "Steps:", ""]
         lines += [f"{i}. {step}" for i, step in enumerate(phase.steps, start=1)]
         lines.append("")
+    return lines
+
+
+def render_action_plan_html(results: list[ScoredOpportunity]) -> list[str]:
+    """Return the HTML lines of the action plan section.
+
+    The content is the same as in the Markdown section. All text is
+    escaped. Return an empty list if there are no results.
+    """
+    phases = build_action_plan(results)
+    if not phases:
+        return []
+    lines = ["<h2>30/60/90-day action plan</h2>"]
+    for phase in phases:
+        lines += [
+            f"<h3>{escape(phase.title)}</h3>",
+            f"<p>Goal: {escape(phase.goal)}</p>",
+            "<ul>",
+        ]
+        if phase.items:
+            lines += [
+                f"  <li>{escape(r.opportunity.title)} ({escape(r.quadrant)})</li>"
+                for r in phase.items
+            ]
+        else:
+            lines.append("  <li>No new opportunity. Continue the work from before.</li>")
+        lines += ["</ul>", "<p>Steps:</p>", "<ol>"]
+        lines += [f"  <li>{escape(step)}</li>" for step in phase.steps]
+        lines.append("</ol>")
     return lines

@@ -8,6 +8,7 @@ in a web browser.
 from datetime import date
 from html import escape
 
+from .action_plan import render_action_plan_html
 from .catalog import COST_LEVELS
 from .chart import render_svg
 from .report import format_cost, format_hours
@@ -139,6 +140,7 @@ def render_html(
         )
     lines.append('<p class="note">Cost levels are for the tool cost per month:</p>')
     lines += _list([f"{level}: {text}" for level, text in COST_LEVELS.items()])
+    lines += render_action_plan_html(results)
     lines += [
         "<h2>Next step</h2>",
         "<p>Start with the first quick win. Measure the time it saves for 4 weeks.</p>",

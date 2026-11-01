@@ -59,3 +59,38 @@ def test_empty_phase_has_message():
 def test_empty_report_has_no_plan():
     text = render_markdown("Test AB", [], today=date(2026, 1, 1))
     assert "action plan" not in text
+
+
+def test_html_plan_is_empty_for_no_results():
+    from aiaudit.action_plan import render_action_plan_html
+
+    assert render_action_plan_html([]) == []
+
+
+def test_html_report_has_plan_section():
+    from aiaudit.html_report import render_html
+
+    results = score(ALL)
+    text = render_html("Shop", results, today=date(2026, 1, 1))
+    assert "<h2>30/60/90-day action plan</h2>" in text
+    assert text.index("<h2>30/60/90-day action plan</h2>") < text.index("<h2>Next step</h2>")
+    for title in ("Days 1-30", "Days 31-60", "Days 61-90"):
+        assert f"<h3>{title}</h3>" in text
+    first = build_action_plan(results)[0].items[0]
+    assert first.opportunity.title in text
+
+
+def test_html_plan_has_message_for_empty_phase():
+    from aiaudit.action_plan import render_action_plan_html
+
+    results = [r for r in score(ALL) if r.quadrant == "quick win"][:1]
+    text = "\n".join(render_action_plan_html(results))
+    assert "<li>No new opportunity. Continue the work from before.</li>" in text
+    assert text.count("<ol>") == 3
+
+
+def test_empty_html_report_has_no_plan():
+    from aiaudit.html_report import render_html
+
+    text = render_html("Test AB", [], today=date(2026, 1, 1))
+    assert "action plan" not in text
