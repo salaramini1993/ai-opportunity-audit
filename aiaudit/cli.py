@@ -6,6 +6,7 @@ Usage:
     python -m aiaudit --answers shop.json --weight customer_support=2
     python -m aiaudit --answers shop.json --industry retail
     python -m aiaudit --answers shop.json --format html --out report.html
+    python -m aiaudit --answers shop.json --format csv --out priorities.csv
 """
 
 import argparse
@@ -14,6 +15,7 @@ import sys
 from pathlib import Path
 
 from .questions import QUESTIONS
+from .csv_report import render_csv
 from .html_report import render_html
 from .report import render_markdown
 from .catalog import INDUSTRIES
@@ -105,9 +107,10 @@ def main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument(
         "--format",
-        choices=("markdown", "html"),
+        choices=("markdown", "html", "csv"),
         default="markdown",
-        help="Report format. The default is markdown.",
+        help="Report format. The default is markdown. "
+        "csv gives only the priority list, for a spreadsheet.",
     )
     args = parser.parse_args(argv)
 
@@ -135,10 +138,14 @@ def main(argv: list[str] | None = None) -> int:
         return 2
 
     # score() checked the industry, so it is a known name or None here.
-    render = render_html if args.format == "html" else render_markdown
-    report = render(name, results, industry=str(industry) if industry else None)
+    if args.format == "csv":
+        report = render_csv(results)
+    else:
+        render = render_html if args.format == "html" else render_markdown
+        report = render(name, results, industry=str(industry) if industry else None)
     if args.out:
-        args.out.write_text(report, encoding="utf-8")
+        # newline="" keeps the "\r\n" line ends of the CSV text as they are.
+        args.out.write_text(report, encoding="utf-8", newline="")
         print(f"Report written to {args.out}")
     else:
         print(report)

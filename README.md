@@ -59,6 +59,20 @@ The HTML report has an impact/effort chart. Each circle is one
 opportunity. The number in the circle is its position in the priority
 list. The top-left area of the chart shows the quick wins.
 
+## CSV export
+
+To get the priority list as a CSV file, use `--format csv`:
+
+```bash
+aiaudit --answers examples/online_shop.json --format csv --out priorities.csv
+```
+
+Open the file in a spreadsheet program. Each row is one opportunity, in
+priority order. The columns are: `rank`, `key`, `title`, `area`,
+`quadrant`, `impact`, `effort`, `weight`, `priority`, `fit`,
+`hours_saved_low`, `hours_saved_high` and `cost_per_month`. An empty
+value means that there is no estimate.
+
 ## Answers on a scale
 
 An answer can be `true` or `false`. An answer can also be a whole number
