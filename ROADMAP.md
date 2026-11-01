@@ -32,7 +32,8 @@ with `[x]` in the same commit as the change. Add new tasks when you find them.
 - [x] HTML report (`--format html`)
 - [x] Impact/effort chart in the HTML report
 - [x] CSV export of the priority list
-- [ ] 30/60/90-day action plan section
+- [x] 30/60/90-day action plan section (Markdown report)
+- [ ] 30/60/90-day action plan section in the HTML report
 - [ ] Report in Swedish
 - [ ] Report in Persian
 

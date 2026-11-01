@@ -2,6 +2,7 @@
 
 from datetime import date
 
+from .action_plan import render_action_plan_markdown
 from .catalog import COST_LEVELS
 from .scoring import ScoredOpportunity, total_hours_saved
 
@@ -116,6 +117,7 @@ def render_markdown(
         "",
         *[f"- {level}: {text}" for level, text in COST_LEVELS.items()],
         "",
+        *render_action_plan_markdown(results),
         "## Next step",
         "",
         "Start with the first quick win. Measure the time it saves for 4 weeks.",
