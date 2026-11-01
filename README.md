@@ -55,6 +55,10 @@ aiaudit --answers examples/online_shop.json --format html --out report.html
 The HTML report is one file. It does not use external files. Open it in a
 web browser, print it, or send it by e-mail.
 
+The HTML report has an impact/effort chart. Each circle is one
+opportunity. The number in the circle is its position in the priority
+list. The top-left area of the chart shows the quick wins.
+
 ## Answers on a scale
 
 An answer can be `true` or `false`. An answer can also be a whole number

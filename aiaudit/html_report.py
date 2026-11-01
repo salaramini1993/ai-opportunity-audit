@@ -9,6 +9,7 @@ from datetime import date
 from html import escape
 
 from .catalog import COST_LEVELS
+from .chart import render_svg
 from .report import format_cost, format_hours
 from .scoring import ScoredOpportunity, total_hours_saved
 
@@ -21,6 +22,7 @@ th, td { border: 1px solid #ccc; padding: 0.3em 0.5em; text-align: left; }
 th { background: #f2f2f2; }
 td.num { text-align: right; }
 .note { color: #555; }
+svg.chart { width: 100%; max-width: 480px; height: auto; display: block; }
 """
 
 
@@ -100,6 +102,12 @@ def render_html(
         ]
         lines.append("<tr>" + "".join(cells) + "</tr>")
     lines += ["</tbody>", "</table>"]
+    lines += [
+        "<h2>Impact and effort</h2>",
+        "<p>Each circle is one opportunity. The number is the position in the "
+        "priority list. Start with the circles in the top-left area.</p>",
+        render_svg(results),
+    ]
     weighted = sorted({(r.opportunity.area, r.weight) for r in results if r.weight != 1.0})
     if weighted:
         lines.append("<p>Area weights used for the priority:</p>")
