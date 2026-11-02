@@ -40,6 +40,8 @@ with `[x]` in the same commit as the change. Add new tasks when you find them.
   - [x] Swedish title and description for the opportunities in the catalog
   - [x] Swedish risks and GDPR notes for the opportunities in the catalog
   - [ ] Swedish HTML report
+    - [x] Swedish headings, labels and text in the HTML report
+    - [ ] Swedish labels inside the impact/effort chart
 - [ ] Report in Persian
 
 ## Quality

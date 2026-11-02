@@ -54,3 +54,46 @@ def test_cli_default_format_is_markdown(tmp_path, capsys):
     answers.write_text(json.dumps({"business_name": "Shop", "answers": SHOP}))
     assert main(["--answers", str(answers)]) == 0
     assert capsys.readouterr().out.startswith("# AI Opportunity Audit: Shop")
+
+
+def test_swedish_html_report_labels():
+    results = score(SHOP)
+    text = render_html("Butik", results, today=date(2026, 1, 1), lang="sv")
+    assert '<html lang="sv">' in text
+    assert "<h1>AI-möjlighetsanalys: Butik</h1>" in text
+    assert "<p>Datum: 2026-01-01</p>" in text
+    assert "<h2>Sammanfattning</h2>" in text
+    assert "<th>Möjlighet</th>" in text
+    assert "<h2>Effekt och insats</h2>" in text
+    assert "<h2>Handlingsplan för 30/60/90 dagar</h2>" in text
+    assert "<h2>Nästa steg</h2>" in text
+    # The English headings are not in the Swedish report.
+    assert "<h2>Summary</h2>" not in text
+    assert "<h2>Next step</h2>" not in text
+
+
+def test_swedish_html_report_uses_catalog_translation():
+    results = score(SHOP)
+    first = results[0].opportunity
+    text = render_html("Butik", results, lang="sv")
+    assert f"<h3>{first.text('title', 'sv')}</h3>" in text
+    assert first.text("title", "sv") != first.title
+
+
+def test_swedish_empty_html_report():
+    text = render_html("Butik", [], today=date(2026, 1, 1), lang="sv")
+    assert "inga tydliga AI-möjligheter" in text
+
+
+def test_html_report_rejects_unknown_language():
+    import pytest
+
+    with pytest.raises(ValueError):
+        render_html("Shop", [], lang="xx")
+
+
+def test_cli_swedish_html(tmp_path, capsys):
+    answers = tmp_path / "shop.json"
+    answers.write_text(json.dumps({"business_name": "Butik", "answers": SHOP}))
+    assert main(["--answers", str(answers), "--format", "html", "--lang", "sv"]) == 0
+    assert "<h2>Sammanfattning</h2>" in capsys.readouterr().out

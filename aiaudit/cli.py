@@ -119,7 +119,7 @@ def main(argv: list[str] | None = None) -> int:
         choices=LANGUAGES,
         default=DEFAULT_LANGUAGE,
         help="Language of the report headings and labels. The default is en. "
-        "Only the markdown format uses this option now.",
+        "The markdown and html formats use this option. The csv format does not.",
     )
     args = parser.parse_args(argv)
 
@@ -150,7 +150,9 @@ def main(argv: list[str] | None = None) -> int:
     if args.format == "csv":
         report = render_csv(results)
     elif args.format == "html":
-        report = render_html(name, results, industry=str(industry) if industry else None)
+        report = render_html(
+            name, results, industry=str(industry) if industry else None, lang=args.lang
+        )
     else:
         report = render_markdown(
             name, results, industry=str(industry) if industry else None, lang=args.lang

@@ -3,9 +3,10 @@
 Each language has a dictionary of text keys. The English text is the
 reference. All languages must have the same keys.
 
-Scope: this module translates the fixed text of the Markdown report
-(headings, labels, table columns, types, cost levels and the
-30/60/90-day action plan). The title, the description, the risks and
+Scope: this module translates the fixed text of the Markdown and HTML
+reports (headings, labels, table columns, types, cost levels and the
+30/60/90-day action plan). Keys that start with "chart_" are for the
+chart section of the HTML report. The title, the description, the risks and
 the GDPR notes of each opportunity are translated in the catalog file,
 in the "translations" field of each opportunity.
 
@@ -37,6 +38,11 @@ TEXT: dict[str, dict[str, str]] = {
         "col_hours": "Hours/week",
         "col_cost": "Cost/month",
         "weights_used": "Area weights used for the priority:",
+        "chart_heading": "Impact and effort",
+        "chart_intro": (
+            "Each circle is one opportunity. The number is the position in the "
+            "priority list. Start with the circles in the top-left area."
+        ),
         "details": "Details",
         "example_tools": "Example tools: {tools}",
         "risks": "Risks and checks:",
@@ -109,6 +115,11 @@ TEXT: dict[str, dict[str, str]] = {
         "col_hours": "Timmar/vecka",
         "col_cost": "Kostnad/månad",
         "weights_used": "Vikter per område som används för prioriteten:",
+        "chart_heading": "Effekt och insats",
+        "chart_intro": (
+            "Varje cirkel är en möjlighet. Numret är platsen i "
+            "prioriteringslistan. Börja med cirklarna uppe till vänster."
+        ),
         "details": "Detaljer",
         "example_tools": "Exempel på verktyg: {tools}",
         "risks": "Risker och kontroller:",

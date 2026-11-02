@@ -61,16 +61,19 @@ list. The top-left area of the chart shows the quick wins.
 
 ## Report language
 
-The Markdown report can have Swedish headings and labels. Use `--lang sv`:
+The Markdown and HTML reports can have Swedish headings and labels. Use
+`--lang sv`:
 
 ```bash
 aiaudit --answers examples/online_shop.json --lang sv --out rapport.md
+aiaudit --answers examples/online_shop.json --format html --lang sv --out rapport.html
 ```
 
 The default language is English (`en`). The `--lang` option changes the
 headings, the table columns, the types, the cost levels, the action plan
 and the title, description, risks and GDPR notes of each opportunity.
-The HTML and CSV formats do not use this option.
+The CSV format does not use this option. In the HTML report, the labels
+inside the impact/effort chart are in English for now.
 
 The catalog keeps the translations in the `translations` field of each
 opportunity:
