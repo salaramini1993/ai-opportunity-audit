@@ -1,4 +1,5 @@
 from datetime import date
+from html import escape
 from xml.etree import ElementTree
 
 from aiaudit.catalog import CATALOG
@@ -64,3 +65,39 @@ def test_html_report_includes_chart():
 def test_empty_html_report_has_no_chart():
     text = render_html("Shop", [], today=date(2026, 1, 1))
     assert "<svg" not in text
+
+
+def test_chart_labels_are_in_english_by_default():
+    svg = render_svg(score(SHOP))
+    for label in ("Quick wins", "Not now", "Effort (1 = low)", "Impact (5 = high)"):
+        assert label in svg
+
+
+def test_chart_labels_in_swedish():
+    results = score(SHOP)
+    svg = render_svg(results, "sv")
+    ElementTree.fromstring(svg)
+    for label in (
+        "Effekt och insats för varje möjlighet",
+        "Snabba vinster",
+        "Strategiska projekt",
+        "Små förbättringar",
+        "Inte nu",
+        "Insats (1 = låg)",
+        "Effekt (5 = hög)",
+    ):
+        assert label in svg
+    for label in ("Quick wins", "Effort (1 = low)", "Impact (5 = high)"):
+        assert label not in svg
+    first = results[0]
+    expected = (
+        f"1. {first.opportunity.text('title', 'sv')} "
+        f"(effekt {first.impact}, insats {first.effort})"
+    )
+    assert escape(expected) in svg
+
+
+def test_swedish_html_report_has_swedish_chart():
+    text = render_html("Shop", score(SHOP), today=date(2026, 1, 1), lang="sv")
+    assert "Snabba vinster" in text
+    assert "Quick wins" not in text

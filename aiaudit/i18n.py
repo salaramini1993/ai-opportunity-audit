@@ -6,7 +6,7 @@ reference. All languages must have the same keys.
 Scope: this module translates the fixed text of the Markdown and HTML
 reports (headings, labels, table columns, types, cost levels and the
 30/60/90-day action plan). Keys that start with "chart_" are for the
-chart section of the HTML report. The title, the description, the risks and
+chart section of the HTML report, including the labels inside the chart. The title, the description, the risks and
 the GDPR notes of each opportunity are translated in the catalog file,
 in the "translations" field of each opportunity.
 
@@ -43,6 +43,14 @@ TEXT: dict[str, dict[str, str]] = {
             "Each circle is one opportunity. The number is the position in the "
             "priority list. Start with the circles in the top-left area."
         ),
+        "chart_svg_title": "Impact and effort of each opportunity",
+        "chart_quick_wins": "Quick wins",
+        "chart_strategic": "Strategic projects",
+        "chart_small": "Small improvements",
+        "chart_not_now": "Not now",
+        "chart_x_axis": "Effort (1 = low)",
+        "chart_y_axis": "Impact (5 = high)",
+        "chart_point": "{number}. {title} (impact {impact}, effort {effort})",
         "details": "Details",
         "example_tools": "Example tools: {tools}",
         "risks": "Risks and checks:",
@@ -120,6 +128,14 @@ TEXT: dict[str, dict[str, str]] = {
             "Varje cirkel är en möjlighet. Numret är platsen i "
             "prioriteringslistan. Börja med cirklarna uppe till vänster."
         ),
+        "chart_svg_title": "Effekt och insats för varje möjlighet",
+        "chart_quick_wins": "Snabba vinster",
+        "chart_strategic": "Strategiska projekt",
+        "chart_small": "Små förbättringar",
+        "chart_not_now": "Inte nu",
+        "chart_x_axis": "Insats (1 = låg)",
+        "chart_y_axis": "Effekt (5 = hög)",
+        "chart_point": "{number}. {title} (effekt {impact}, insats {effort})",
         "details": "Detaljer",
         "example_tools": "Exempel på verktyg: {tools}",
         "risks": "Risker och kontroller:",

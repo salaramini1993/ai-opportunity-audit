@@ -13,6 +13,7 @@ web browsers and in print.
 from collections import defaultdict
 from html import escape
 
+from .i18n import DEFAULT_LANGUAGE, t
 from .scoring import ScoredOpportunity
 
 WIDTH = 480
@@ -31,11 +32,12 @@ SCALE_MAX = 5
 EFFORT_BORDER = 2.5
 IMPACT_BORDER = 2.5
 
+# Text keys from i18n.py for the quadrant labels, with the text anchor.
 QUADRANT_LABELS = (
-    ("Quick wins", "start"),
-    ("Strategic projects", "end"),
-    ("Small improvements", "start"),
-    ("Not now", "end"),
+    ("chart_quick_wins", "start"),
+    ("chart_strategic", "end"),
+    ("chart_small", "start"),
+    ("chart_not_now", "end"),
 )
 
 
@@ -70,8 +72,11 @@ def point_positions(results: list[ScoredOpportunity]) -> list[tuple[float, float
     return positions
 
 
-def render_svg(results: list[ScoredOpportunity]) -> str:
+def render_svg(results: list[ScoredOpportunity], lang: str = DEFAULT_LANGUAGE) -> str:
     """Return an SVG element with the impact/effort chart.
+
+    The lang code selects the language of the labels in the chart and
+    of the opportunity names.
 
     The number in each circle is the position in the priority list
     (1 is the highest priority). The <title> of each circle gives the
@@ -84,7 +89,7 @@ def render_svg(results: list[ScoredOpportunity]) -> str:
     lines = [
         f'<svg class="chart" viewBox="0 0 {WIDTH} {HEIGHT}" role="img" '
         'aria-labelledby="chart-title" xmlns="http://www.w3.org/2000/svg">',
-        '<title id="chart-title">Impact and effort of each opportunity</title>',
+        '<title id="chart-title">' + escape(t(lang, "chart_svg_title")) + "</title>",
         f'<rect x="{left}" y="{top}" width="{right - left}" height="{bottom - top}" '
         'fill="#fff" stroke="#999"/>',
         f'<rect x="{left}" y="{top}" width="{mid_x - left}" height="{mid_y - top}" '
@@ -100,10 +105,10 @@ def render_svg(results: list[ScoredOpportunity]) -> str:
         (left + 6, bottom - 6),
         (right - 6, bottom - 6),
     )
-    for (label, anchor), (x, y) in zip(QUADRANT_LABELS, corners):
+    for (key, anchor), (x, y) in zip(QUADRANT_LABELS, corners):
         lines.append(
             f'<text x="{x}" y="{y}" text-anchor="{anchor}" font-size="11" '
-            f'fill="#555">{label}</text>'
+            f'fill="#555">{escape(t(lang, key))}</text>'
         )
     for value in range(1, SCALE_MAX + 1):
         lines.append(
@@ -116,15 +121,24 @@ def render_svg(results: list[ScoredOpportunity]) -> str:
         )
     lines += [
         f'<text x="{(left + right) / 2}" y="{HEIGHT - 8}" text-anchor="middle" '
-        'font-size="12">Effort (1 = low)</text>',
+        'font-size="12">' + escape(t(lang, "chart_x_axis")) + "</text>",
         f'<text x="14" y="{(top + bottom) / 2}" text-anchor="middle" font-size="12" '
-        f'transform="rotate(-90 14 {(top + bottom) / 2})">Impact (5 = high)</text>',
+        f'transform="rotate(-90 14 {(top + bottom) / 2})">'
+        + escape(t(lang, "chart_y_axis"))
+        + "</text>",
     ]
     for number, (r, (x, y)) in enumerate(zip(results, point_positions(results)), start=1):
-        name = escape(r.opportunity.title)
+        label = t(
+            lang,
+            "chart_point",
+            number=number,
+            title=r.opportunity.text("title", lang),
+            impact=r.impact,
+            effort=r.effort,
+        )
         lines += [
             "<g>",
-            f"<title>{number}. {name} (impact {r.impact}, effort {r.effort})</title>",
+            f"<title>{escape(label)}</title>",
             f'<circle cx="{x}" cy="{y}" r="{RADIUS}" fill="#1565c0"/>',
             f'<text x="{x}" y="{y + 4}" text-anchor="middle" font-size="11" '
             f'fill="#fff">{number}</text>',

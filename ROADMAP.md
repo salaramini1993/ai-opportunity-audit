@@ -34,14 +34,14 @@ with `[x]` in the same commit as the change. Add new tasks when you find them.
 - [x] CSV export of the priority list
 - [x] 30/60/90-day action plan section (Markdown report)
 - [x] 30/60/90-day action plan section in the HTML report
-- [ ] Report in Swedish
+- [x] Report in Swedish
   - [x] Swedish headings and labels in the Markdown report (`--lang sv`)
   - [x] Swedish text for the 30/60/90-day action plan
   - [x] Swedish title and description for the opportunities in the catalog
   - [x] Swedish risks and GDPR notes for the opportunities in the catalog
-  - [ ] Swedish HTML report
+  - [x] Swedish HTML report
     - [x] Swedish headings, labels and text in the HTML report
-    - [ ] Swedish labels inside the impact/effort chart
+    - [x] Swedish labels inside the impact/effort chart
 - [ ] Report in Persian
 
 ## Quality

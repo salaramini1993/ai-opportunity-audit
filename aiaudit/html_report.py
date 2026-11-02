@@ -48,7 +48,7 @@ def render_html(
 
     The lang code selects the language of the report text. The
     opportunity text uses the catalog translation, as in the Markdown
-    report. The labels inside the chart are in English for now.
+    report. The labels inside the chart use the same language.
     """
     validate_language(lang)
     today = today or date.today()
@@ -126,7 +126,7 @@ def render_html(
     out += [
         f"<h2>{escape(t(lang, 'chart_heading'))}</h2>",
         p("chart_intro"),
-        render_svg(results),
+        render_svg(results, lang),
     ]
     weighted = sorted({(r.opportunity.area, r.weight) for r in results if r.weight != 1.0})
     if weighted:
