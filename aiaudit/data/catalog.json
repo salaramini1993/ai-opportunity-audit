@@ -50,7 +50,18 @@
       "translations": {
         "sv": {
           "title": "FAQ-assistent för kundfrågor",
-          "description": "Använd en AI-assistent för att svara på vanliga kundfrågor. Skicka svåra frågor till en person."
+          "description": "Använd en AI-assistent för att svara på vanliga kundfrågor. Skicka svåra frågor till en person.",
+          "risks": [
+            "Assistenten kan ge fel svar. Kontrollera svaren varje vecka.",
+            "Berätta för kunderna att de talar med en AI-assistent.",
+            "Låt inte assistenten se betalningsuppgifter eller hälsouppgifter."
+          ],
+          "gdpr_notes": [
+            "Kundmeddelanden kan innehålla namn, e-postadresser och orderuppgifter. Detta är personuppgifter.",
+            "Gör ett personuppgiftsbiträdesavtal (DPA) med leverantören av verktyget.",
+            "Berätta i din integritetspolicy att ett AI-verktyg läser kundernas frågor.",
+            "Bestäm en tidsgräns för chattloggar. Radera gamla loggar."
+          ]
         }
       }
     },
@@ -85,7 +96,16 @@
       "translations": {
         "sv": {
           "title": "Utkast till svar på supportmejl",
-          "description": "Låt AI skriva ett första utkast till varje svar. En person kontrollerar och skickar svaret."
+          "description": "Låt AI skriva ett första utkast till varje svar. En person kontrollerar och skickar svaret.",
+          "risks": [
+            "En person måste kontrollera varje utkast innan det skickas.",
+            "Kundmejl innehåller personuppgifter. Använd ett verktyg med ett personuppgiftsbiträdesavtal."
+          ],
+          "gdpr_notes": [
+            "Supportmejl innehåller namn, e-postadresser och orderuppgifter. Detta är personuppgifter.",
+            "Gör ett personuppgiftsbiträdesavtal (DPA) med leverantören av verktyget.",
+            "Se till att leverantören inte använder dina mejl för att träna sina modeller."
+          ]
         }
       }
     },
@@ -119,7 +139,11 @@
       "translations": {
         "sv": {
           "title": "Produktbeskrivningar och produktsidor",
-          "description": "Skapa produkttitlar och beskrivningar från en kort specifikation. Översätt dem till fler språk."
+          "description": "Skapa produkttitlar och beskrivningar från en kort specifikation. Översätt dem till fler språk.",
+          "risks": [
+            "Kontrollera fakta som storlek, material och säkerhetspåståenden innan du publicerar.",
+            "Låt en person med språket som modersmål kontrollera varje översättning."
+          ]
         }
       }
     },
@@ -149,7 +173,11 @@
       "translations": {
         "sv": {
           "title": "Innehållsplan för sociala medier",
-          "description": "Gör en veckoplan med inlägg och första utkast till texten. En person godkänner varje inlägg."
+          "description": "Gör en veckoplan med inlägg och första utkast till texten. En person godkänner varje inlägg.",
+          "risks": [
+            "En person måste godkänna varje inlägg innan det publiceras.",
+            "Använd inte bilder eller text som du inte har rätt att använda."
+          ]
         }
       }
     },
@@ -189,7 +217,17 @@
       "translations": {
         "sv": {
           "title": "Sortering och uppföljning av leads",
-          "description": "Sortera nya leads efter passform och skriv utkast till uppföljningsmeddelanden. Spara resultatet i CRM-systemet."
+          "description": "Sortera nya leads efter passform och skriv utkast till uppföljningsmeddelanden. Spara resultatet i CRM-systemet.",
+          "risks": [
+            "Uppgifter om leads är personuppgifter. Använd ett verktyg med ett personuppgiftsbiträdesavtal.",
+            "En person måste fatta det slutliga beslutet om varje lead."
+          ],
+          "gdpr_notes": [
+            "Uppgifter om leads innehåller namn, e-postadresser och företagsuppgifter. Detta är personuppgifter.",
+            "Skriv ner den rättsliga grunden för behandlingen, till exempel berättigat intresse.",
+            "Gör ett personuppgiftsbiträdesavtal (DPA) med leverantören av verktyget.",
+            "Låt inte AI fatta beslut som har stor effekt på en person utan en mänsklig kontroll."
+          ]
         }
       }
     },
@@ -221,7 +259,11 @@
       "translations": {
         "sv": {
           "title": "Snabbare offerter",
-          "description": "Gör offertdokument från en mall och kundens förfrågan. En person kontrollerar priserna."
+          "description": "Gör offertdokument från en mall och kundens förfrågan. En person kontrollerar priserna.",
+          "risks": [
+            "En person måste kontrollera priser, rabatter och villkor innan offerten skickas.",
+            "Håll prislistan uppdaterad. Gamla priser ger fel offerter."
+          ]
         }
       }
     },
@@ -256,7 +298,16 @@
       "translations": {
         "sv": {
           "title": "Läs fakturor och kvitton automatiskt",
-          "description": "Hämta data från fakturor och kvitton och för in den i bokföringssystemet."
+          "description": "Hämta data från fakturor och kvitton och för in den i bokföringssystemet.",
+          "risks": [
+            "Kontrollera belopp och momsnummer innan du bokför dem.",
+            "Spara originalfakturan för bokföringen."
+          ],
+          "gdpr_notes": [
+            "Fakturor och kvitton kan innehålla namn, adresser och bankuppgifter. Detta är personuppgifter.",
+            "Gör ett personuppgiftsbiträdesavtal (DPA) med leverantören av verktyget.",
+            "Spara dokumenten bara så länge som bokföringslagen kräver."
+          ]
         }
       }
     },
@@ -286,7 +337,11 @@
       "translations": {
         "sv": {
           "title": "Månatlig ekonomisammanfattning",
-          "description": "Gör en kort sammanfattning av intäkter, kostnader och trender från månadens export."
+          "description": "Gör en kort sammanfattning av intäkter, kostnader och trender från månadens export.",
+          "risks": [
+            "Finansiella uppgifter är konfidentiella. Ladda inte upp dem till ett verktyg som tränar på dina data.",
+            "Jämför siffrorna i sammanfattningen med exporten."
+          ]
         }
       }
     },
@@ -321,7 +376,11 @@
       "translations": {
         "sv": {
           "title": "Prognos för lager och påfyllning",
-          "description": "Använd försäljningshistoriken för att uppskatta när du ska beställa mer lager och hur mycket."
+          "description": "Använd försäljningshistoriken för att uppskatta när du ska beställa mer lager och hur mycket.",
+          "risks": [
+            "Prognosen kan bli fel efter en stor förändring, till exempel en ny produkt eller en rea.",
+            "En person måste godkänna varje beställning."
+          ]
         }
       }
     },
@@ -360,7 +419,15 @@
       "translations": {
         "sv": {
           "title": "Meddelanden till leverantörer och översättning",
-          "description": "Skriv och översätt utkast till meddelanden till leverantörer. Sammanfatta långa mejltrådar med leverantörer."
+          "description": "Skriv och översätt utkast till meddelanden till leverantörer. Sammanfatta långa mejltrådar med leverantörer.",
+          "risks": [
+            "Kontrollera priser, datum och antal i varje meddelande innan du skickar det.",
+            "Dela inte konfidentiella avtalsvillkor med verktyget."
+          ],
+          "gdpr_notes": [
+            "Meddelanden till leverantörer innehåller namn och kontaktuppgifter till personer. Detta är personuppgifter.",
+            "Gör ett personuppgiftsbiträdesavtal (DPA) med leverantören av verktyget."
+          ]
         }
       }
     },
@@ -395,7 +462,18 @@
       "translations": {
         "sv": {
           "title": "Mötesanteckningar och uppgifter",
-          "description": "Spela in möten, gör en sammanfattning och en lista med uppgifter för varje person."
+          "description": "Spela in möten, gör en sammanfattning och en lista med uppgifter för varje person.",
+          "risks": [
+            "Berätta för alla personer i mötet innan du spelar in det.",
+            "En person måste kontrollera sammanfattningen och listan med uppgifter.",
+            "Radera inspelningarna när du inte behöver dem."
+          ],
+          "gdpr_notes": [
+            "Inspelningar och anteckningar innehåller röster, namn och åsikter från personer. Detta är personuppgifter.",
+            "Få samtycke eller ha en annan rättslig grund innan du spelar in ett möte.",
+            "Gör ett personuppgiftsbiträdesavtal (DPA) med leverantören av verktyget.",
+            "Bestäm en tidsgräns för inspelningar. Radera gamla inspelningar."
+          ]
         }
       }
     },
@@ -429,7 +507,15 @@
       "translations": {
         "sv": {
           "title": "Sök i interna dokument",
-          "description": "Låt personalen ställa frågor om interna dokument, till exempel rutiner och prislistor."
+          "description": "Låt personalen ställa frågor om interna dokument, till exempel rutiner och prislistor.",
+          "risks": [
+            "Svaren kan vara fel eller gamla. Visa källdokumentet med varje svar.",
+            "Bestäm vilka anställda som kan se vilka dokument."
+          ],
+          "gdpr_notes": [
+            "Interna dokument kan innehålla uppgifter om personal eller kunder. Ta bort dessa uppgifter innan du laddar in dokumenten, eller begränsa åtkomsten.",
+            "Gör ett personuppgiftsbiträdesavtal (DPA) med leverantören av verktyget."
+          ]
         }
       }
     },
@@ -462,7 +548,14 @@
       "translations": {
         "sv": {
           "title": "Platsannonser och rollbeskrivningar",
-          "description": "Låt AI skriva ett första utkast till varje platsannons från en kort lista med uppgifter och kompetenser. En person kontrollerar och publicerar annonsen."
+          "description": "Låt AI skriva ett första utkast till varje platsannons från en kort lista med uppgifter och kompetenser. En person kontrollerar och publicerar annonsen.",
+          "risks": [
+            "Kontrollera att annonsen inte har ord som kan utesluta grupper av människor, till exempel ord om ålder eller kön.",
+            "Se till att lön, plats och anställningsform är rätt."
+          ],
+          "gdpr_notes": [
+            "En jobbannons innehåller oftast inga personuppgifter. Skriv inte namn på nuvarande anställda i prompten."
+          ]
         }
       }
     },
@@ -502,7 +595,21 @@
       "translations": {
         "sv": {
           "title": "CV-granskning med mänsklig kontroll",
-          "description": "Låt AI jämföra varje ansökan med kraven för tjänsten och skriva en kort sammanfattning. En person läser sammanfattningarna och fattar alla beslut."
+          "description": "Låt AI jämföra varje ansökan med kraven för tjänsten och skriva en kort sammanfattning. En person läser sammanfattningarna och fattar alla beslut.",
+          "risks": [
+            "AI får inte avvisa kandidater. En person måste läsa varje sammanfattning och fatta beslutet.",
+            "Ansökningar innehåller personuppgifter. Använd ett verktyg med ett personuppgiftsbiträdesavtal och radera gamla ansökningar.",
+            "EU:s AI-förordning placerar AI för rekrytering i högriskgruppen. Kontrollera reglerna innan du börjar.",
+            "Kontrollera resultaten för partiskhet, till exempel mot ålder, kön eller födelseland."
+          ],
+          "gdpr_notes": [
+            "CV:n innehåller personuppgifter. De kan också innehålla känsliga personuppgifter, till exempel hälsouppgifter.",
+            "En person måste fatta alla beslut. GDPR artikel 22 begränsar beslut som bara fattas automatiskt.",
+            "Berätta i din integritetspolicy för de sökande att ett AI-verktyg läser deras ansökan.",
+            "Gör en konsekvensbedömning avseende dataskydd (DPIA) innan du börjar.",
+            "Gör ett personuppgiftsbiträdesavtal (DPA) med leverantören av verktyget.",
+            "Radera ansökningar när rekryteringen är avslutad, eller få samtycke för att spara dem."
+          ]
         }
       }
     },
@@ -540,7 +647,15 @@
       "translations": {
         "sv": {
           "title": "Svar på produktrecensioner",
-          "description": "Låt AI skriva ett första utkast till ett svar på varje produktrecension. En person kontrollerar utkastet och publicerar det sedan."
+          "description": "Låt AI skriva ett första utkast till ett svar på varje produktrecension. En person kontrollerar utkastet och publicerar det sedan.",
+          "risks": [
+            "Publicera inte svar utan en kontroll. Ett fel löfte till en kund kan orsaka problem.",
+            "Skriv inte ordernummer eller andra personuppgifter i ett offentligt svar."
+          ],
+          "gdpr_notes": [
+            "Recensioner innehåller kundernas namn. Lägg inte till fler kunduppgifter i svaret.",
+            "Gör ett personuppgiftsbiträdesavtal (DPA) med leverantören av verktyget."
+          ]
         }
       }
     },
@@ -577,7 +692,15 @@
       "translations": {
         "sv": {
           "title": "Analys av returorsaker",
-          "description": "Låt AI läsa returorsakerna och kundernas kommentarer och sortera dem i grupper. Använd grupperna för att hitta produkter med problem."
+          "description": "Låt AI läsa returorsakerna och kundernas kommentarer och sortera dem i grupper. Använd grupperna för att hitta produkter med problem.",
+          "risks": [
+            "Ta bort namn, adresser och ordernummer innan du skickar kommentarerna till ett AI-verktyg.",
+            "Kontrollera ett urval av grupperna för hand. AI kan lägga en kommentar i fel grupp."
+          ],
+          "gdpr_notes": [
+            "Returkommentarer kan innehålla namn och adresser. Ta bort dessa uppgifter innan AI läser kommentarerna.",
+            "Gör ett personuppgiftsbiträdesavtal (DPA) med leverantören av verktyget."
+          ]
         }
       }
     },
@@ -616,7 +739,16 @@
       "translations": {
         "sv": {
           "title": "Svar på frågor om leveransstatus",
-          "description": "Låt AI läsa spårningsdata från transportören och skriva ett svar på frågor om var ordern är. En person kontrollerar svar om förlorade eller sena paket."
+          "description": "Låt AI läsa spårningsdata från transportören och skriva ett svar på frågor om var ordern är. En person kontrollerar svar om förlorade eller sena paket.",
+          "risks": [
+            "Använd bara spårningsdata från transportören. Låt inte AI gissa ett leveransdatum.",
+            "Skicka meddelanden om förlorade eller skadade paket till en person."
+          ],
+          "gdpr_notes": [
+            "Spårningsdata innehåller namn och leveransadresser. Detta är personuppgifter.",
+            "Gör ett personuppgiftsbiträdesavtal (DPA) med leverantören av verktyget.",
+            "Visa leveransadressen bara för kunden som äger ordern."
+          ]
         }
       }
     },
@@ -654,7 +786,15 @@
       "translations": {
         "sv": {
           "title": "Kontroll av tulldokument",
-          "description": "Låt AI jämföra fakturan, packlistan och tulldeklarationen innan du skickar en försändelse. AI visar de fält som inte stämmer överens."
+          "description": "Låt AI jämföra fakturan, packlistan och tulldeklarationen innan du skickar en försändelse. AI visar de fält som inte stämmer överens.",
+          "risks": [
+            "En person måste godkänna varje tulldeklaration. Fel uppgifter kan ge böter eller förseningar.",
+            "Använd inte AI för att välja tulltaxenummer utan en kontroll av en person som kan reglerna."
+          ],
+          "gdpr_notes": [
+            "Tulldokument innehåller namn och adresser till avsändaren och mottagaren. Detta är personuppgifter.",
+            "Gör ett personuppgiftsbiträdesavtal (DPA) med leverantören av verktyget."
+          ]
         }
       }
     }

@@ -9,7 +9,7 @@ from aiaudit.report import render_markdown
 from aiaudit.scoring import score
 
 
-def _catalog(translations):
+def _catalog(translations, risks=None):
     return {
         "areas": ["sales"],
         "opportunities": [
@@ -20,6 +20,7 @@ def _catalog(translations):
                 "description": "Text.",
                 "signals": ["q"],
                 "base_effort": 1,
+                "risks": risks or ["Check it."],
                 "translations": translations,
             }
         ],
@@ -67,6 +68,10 @@ def test_opportunity_stays_hashable():
         {"sv": {"risks": "x"}},
         {"sv": {"title": ""}},
         {"sv": {"title": 3}},
+        {"sv": {"title": ["Titel"]}},
+        {"sv": {"risks": [""]}},
+        {"sv": {"risks": ["En.", "Två."]}},
+        {"sv": {"gdpr_notes": ["En."]}},
     ],
 )
 def test_bad_translations_raise(bad):
@@ -85,3 +90,37 @@ def test_swedish_report_and_plan_use_swedish_titles():
     assert "FAQ-assistent för kundfrågor" in html
     english = render_markdown("Shop", results, today=date(2026, 1, 1))
     assert "FAQ-assistent" not in english
+
+
+def test_each_risk_and_gdpr_note_has_swedish_text():
+    for item in CATALOG:
+        sv = item.translations["sv"]
+        assert len(sv.get("risks", ())) == len(item.risks), item.key
+        assert len(sv.get("gdpr_notes", ())) == len(item.gdpr_notes), item.key
+
+
+def test_sentences_returns_translation_or_english():
+    item = by_key("support_faq_assistant")
+    assert item.sentences("risks", "sv")[1] == (
+        "Berätta för kunderna att de talar med en AI-assistent."
+    )
+    assert item.sentences("gdpr_notes") == item.gdpr_notes
+    assert item.sentences("risks", "xx") == item.risks
+    with pytest.raises(ValueError):
+        item.sentences("title", "sv")
+
+
+def test_missing_sentences_use_english():
+    _, items = parse_catalog(_catalog({"sv": {"title": "Titel"}}))
+    assert items[0].sentences("risks", "sv") == ("Check it.",)
+
+
+def test_swedish_report_has_swedish_risks_and_gdpr_notes():
+    results = score({"support_volume": True, "repeat_questions": True})
+    text = render_markdown("Butik", results, today=date(2026, 1, 1), lang="sv")
+    assert "- Berätta för kunderna att de talar med en AI-assistent." in text
+    assert "personuppgiftsbiträdesavtal (DPA)" in text
+    assert "Tell customers that they talk to an AI assistant." not in text
+    english = render_markdown("Shop", results, today=date(2026, 1, 1))
+    assert "- Tell customers that they talk to an AI assistant." in english
+    assert "personuppgiftsbiträdesavtal" not in english

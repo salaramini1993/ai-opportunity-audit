@@ -45,10 +45,12 @@ class Opportunity:
     # one short sentence. An empty tuple means that the catalog has no
     # GDPR notes for this opportunity.
     gdpr_notes: tuple[str, ...] = field(default_factory=tuple)
-    # Translated text, for example {"sv": {"title": "...", "description": "..."}}.
-    # The English text is in the "title" and "description" fields. The
-    # dict is not part of the hash or the comparison.
-    translations: dict[str, dict[str, str]] = field(
+    # Translated text, for example {"sv": {"title": "...", "risks": [...]}}.
+    # The English text is in the main fields. The "title" and
+    # "description" values are text. The "risks" and "gdpr_notes" values
+    # are tuples of sentences. The dict is not part of the hash or the
+    # comparison.
+    translations: dict[str, dict[str, Any]] = field(
         default_factory=dict, hash=False, compare=False
     )
 
@@ -60,6 +62,17 @@ class Opportunity:
         """
         if name not in TRANSLATED_FIELDS:
             raise ValueError(f"no translations for the field '{name}'")
+        english = getattr(self, name)
+        return self.translations.get(lang, {}).get(name, english)
+
+    def sentences(self, name: str, lang: str = "en") -> tuple[str, ...]:
+        """Return the "risks" or the "gdpr_notes" in the language.
+
+        If the catalog has no translation for the language, return the
+        English sentences.
+        """
+        if name not in TRANSLATED_LISTS:
+            raise ValueError(f"no translated sentences for the field '{name}'")
         english = getattr(self, name)
         return self.translations.get(lang, {}).get(name, english)
 
@@ -92,8 +105,10 @@ _KNOWN_FIELDS = set(_REQUIRED_FIELDS) | {
     "gdpr_notes",
     "translations",
 }
-# The fields that can have a translation.
+# The text fields that can have a translation.
 TRANSLATED_FIELDS = ("title", "description")
+# The sentence list fields that can have a translation.
+TRANSLATED_LISTS = ("risks", "gdpr_notes")
 MAX_HOURS_PER_WEEK = 40
 
 # Cost levels for the tool cost per month, from low to high.
@@ -155,8 +170,10 @@ def _parse_opportunity(
         )
 
     risks = _parse_sentences(raw, "risks", where)
-    translations = _parse_translations(raw.get("translations", {}), where)
     gdpr_notes = _parse_sentences(raw, "gdpr_notes", where)
+    translations = _parse_translations(
+        raw.get("translations", {}), where, {"risks": risks, "gdpr_notes": gdpr_notes}
+    )
 
     tags = raw.get("industries", [])
     if not isinstance(tags, list) or not all(isinstance(t, str) for t in tags):
@@ -184,30 +201,51 @@ def _parse_opportunity(
     )
 
 
-def _parse_translations(raw: Any, where: str) -> dict[str, dict[str, str]]:
+def _parse_translations(
+    raw: Any, where: str, english: dict[str, tuple[str, ...]]
+) -> dict[str, dict[str, Any]]:
     """Check the optional "translations" field and return it.
 
     The field is an object. Each key is a language code, for example
-    "sv". Each value is an object with the fields "title" and
-    "description". Each field is optional. Each value must be a text
-    that is not empty. Do not use "en": the English text is in the
-    main fields.
+    "sv". Each value is an object with the optional fields "title",
+    "description", "risks" and "gdpr_notes". The "title" and
+    "description" values must be text that is not empty. The "risks"
+    and "gdpr_notes" values must be lists of text that is not empty.
+    Each list must have the same number of sentences as the English
+    list, so that the two lists stay in step. Do not use "en": the
+    English text is in the main fields.
     """
+    allowed = set(TRANSLATED_FIELDS) | set(TRANSLATED_LISTS)
     message = (
         f"{where}: 'translations' must be an object of language codes, "
-        f"each with the text fields: {', '.join(TRANSLATED_FIELDS)}"
+        f"each with the fields: {', '.join(TRANSLATED_FIELDS + TRANSLATED_LISTS)}"
     )
     if not isinstance(raw, dict):
         raise CatalogError(message)
-    result: dict[str, dict[str, str]] = {}
+    result: dict[str, dict[str, Any]] = {}
     for lang, fields in raw.items():
         if not isinstance(lang, str) or not lang or lang == "en":
             raise CatalogError(f"{where}: bad language code in 'translations': '{lang}'")
-        if not isinstance(fields, dict) or set(fields) - set(TRANSLATED_FIELDS):
+        if not isinstance(fields, dict) or set(fields) - allowed:
             raise CatalogError(message)
-        if not all(isinstance(v, str) and v.strip() for v in fields.values()):
-            raise CatalogError(message)
-        result[lang] = dict(fields)
+        parsed: dict[str, Any] = {}
+        for name, value in fields.items():
+            if name in TRANSLATED_FIELDS:
+                if not isinstance(value, str) or not value.strip():
+                    raise CatalogError(message)
+                parsed[name] = value
+                continue
+            if not isinstance(value, list) or not all(
+                isinstance(v, str) and v.strip() for v in value
+            ):
+                raise CatalogError(message)
+            if len(value) != len(english[name]):
+                raise CatalogError(
+                    f"{where}: 'translations' for '{lang}' must have "
+                    f"{len(english[name])} sentences in '{name}', not {len(value)}"
+                )
+            parsed[name] = tuple(value)
+        result[lang] = parsed
     return result
 
 

@@ -5,9 +5,9 @@ reference. All languages must have the same keys.
 
 Scope: this module translates the fixed text of the Markdown report
 (headings, labels, table columns, types, cost levels and the
-30/60/90-day action plan). The title and the description of each
-opportunity are translated in the catalog file, in the "translations"
-field of each opportunity.
+30/60/90-day action plan). The title, the description, the risks and
+the GDPR notes of each opportunity are translated in the catalog file,
+in the "translations" field of each opportunity.
 
 Keys that start with "plan." are for the action plan. Text with more
 than one line uses "\n" between the lines.

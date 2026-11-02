@@ -38,7 +38,7 @@ with `[x]` in the same commit as the change. Add new tasks when you find them.
   - [x] Swedish headings and labels in the Markdown report (`--lang sv`)
   - [x] Swedish text for the 30/60/90-day action plan
   - [x] Swedish title and description for the opportunities in the catalog
-  - [ ] Swedish risks and GDPR notes for the opportunities in the catalog
+  - [x] Swedish risks and GDPR notes for the opportunities in the catalog
   - [ ] Swedish HTML report
 - [ ] Report in Persian
 

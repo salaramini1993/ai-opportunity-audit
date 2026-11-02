@@ -50,10 +50,10 @@ def render_markdown(
 ) -> str:
     """Return the Markdown report.
 
-    The lang code selects the language of the report text. The title
-    and the description of each opportunity use the catalog translation.
-    If the catalog has no translation, they stay in English. The risks
-    and the GDPR notes stay in English.
+    The lang code selects the language of the report text. The title,
+    the description, the risks and the GDPR notes of each opportunity
+    use the catalog translation. If the catalog has no translation, they
+    stay in English.
     """
     validate_language(lang)
     today = today or date.today()
@@ -114,11 +114,11 @@ def render_markdown(
             lines_.append("")
         if o.risks:
             lines_ += [t(lang, "risks"), ""]
-            lines_ += [f"- {risk}" for risk in o.risks]
+            lines_ += [f"- {risk}" for risk in o.sentences("risks", lang)]
             lines_.append("")
         if o.gdpr_notes:
             lines_ += [t(lang, "gdpr_notes"), ""]
-            lines_ += [f"- {note}" for note in o.gdpr_notes]
+            lines_ += [f"- {note}" for note in o.sentences("gdpr_notes", lang)]
             lines_.append("")
     lines_ += [
         *lines(lang, "time_note"),

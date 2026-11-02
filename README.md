@@ -69,16 +69,19 @@ aiaudit --answers examples/online_shop.json --lang sv --out rapport.md
 
 The default language is English (`en`). The `--lang` option changes the
 headings, the table columns, the types, the cost levels, the action plan
-and the title and description of each opportunity. The risks and the
-GDPR notes stay in English. The HTML and CSV formats do not use this
-option.
+and the title, description, risks and GDPR notes of each opportunity.
+The HTML and CSV formats do not use this option.
 
 The catalog keeps the translations in the `translations` field of each
 opportunity:
 
 ```json
-"translations": {"sv": {"title": "...", "description": "..."}}
+"translations": {"sv": {"title": "...", "description": "...",
+                         "risks": ["..."], "gdpr_notes": ["..."]}}
 ```
+
+The `risks` and `gdpr_notes` lists must have the same number of
+sentences as the English lists.
 
 If an opportunity has no translation for the language, the report uses
 the English text.
