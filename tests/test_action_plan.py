@@ -94,3 +94,90 @@ def test_empty_html_report_has_no_plan():
 
     text = render_html("Test AB", [], today=date(2026, 1, 1))
     assert "action plan" not in text
+
+
+# Swedish text for the action plan.
+
+def _sv_results():
+    from aiaudit.scoring import score
+
+    return score({"sells_products": True, "many_products": True, "multi_language": True})
+
+
+def test_swedish_plan_phases():
+    from aiaudit.action_plan import build_action_plan
+
+    phases = build_action_plan(_sv_results(), lang="sv")
+    assert [p.title for p in phases] == ["Dag 1-30", "Dag 31-60", "Dag 61-90"]
+    assert phases[0].goal == "Starta en möjlighet och mät resultatet."
+    assert all(len(p.steps) == 3 for p in phases)
+
+
+def test_swedish_plan_same_items_as_english():
+    from aiaudit.action_plan import build_action_plan
+
+    results = _sv_results()
+    en = build_action_plan(results)
+    sv = build_action_plan(results, lang="sv")
+    assert [p.items for p in en] == [p.items for p in sv]
+
+
+def test_swedish_plan_markdown():
+    from aiaudit.action_plan import render_action_plan_markdown
+    from aiaudit.i18n import t
+
+    results = _sv_results()
+    text = "\n".join(render_action_plan_markdown(results, lang="sv"))
+    assert "## Handlingsplan för 30/60/90 dagar" in text
+    assert "Mål: Starta en möjlighet och mät resultatet." in text
+    assert "Steg:" in text
+    first = render_action_plan_markdown(results, lang="sv")
+    start = next(line for line in first if line.startswith("- "))
+    quadrant = build_first_quadrant(results)
+    assert f"({t('sv', f'quadrant.{quadrant}')})" in start
+    assert "Goal:" not in text
+
+
+def build_first_quadrant(results):
+    from aiaudit.action_plan import build_action_plan
+
+    return build_action_plan(results)[0].items[0].quadrant
+
+
+def test_swedish_plan_html_is_escaped_and_translated():
+    from aiaudit.action_plan import render_action_plan_html
+
+    html = "\n".join(render_action_plan_html(_sv_results(), lang="sv"))
+    assert "<h2>Handlingsplan för 30/60/90 dagar</h2>" in html
+    assert "<p>Steg:</p>" in html
+
+
+def test_swedish_plan_empty_phase_text():
+    from aiaudit.action_plan import render_action_plan_markdown
+    from aiaudit.scoring import score
+
+    # One result only: the second phase has no new opportunity.
+    results = score({"sells_products": True})
+    assert len(results) == 1
+    text = "\n".join(render_action_plan_markdown(results, lang="sv"))
+    assert "Ingen ny möjlighet. Fortsätt med arbetet från tidigare." in text
+
+
+def test_swedish_markdown_report_has_swedish_plan():
+    from datetime import date
+
+    from aiaudit.report import render_markdown
+
+    text = render_markdown("Shop", _sv_results(), today=date(2026, 1, 1), lang="sv")
+    assert "## Handlingsplan för 30/60/90 dagar" in text
+    assert "### Dag 1-30" in text
+    assert "30/60/90-day action plan" not in text
+
+
+def test_plan_rejects_unknown_language():
+    import pytest
+
+    from aiaudit.action_plan import build_action_plan
+
+    with pytest.raises(ValueError):
+        build_action_plan(_sv_results(), lang="xx")

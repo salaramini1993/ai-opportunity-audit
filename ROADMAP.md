@@ -36,7 +36,7 @@ with `[x]` in the same commit as the change. Add new tasks when you find them.
 - [x] 30/60/90-day action plan section in the HTML report
 - [ ] Report in Swedish
   - [x] Swedish headings and labels in the Markdown report (`--lang sv`)
-  - [ ] Swedish text for the 30/60/90-day action plan
+  - [x] Swedish text for the 30/60/90-day action plan
   - [ ] Swedish text for the opportunities in the catalog
   - [ ] Swedish HTML report
 - [ ] Report in Persian

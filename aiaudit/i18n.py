@@ -4,8 +4,12 @@ Each language has a dictionary of text keys. The English text is the
 reference. All languages must have the same keys.
 
 Scope: this module translates the fixed text of the Markdown report
-(headings, labels, table columns, types and cost levels). It does not
-translate the opportunity text from the catalog or the action plan.
+(headings, labels, table columns, types, cost levels and the
+30/60/90-day action plan). It does not translate the opportunity text
+from the catalog.
+
+Keys that start with "plan." are for the action plan. Text with more
+than one line uses "\n" between the lines.
 """
 
 LANGUAGES = ("en", "sv")
@@ -58,6 +62,31 @@ TEXT: dict[str, dict[str, str]] = {
         "cost_text.low": "under 50 EUR",
         "cost_text.medium": "50-300 EUR",
         "cost_text.high": "more than 300 EUR",
+        "plan.heading": "30/60/90-day action plan",
+        "plan.goal": "Goal: {goal}",
+        "plan.steps": "Steps:",
+        "plan.none": "No new opportunity. Continue the work from before.",
+        "plan.1.title": "Days 1-30",
+        "plan.1.goal": "Start one opportunity and measure the result.",
+        "plan.1.steps": (
+            "Measure the time the task takes now, for 1 week.\n"
+            "Select a tool and test it on real work.\n"
+            "Write down the checks a person must do on the AI output."
+        ),
+        "plan.2.title": "Days 31-60",
+        "plan.2.goal": "Keep what works and add small changes.",
+        "plan.2.steps": (
+            "Compare the time before and after the first change.\n"
+            "Stop the change if it does not save time or quality drops.\n"
+            "Start the next opportunities in the list."
+        ),
+        "plan.3.title": "Days 61-90",
+        "plan.3.goal": "Plan a larger project.",
+        "plan.3.steps": (
+            "Write a short plan with the goal, the cost and the owner.\n"
+            "Do a small pilot before you change the full process.\n"
+            "Do the audit again to find new opportunities."
+        ),
     },
     "sv": {
         "title": "AI-möjlighetsanalys: {name}",
@@ -105,6 +134,31 @@ TEXT: dict[str, dict[str, str]] = {
         "cost_text.low": "under 50 EUR",
         "cost_text.medium": "50-300 EUR",
         "cost_text.high": "mer än 300 EUR",
+        "plan.heading": "Handlingsplan för 30/60/90 dagar",
+        "plan.goal": "Mål: {goal}",
+        "plan.steps": "Steg:",
+        "plan.none": "Ingen ny möjlighet. Fortsätt med arbetet från tidigare.",
+        "plan.1.title": "Dag 1-30",
+        "plan.1.goal": "Starta en möjlighet och mät resultatet.",
+        "plan.1.steps": (
+            "Mät hur lång tid uppgiften tar nu, under 1 vecka.\n"
+            "Välj ett verktyg och testa det på riktigt arbete.\n"
+            "Skriv ner de kontroller en person måste göra av AI-resultatet."
+        ),
+        "plan.2.title": "Dag 31-60",
+        "plan.2.goal": "Behåll det som fungerar och lägg till små ändringar.",
+        "plan.2.steps": (
+            "Jämför tiden före och efter den första ändringen.\n"
+            "Stoppa ändringen om den inte sparar tid eller om kvaliteten sjunker.\n"
+            "Starta nästa möjligheter i listan."
+        ),
+        "plan.3.title": "Dag 61-90",
+        "plan.3.goal": "Planera ett större projekt.",
+        "plan.3.steps": (
+            "Skriv en kort plan med mål, kostnad och ansvarig.\n"
+            "Gör ett litet pilotprojekt innan du ändrar hela processen.\n"
+            "Gör analysen igen för att hitta nya möjligheter."
+        ),
     },
 }
 

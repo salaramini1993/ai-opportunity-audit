@@ -126,7 +126,7 @@ def render_markdown(
         "",
         *[f"- {cost(level)}: {t(lang, f'cost_text.{level}')}" for level in COST_LEVELS],
         "",
-        *render_action_plan_markdown(results),
+        *render_action_plan_markdown(results, lang),
         "## " + t(lang, "next_step"),
         "",
         t(lang, "next_step_text"),
