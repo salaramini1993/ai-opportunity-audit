@@ -50,8 +50,10 @@ def render_markdown(
 ) -> str:
     """Return the Markdown report.
 
-    The lang code selects the language of the fixed report text. The
-    opportunity text from the catalog and the action plan stay in English.
+    The lang code selects the language of the report text. The title
+    and the description of each opportunity use the catalog translation.
+    If the catalog has no translation, they stay in English. The risks
+    and the GDPR notes stay in English.
     """
     validate_language(lang)
     today = today or date.today()
@@ -95,7 +97,7 @@ def render_markdown(
     for i, r in enumerate(results, start=1):
         o = r.opportunity
         lines_.append(
-            f"| {i} | {o.title} | {o.area} | {r.impact} | {r.effort} "
+            f"| {i} | {o.text('title', lang)} | {o.area} | {r.impact} | {r.effort} "
             f"| {r.priority} | {quadrant(r)} | {format_hours(r.hours_saved)} "
             f"| {cost(o.cost_per_month)} |"
         )
@@ -106,7 +108,7 @@ def render_markdown(
     lines_ += ["", "## " + t(lang, "details"), ""]
     for r in results:
         o = r.opportunity
-        lines_ += [f"### {o.title}", "", o.description, ""]
+        lines_ += [f"### {o.text('title', lang)}", "", o.text("description", lang), ""]
         if o.example_tools:
             lines_.append(t(lang, "example_tools", tools=", ".join(o.example_tools)))
             lines_.append("")

@@ -45,6 +45,23 @@ class Opportunity:
     # one short sentence. An empty tuple means that the catalog has no
     # GDPR notes for this opportunity.
     gdpr_notes: tuple[str, ...] = field(default_factory=tuple)
+    # Translated text, for example {"sv": {"title": "...", "description": "..."}}.
+    # The English text is in the "title" and "description" fields. The
+    # dict is not part of the hash or the comparison.
+    translations: dict[str, dict[str, str]] = field(
+        default_factory=dict, hash=False, compare=False
+    )
+
+    def text(self, name: str, lang: str = "en") -> str:
+        """Return the "title" or the "description" in the language.
+
+        If the catalog has no translation for the language, return the
+        English text.
+        """
+        if name not in TRANSLATED_FIELDS:
+            raise ValueError(f"no translations for the field '{name}'")
+        english = getattr(self, name)
+        return self.translations.get(lang, {}).get(name, english)
 
     @property
     def uses_personal_data(self) -> bool:
@@ -73,7 +90,10 @@ _KNOWN_FIELDS = set(_REQUIRED_FIELDS) | {
     "risks",
     "industries",
     "gdpr_notes",
+    "translations",
 }
+# The fields that can have a translation.
+TRANSLATED_FIELDS = ("title", "description")
 MAX_HOURS_PER_WEEK = 40
 
 # Cost levels for the tool cost per month, from low to high.
@@ -135,6 +155,7 @@ def _parse_opportunity(
         )
 
     risks = _parse_sentences(raw, "risks", where)
+    translations = _parse_translations(raw.get("translations", {}), where)
     gdpr_notes = _parse_sentences(raw, "gdpr_notes", where)
 
     tags = raw.get("industries", [])
@@ -159,7 +180,35 @@ def _parse_opportunity(
         risks=risks,
         industries=tuple(tags),
         gdpr_notes=gdpr_notes,
+        translations=translations,
     )
+
+
+def _parse_translations(raw: Any, where: str) -> dict[str, dict[str, str]]:
+    """Check the optional "translations" field and return it.
+
+    The field is an object. Each key is a language code, for example
+    "sv". Each value is an object with the fields "title" and
+    "description". Each field is optional. Each value must be a text
+    that is not empty. Do not use "en": the English text is in the
+    main fields.
+    """
+    message = (
+        f"{where}: 'translations' must be an object of language codes, "
+        f"each with the text fields: {', '.join(TRANSLATED_FIELDS)}"
+    )
+    if not isinstance(raw, dict):
+        raise CatalogError(message)
+    result: dict[str, dict[str, str]] = {}
+    for lang, fields in raw.items():
+        if not isinstance(lang, str) or not lang or lang == "en":
+            raise CatalogError(f"{where}: bad language code in 'translations': '{lang}'")
+        if not isinstance(fields, dict) or set(fields) - set(TRANSLATED_FIELDS):
+            raise CatalogError(message)
+        if not all(isinstance(v, str) and v.strip() for v in fields.values()):
+            raise CatalogError(message)
+        result[lang] = dict(fields)
+    return result
 
 
 def _parse_sentences(raw: dict, name: str, where: str) -> tuple[str, ...]:

@@ -96,7 +96,7 @@ def render_action_plan_markdown(
         out += [f"### {phase.title}", "", t(lang, "plan.goal", goal=phase.goal), ""]
         if phase.items:
             out += [
-                f"- {r.opportunity.title} ({t(lang, f'quadrant.{r.quadrant}')})"
+                f"- {r.opportunity.text('title', lang)} ({t(lang, f'quadrant.{r.quadrant}')})"
                 for r in phase.items
             ]
         else:
@@ -127,7 +127,7 @@ def render_action_plan_html(
         ]
         if phase.items:
             out += [
-                f"  <li>{escape(r.opportunity.title)} "
+                f"  <li>{escape(r.opportunity.text('title', lang))} "
                 f"({escape(t(lang, f'quadrant.{r.quadrant}'))})</li>"
                 for r in phase.items
             ]

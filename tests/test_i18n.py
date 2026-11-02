@@ -53,8 +53,9 @@ def test_swedish_report_labels():
     assert "| # | Möjlighet | Område |" in text
     assert "## Nästa steg" in text
     assert "- låg: under 50 EUR" in text
-    # The catalog text stays in English in this version.
-    assert "Product descriptions and listings" in text
+    # The catalog text is in Swedish too.
+    assert "Produktbeskrivningar och produktsidor" in text
+    assert "Product descriptions and listings" not in text
     # The types in the table are in Swedish.
     swedish_types = {t("sv", f"quadrant.{r.quadrant}") for r in results}
     for name in swedish_types:

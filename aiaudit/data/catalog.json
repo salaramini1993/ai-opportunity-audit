@@ -46,7 +46,13 @@
         "Make a data processing agreement (DPA) with the tool supplier.",
         "Tell customers in your privacy notice that an AI tool reads their questions.",
         "Set a time limit for chat logs. Delete old logs."
-      ]
+      ],
+      "translations": {
+        "sv": {
+          "title": "FAQ-assistent för kundfrågor",
+          "description": "Använd en AI-assistent för att svara på vanliga kundfrågor. Skicka svåra frågor till en person."
+        }
+      }
     },
     {
       "key": "support_reply_drafts",
@@ -75,7 +81,13 @@
         "Support emails contain names, email addresses and order data. This is personal data.",
         "Make a data processing agreement (DPA) with the tool supplier.",
         "Make sure that the supplier does not use your emails to train its models."
-      ]
+      ],
+      "translations": {
+        "sv": {
+          "title": "Utkast till svar på supportmejl",
+          "description": "Låt AI skriva ett första utkast till varje svar. En person kontrollerar och skickar svaret."
+        }
+      }
     },
     {
       "key": "product_descriptions",
@@ -103,7 +115,13 @@
       "industries": [
         "retail",
         "manufacturing"
-      ]
+      ],
+      "translations": {
+        "sv": {
+          "title": "Produktbeskrivningar och produktsidor",
+          "description": "Skapa produkttitlar och beskrivningar från en kort specifikation. Översätt dem till fler språk."
+        }
+      }
     },
     {
       "key": "social_content",
@@ -127,7 +145,13 @@
       "risks": [
         "A person must approve each post before it is published.",
         "Do not use images or text that you do not have the rights to."
-      ]
+      ],
+      "translations": {
+        "sv": {
+          "title": "Innehållsplan för sociala medier",
+          "description": "Gör en veckoplan med inlägg och första utkast till texten. En person godkänner varje inlägg."
+        }
+      }
     },
     {
       "key": "lead_qualification",
@@ -161,7 +185,13 @@
         "Write down your legal basis for the processing, for example legitimate interest.",
         "Make a data processing agreement (DPA) with the tool supplier.",
         "Do not let the AI make decisions that have a large effect on a person without a human check."
-      ]
+      ],
+      "translations": {
+        "sv": {
+          "title": "Sortering och uppföljning av leads",
+          "description": "Sortera nya leads efter passform och skriv utkast till uppföljningsmeddelanden. Spara resultatet i CRM-systemet."
+        }
+      }
     },
     {
       "key": "quote_generation",
@@ -187,7 +217,13 @@
       "industries": [
         "services",
         "manufacturing"
-      ]
+      ],
+      "translations": {
+        "sv": {
+          "title": "Snabbare offerter",
+          "description": "Gör offertdokument från en mall och kundens förfrågan. En person kontrollerar priserna."
+        }
+      }
     },
     {
       "key": "invoice_extraction",
@@ -216,7 +252,13 @@
         "Invoices and receipts can contain names, addresses and bank details. This is personal data.",
         "Make a data processing agreement (DPA) with the tool supplier.",
         "Keep the documents only for the time that the accounting law requires."
-      ]
+      ],
+      "translations": {
+        "sv": {
+          "title": "Läs fakturor och kvitton automatiskt",
+          "description": "Hämta data från fakturor och kvitton och för in den i bokföringssystemet."
+        }
+      }
     },
     {
       "key": "cashflow_summary",
@@ -240,7 +282,13 @@
       "risks": [
         "Financial data is confidential. Do not upload it to a tool that trains on your data.",
         "Check the numbers in the summary against the export."
-      ]
+      ],
+      "translations": {
+        "sv": {
+          "title": "Månatlig ekonomisammanfattning",
+          "description": "Gör en kort sammanfattning av intäkter, kostnader och trender från månadens export."
+        }
+      }
     },
     {
       "key": "inventory_forecast",
@@ -269,7 +317,13 @@
         "retail",
         "manufacturing",
         "restaurant"
-      ]
+      ],
+      "translations": {
+        "sv": {
+          "title": "Prognos för lager och påfyllning",
+          "description": "Använd försäljningshistoriken för att uppskatta när du ska beställa mer lager och hur mycket."
+        }
+      }
     },
     {
       "key": "supplier_communication",
@@ -302,7 +356,13 @@
       "gdpr_notes": [
         "Supplier messages contain the names and contact data of persons. This is personal data.",
         "Make a data processing agreement (DPA) with the tool supplier."
-      ]
+      ],
+      "translations": {
+        "sv": {
+          "title": "Meddelanden till leverantörer och översättning",
+          "description": "Skriv och översätt utkast till meddelanden till leverantörer. Sammanfatta långa mejltrådar med leverantörer."
+        }
+      }
     },
     {
       "key": "meeting_notes",
@@ -331,7 +391,13 @@
         "Get consent or have a different legal basis before you record a meeting.",
         "Make a data processing agreement (DPA) with the tool supplier.",
         "Set a time limit for recordings. Delete old recordings."
-      ]
+      ],
+      "translations": {
+        "sv": {
+          "title": "Mötesanteckningar och uppgifter",
+          "description": "Spela in möten, gör en sammanfattning och en lista med uppgifter för varje person."
+        }
+      }
     },
     {
       "key": "document_search",
@@ -359,7 +425,13 @@
       "gdpr_notes": [
         "Internal documents can contain staff data or customer data. Remove this data before you load the documents, or limit access.",
         "Make a data processing agreement (DPA) with the tool supplier."
-      ]
+      ],
+      "translations": {
+        "sv": {
+          "title": "Sök i interna dokument",
+          "description": "Låt personalen ställa frågor om interna dokument, till exempel rutiner och prislistor."
+        }
+      }
     },
     {
       "key": "hr_job_ads",
@@ -386,7 +458,13 @@
       ],
       "gdpr_notes": [
         "A job ad usually contains no personal data. Do not put the names of current staff into the prompt."
-      ]
+      ],
+      "translations": {
+        "sv": {
+          "title": "Platsannonser och rollbeskrivningar",
+          "description": "Låt AI skriva ett första utkast till varje platsannons från en kort lista med uppgifter och kompetenser. En person kontrollerar och publicerar annonsen."
+        }
+      }
     },
     {
       "key": "hr_cv_screening",
@@ -420,7 +498,13 @@
         "Do a data protection impact assessment (DPIA) before you start.",
         "Make a data processing agreement (DPA) with the tool supplier.",
         "Delete applications when the recruitment is closed, or get consent to keep them."
-      ]
+      ],
+      "translations": {
+        "sv": {
+          "title": "CV-granskning med mänsklig kontroll",
+          "description": "Låt AI jämföra varje ansökan med kraven för tjänsten och skriva en kort sammanfattning. En person läser sammanfattningarna och fattar alla beslut."
+        }
+      }
     },
     {
       "key": "ecommerce_review_replies",
@@ -452,7 +536,13 @@
       "gdpr_notes": [
         "Reviews contain the names of customers. Do not put more customer data into the reply.",
         "Make a data processing agreement (DPA) with the tool supplier."
-      ]
+      ],
+      "translations": {
+        "sv": {
+          "title": "Svar på produktrecensioner",
+          "description": "Låt AI skriva ett första utkast till ett svar på varje produktrecension. En person kontrollerar utkastet och publicerar det sedan."
+        }
+      }
     },
     {
       "key": "ecommerce_return_reasons",
@@ -483,7 +573,13 @@
       "gdpr_notes": [
         "Return comments can contain names and addresses. Remove this data before the AI reads the comments.",
         "Make a data processing agreement (DPA) with the tool supplier."
-      ]
+      ],
+      "translations": {
+        "sv": {
+          "title": "Analys av returorsaker",
+          "description": "Låt AI läsa returorsakerna och kundernas kommentarer och sortera dem i grupper. Använd grupperna för att hitta produkter med problem."
+        }
+      }
     },
     {
       "key": "logistics_shipment_status_replies",
@@ -516,7 +612,13 @@
         "Tracking data contains names and delivery addresses. This is personal data.",
         "Make a data processing agreement (DPA) with the tool supplier.",
         "Show the delivery address only to the customer who owns the order."
-      ]
+      ],
+      "translations": {
+        "sv": {
+          "title": "Svar på frågor om leveransstatus",
+          "description": "Låt AI läsa spårningsdata från transportören och skriva ett svar på frågor om var ordern är. En person kontrollerar svar om förlorade eller sena paket."
+        }
+      }
     },
     {
       "key": "logistics_customs_document_check",
@@ -548,7 +650,13 @@
       "gdpr_notes": [
         "Customs documents contain the names and addresses of the sender and the receiver. This is personal data.",
         "Make a data processing agreement (DPA) with the tool supplier."
-      ]
+      ],
+      "translations": {
+        "sv": {
+          "title": "Kontroll av tulldokument",
+          "description": "Låt AI jämföra fakturan, packlistan och tulldeklarationen innan du skickar en försändelse. AI visar de fält som inte stämmer överens."
+        }
+      }
     }
   ]
 }
