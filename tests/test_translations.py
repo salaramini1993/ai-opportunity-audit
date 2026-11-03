@@ -27,13 +27,14 @@ def _catalog(translations, risks=None):
     }
 
 
-# Languages that have catalog text. Persian ("fa") has only the fixed
-# report text for now. Add "fa" here when the catalog has Persian text.
-CATALOG_LANGUAGES = tuple(lang for lang in LANGUAGES if lang not in ("en", "fa"))
+# Languages that have a catalog title and description. English text is
+# in the main fields.
+CATALOG_LANGUAGES = tuple(lang for lang in LANGUAGES if lang != "en")
 
 
 def test_each_opportunity_has_text_in_each_language():
     assert "sv" in CATALOG_LANGUAGES
+    assert "fa" in CATALOG_LANGUAGES
     for item in CATALOG:
         for lang in CATALOG_LANGUAGES:
             assert item.translations[lang]["title"].strip(), (item.key, lang)
@@ -128,3 +129,16 @@ def test_swedish_report_has_swedish_risks_and_gdpr_notes():
     english = render_markdown("Shop", results, today=date(2026, 1, 1))
     assert "- Tell customers that they talk to an AI assistant." in english
     assert "personuppgiftsbiträdesavtal" not in english
+
+
+def test_persian_report_and_plan_use_persian_titles():
+    results = score({"support_volume": True, "repeat_questions": True})
+    title = "دستیار پرسش‌های متداول برای پرسش‌های مشتریان"
+    text = render_markdown("فروشگاه", results, today=date(2026, 1, 1), lang="fa")
+    assert f"### {title}" in text
+    assert "از یک دستیار هوش مصنوعی" in text
+    assert "FAQ assistant for customer questions" not in text
+    plan = "\n".join(render_action_plan_markdown(results, "fa"))
+    assert title in plan
+    html = "\n".join(render_action_plan_html(results, "fa"))
+    assert title in html

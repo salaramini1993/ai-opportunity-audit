@@ -62,6 +62,10 @@
             "Berätta i din integritetspolicy att ett AI-verktyg läser kundernas frågor.",
             "Bestäm en tidsgräns för chattloggar. Radera gamla loggar."
           ]
+        },
+        "fa": {
+          "title": "دستیار پرسش‌های متداول برای پرسش‌های مشتریان",
+          "description": "از یک دستیار هوش مصنوعی برای پاسخ به پرسش‌های رایج مشتریان استفاده کنید. پرسش‌های دشوار را به یک شخص بفرستید."
         }
       }
     },
@@ -106,6 +110,10 @@
             "Gör ett personuppgiftsbiträdesavtal (DPA) med leverantören av verktyget.",
             "Se till att leverantören inte använder dina mejl för att träna sina modeller."
           ]
+        },
+        "fa": {
+          "title": "پیش‌نویس پاسخ برای ایمیل‌های پشتیبانی",
+          "description": "بگذارید هوش مصنوعی پیش‌نویس اول هر پاسخ را بنویسد. یک شخص پاسخ را بررسی می‌کند و می‌فرستد."
         }
       }
     },
@@ -144,6 +152,10 @@
             "Kontrollera fakta som storlek, material och säkerhetspåståenden innan du publicerar.",
             "Låt en person med språket som modersmål kontrollera varje översättning."
           ]
+        },
+        "fa": {
+          "title": "توضیحات و آگهی‌های محصول",
+          "description": "عنوان و توضیحات محصول را از یک مشخصات کوتاه بسازید. آن‌ها را به زبان‌های دیگر ترجمه کنید."
         }
       }
     },
@@ -178,6 +190,10 @@
             "En person måste godkänna varje inlägg innan det publiceras.",
             "Använd inte bilder eller text som du inte har rätt att använda."
           ]
+        },
+        "fa": {
+          "title": "برنامهٔ محتوای شبکه‌های اجتماعی",
+          "description": "یک برنامهٔ هفتگی از پست‌ها و پیش‌نویس اول متن‌ها بسازید. یک شخص هر پست را تأیید می‌کند."
         }
       }
     },
@@ -228,6 +244,10 @@
             "Gör ett personuppgiftsbiträdesavtal (DPA) med leverantören av verktyget.",
             "Låt inte AI fatta beslut som har stor effekt på en person utan en mänsklig kontroll."
           ]
+        },
+        "fa": {
+          "title": "دسته‌بندی و پیگیری مشتریان بالقوه",
+          "description": "مشتریان بالقوهٔ جدید را بر اساس تناسب دسته‌بندی کنید و پیام‌های پیگیری را پیش‌نویس کنید. نتیجه را در CRM ثبت کنید."
         }
       }
     },
@@ -264,6 +284,10 @@
             "En person måste kontrollera priser, rabatter och villkor innan offerten skickas.",
             "Håll prislistan uppdaterad. Gamla priser ger fel offerter."
           ]
+        },
+        "fa": {
+          "title": "پیش‌فاکتور و پیشنهاد سریع‌تر",
+          "description": "اسناد پیش‌فاکتور را از یک قالب و درخواست مشتری بسازید. یک شخص قیمت‌ها را بررسی می‌کند."
         }
       }
     },
@@ -308,6 +332,10 @@
             "Gör ett personuppgiftsbiträdesavtal (DPA) med leverantören av verktyget.",
             "Spara dokumenten bara så länge som bokföringslagen kräver."
           ]
+        },
+        "fa": {
+          "title": "خواندن خودکار فاکتورها و رسیدها",
+          "description": "داده‌ها را از فاکتورها و رسیدها استخراج کنید و در سیستم حسابداری وارد کنید."
         }
       }
     },
@@ -342,6 +370,10 @@
             "Finansiella uppgifter är konfidentiella. Ladda inte upp dem till ett verktyg som tränar på dina data.",
             "Jämför siffrorna i sammanfattningen med exporten."
           ]
+        },
+        "fa": {
+          "title": "خلاصهٔ مالی ماهانه",
+          "description": "از خروجی ماهانه یک خلاصهٔ کوتاه از درآمد، هزینه‌ها و روندها بسازید."
         }
       }
     },
@@ -381,6 +413,10 @@
             "Prognosen kan bli fel efter en stor förändring, till exempel en ny produkt eller en rea.",
             "En person måste godkänna varje beställning."
           ]
+        },
+        "fa": {
+          "title": "پیش‌بینی موجودی و سفارش مجدد",
+          "description": "از سابقهٔ فروش استفاده کنید تا زمان و مقدار سفارش مجدد موجودی را تخمین بزنید."
         }
       }
     },
@@ -428,6 +464,10 @@
             "Meddelanden till leverantörer innehåller namn och kontaktuppgifter till personer. Detta är personuppgifter.",
             "Gör ett personuppgiftsbiträdesavtal (DPA) med leverantören av verktyget."
           ]
+        },
+        "fa": {
+          "title": "پیام‌ها و ترجمه برای تأمین‌کنندگان",
+          "description": "پیام‌ها به تأمین‌کنندگان را پیش‌نویس و ترجمه کنید. گفتگوهای طولانی با تأمین‌کنندگان را خلاصه کنید."
         }
       }
     },
@@ -474,6 +514,10 @@
             "Gör ett personuppgiftsbiträdesavtal (DPA) med leverantören av verktyget.",
             "Bestäm en tidsgräns för inspelningar. Radera gamla inspelningar."
           ]
+        },
+        "fa": {
+          "title": "یادداشت جلسه و کارهای پیگیری",
+          "description": "جلسه‌ها را ضبط کنید و یک خلاصه و فهرست کارها برای هر شخص بسازید."
         }
       }
     },
@@ -516,6 +560,10 @@
             "Interna dokument kan innehålla uppgifter om personal eller kunder. Ta bort dessa uppgifter innan du laddar in dokumenten, eller begränsa åtkomsten.",
             "Gör ett personuppgiftsbiträdesavtal (DPA) med leverantören av verktyget."
           ]
+        },
+        "fa": {
+          "title": "جستجو در اسناد داخلی",
+          "description": "بگذارید کارکنان دربارهٔ اسناد داخلی، برای مثال روش‌های کار و فهرست قیمت‌ها، پرسش کنند."
         }
       }
     },
@@ -556,6 +604,10 @@
           "gdpr_notes": [
             "En jobbannons innehåller oftast inga personuppgifter. Skriv inte namn på nuvarande anställda i prompten."
           ]
+        },
+        "fa": {
+          "title": "آگهی استخدام و شرح شغل",
+          "description": "بگذارید هوش مصنوعی پیش‌نویس اول هر آگهی استخدام را از یک فهرست کوتاه از وظایف و مهارت‌ها بنویسد. یک شخص آگهی را بررسی و منتشر می‌کند."
         }
       }
     },
@@ -610,6 +662,10 @@
             "Gör ett personuppgiftsbiträdesavtal (DPA) med leverantören av verktyget.",
             "Radera ansökningar när rekryteringen är avslutad, eller få samtycke för att spara dem."
           ]
+        },
+        "fa": {
+          "title": "غربالگری رزومه با بازبینی انسانی",
+          "description": "بگذارید هوش مصنوعی هر درخواست را با الزامات شغل مقایسه کند و یک خلاصهٔ کوتاه بنویسد. یک شخص خلاصه‌ها را می‌خواند و همهٔ تصمیم‌ها را می‌گیرد."
         }
       }
     },
@@ -656,6 +712,10 @@
             "Recensioner innehåller kundernas namn. Lägg inte till fler kunduppgifter i svaret.",
             "Gör ett personuppgiftsbiträdesavtal (DPA) med leverantören av verktyget."
           ]
+        },
+        "fa": {
+          "title": "پاسخ به نظرهای محصول",
+          "description": "بگذارید هوش مصنوعی پیش‌نویس اول پاسخ به هر نظر محصول را بنویسد. یک شخص پیش‌نویس را بررسی می‌کند و سپس منتشر می‌کند."
         }
       }
     },
@@ -701,6 +761,10 @@
             "Returkommentarer kan innehålla namn och adresser. Ta bort dessa uppgifter innan AI läser kommentarerna.",
             "Gör ett personuppgiftsbiträdesavtal (DPA) med leverantören av verktyget."
           ]
+        },
+        "fa": {
+          "title": "تحلیل دلایل مرجوعی",
+          "description": "بگذارید هوش مصنوعی دلایل مرجوعی و نظرهای مشتریان را بخواند و آن‌ها را گروه‌بندی کند. از گروه‌ها برای یافتن محصولات دارای مشکل استفاده کنید."
         }
       }
     },
@@ -749,6 +813,10 @@
             "Gör ett personuppgiftsbiträdesavtal (DPA) med leverantören av verktyget.",
             "Visa leveransadressen bara för kunden som äger ordern."
           ]
+        },
+        "fa": {
+          "title": "پاسخ به پرسش‌های وضعیت ارسال",
+          "description": "بگذارید هوش مصنوعی داده‌های رهگیری شرکت حمل را بخواند و به پیام‌های «سفارش من کجاست؟» پاسخ بنویسد. یک شخص پاسخ‌ها دربارهٔ بسته‌های گم‌شده یا دیررسیده را بررسی می‌کند."
         }
       }
     },
@@ -795,6 +863,10 @@
             "Tulldokument innehåller namn och adresser till avsändaren och mottagaren. Detta är personuppgifter.",
             "Gör ett personuppgiftsbiträdesavtal (DPA) med leverantören av verktyget."
           ]
+        },
+        "fa": {
+          "title": "بررسی اسناد گمرکی",
+          "description": "بگذارید هوش مصنوعی پیش از ارسال محموله، فاکتور، فهرست بسته‌بندی و اظهارنامهٔ گمرکی را مقایسه کند. هوش مصنوعی فیلدهایی را که با هم مطابقت ندارند نشان می‌دهد."
         }
       }
     }

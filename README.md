@@ -75,9 +75,9 @@ and the title, description, risks and GDPR notes of each opportunity.
 The CSV format does not use this option. The labels inside the
 impact/effort chart of the HTML report use the same language.
 
-Persian support is not complete yet. The report text is in Persian, but
-the text of each opportunity is in English. The HTML report does not use
-a right-to-left layout yet.
+Persian support is not complete yet. The report text and the title and
+description of each opportunity are in Persian. The risks and GDPR notes
+are in English. The HTML report does not use a right-to-left layout yet.
 
 The catalog keeps the translations in the `translations` field of each
 opportunity:

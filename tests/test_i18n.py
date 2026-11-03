@@ -103,8 +103,9 @@ def test_persian_report_labels():
     assert "- کم: کمتر از 50 یورو" in text
     for name in {t("fa", f"quadrant.{r.quadrant}") for r in results}:
         assert f"| {name} |" in text
-    # The catalog has no Persian text yet, so the opportunity text is English.
-    assert "Product descriptions and listings" in text
+    # The catalog has a Persian title for each opportunity.
+    assert "توضیحات و آگهی‌های محصول" in text
+    assert "Product descriptions and listings" not in text
     # No English heading is left in the report.
     assert "## Summary" not in text
 

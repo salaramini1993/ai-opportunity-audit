@@ -44,7 +44,7 @@ with `[x]` in the same commit as the change. Add new tasks when you find them.
     - [x] Swedish labels inside the impact/effort chart
 - [ ] Report in Persian
   - [x] Persian headings, labels and plan text in the Markdown report (`--lang fa`)
-  - [ ] Persian title and description for the opportunities in the catalog
+  - [x] Persian title and description for the opportunities in the catalog
   - [ ] Persian risks and GDPR notes for the opportunities in the catalog
   - [ ] Right-to-left layout (`dir="rtl"`) in the Persian HTML report and chart
 
