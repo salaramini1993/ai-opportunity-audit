@@ -21,6 +21,8 @@ than one line uses "\n" between the lines.
 
 LANGUAGES = ("en", "sv", "fa")
 DEFAULT_LANGUAGE = "en"
+# Languages that are written from right to left.
+RTL_LANGUAGES = ("fa",)
 
 TEXT: dict[str, dict[str, str]] = {
     "en": {
@@ -289,6 +291,14 @@ def validate_language(lang: str) -> str:
     if lang not in TEXT:
         raise ValueError(f"unknown language '{lang}'. Use one of: {', '.join(LANGUAGES)}")
     return lang
+
+
+def text_direction(lang: str) -> str:
+    """Return the text direction of the language: "rtl" or "ltr".
+
+    Use the value for the HTML dir attribute.
+    """
+    return "rtl" if validate_language(lang) in RTL_LANGUAGES else "ltr"
 
 
 def t(lang: str, key: str, **values: object) -> str:

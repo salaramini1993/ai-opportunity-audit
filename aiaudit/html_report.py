@@ -12,18 +12,20 @@ from html import escape
 from .action_plan import render_action_plan_html
 from .catalog import COST_LEVELS
 from .chart import render_svg
-from .i18n import DEFAULT_LANGUAGE, lines, t, validate_language
+from .i18n import DEFAULT_LANGUAGE, lines, t, text_direction, validate_language
 from .report import format_cost, format_hours
 from .scoring import ScoredOpportunity, total_hours_saved
 
 # Keep the style small. The report must look good when you print it.
+# Use "start" and "end", not "left" and "right". Then the table is also
+# correct in a right-to-left report.
 _STYLE = """
 body { font-family: system-ui, sans-serif; max-width: 960px; margin: 2em auto;
        padding: 0 1em; color: #222; line-height: 1.5; }
 table { border-collapse: collapse; width: 100%; }
-th, td { border: 1px solid #ccc; padding: 0.3em 0.5em; text-align: left; }
+th, td { border: 1px solid #ccc; padding: 0.3em 0.5em; text-align: start; }
 th { background: #f2f2f2; }
-td.num { text-align: right; }
+td.num { text-align: end; }
 .note { color: #555; }
 svg.chart { width: 100%; max-width: 480px; height: auto; display: block; }
 """
@@ -49,6 +51,10 @@ def render_html(
     The lang code selects the language of the report text. The
     opportunity text uses the catalog translation, as in the Markdown
     report. The labels inside the chart use the same language.
+
+    For a right-to-left language (for example Persian), the <html>
+    element gets dir="rtl". The chart keeps a left-to-right layout,
+    because low effort is always on the left.
     """
     validate_language(lang)
     today = today or date.today()
@@ -66,7 +72,7 @@ def render_html(
     title = t(lang, "title", name=business_name)
     out = [
         "<!doctype html>",
-        f'<html lang="{lang}">',
+        f'<html lang="{lang}" dir="{text_direction(lang)}">',
         "<head>",
         '<meta charset="utf-8">',
         '<meta name="viewport" content="width=device-width, initial-scale=1">',

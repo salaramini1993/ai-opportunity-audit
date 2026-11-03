@@ -6,6 +6,11 @@ the top). Each opportunity is a circle with its number from the
 priority list. Lines divide the chart into the four types (quadrants)
 from scoring.py.
 
+The chart always has a left-to-right layout (direction="ltr"), also in
+a right-to-left report. Then the axes and the text anchors of the labels
+do not change. The browser still shows right-to-left text in the
+labels in the correct order.
+
 The SVG uses no script and no external files. It shows in all modern
 web browsers and in print.
 """
@@ -88,7 +93,8 @@ def render_svg(results: list[ScoredOpportunity], lang: str = DEFAULT_LANGUAGE) -
     mid_y = _y(IMPACT_BORDER)
     lines = [
         f'<svg class="chart" viewBox="0 0 {WIDTH} {HEIGHT}" role="img" '
-        'aria-labelledby="chart-title" xmlns="http://www.w3.org/2000/svg">',
+        'aria-labelledby="chart-title" direction="ltr" '
+        'xmlns="http://www.w3.org/2000/svg">',
         '<title id="chart-title">' + escape(t(lang, "chart_svg_title")) + "</title>",
         f'<rect x="{left}" y="{top}" width="{right - left}" height="{bottom - top}" '
         'fill="#fff" stroke="#999"/>',
