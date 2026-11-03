@@ -27,11 +27,15 @@ def _catalog(translations, risks=None):
     }
 
 
+# Languages that have catalog text. Persian ("fa") has only the fixed
+# report text for now. Add "fa" here when the catalog has Persian text.
+CATALOG_LANGUAGES = tuple(lang for lang in LANGUAGES if lang not in ("en", "fa"))
+
+
 def test_each_opportunity_has_text_in_each_language():
+    assert "sv" in CATALOG_LANGUAGES
     for item in CATALOG:
-        for lang in LANGUAGES:
-            if lang == "en":
-                continue
+        for lang in CATALOG_LANGUAGES:
             assert item.translations[lang]["title"].strip(), (item.key, lang)
             assert item.translations[lang]["description"].strip(), (item.key, lang)
 

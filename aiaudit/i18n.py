@@ -10,11 +10,16 @@ chart section of the HTML report, including the labels inside the chart. The tit
 the GDPR notes of each opportunity are translated in the catalog file,
 in the "translations" field of each opportunity.
 
+Persian ("fa") has the fixed text of the reports. The catalog does not
+have Persian text yet, so the opportunity text is in English. Persian is
+written from right to left. The numbers in the Persian text are Western
+digits, because the scores and the hours use Western digits.
+
 Keys that start with "plan." are for the action plan. Text with more
 than one line uses "\n" between the lines.
 """
 
-LANGUAGES = ("en", "sv")
+LANGUAGES = ("en", "sv", "fa")
 DEFAULT_LANGUAGE = "en"
 
 TEXT: dict[str, dict[str, str]] = {
@@ -186,6 +191,91 @@ TEXT: dict[str, dict[str, str]] = {
             "Skriv en kort plan med mål, kostnad och ansvarig.\n"
             "Gör ett litet pilotprojekt innan du ändrar hela processen.\n"
             "Gör analysen igen för att hitta nya möjligheter."
+        ),
+    },
+    "fa": {
+        "title": "ممیزی فرصت‌های هوش مصنوعی: {name}",
+        "date": "تاریخ: {date}",
+        "industry": "صنعت: {industry}",
+        "empty_1": "ممیزی در پاسخ‌ها هیچ فرصت روشنی برای هوش مصنوعی پیدا نکرد.",
+        "empty_2": "وقتی کسب‌وکار تغییر کرد، ممیزی را دوباره انجام دهید.",
+        "summary": "خلاصه",
+        "found": "فرصت‌های پیداشده: {count}",
+        "quick_wins": "بردهای سریع: {count}",
+        "time_saved": "زمان صرفه‌جویی‌شده (تخمینی): {hours} ساعت در هفته",
+        "priority_list": "فهرست اولویت‌ها",
+        "col_opportunity": "فرصت",
+        "col_area": "حوزه",
+        "col_impact": "اثر",
+        "col_effort": "تلاش",
+        "col_priority": "اولویت",
+        "col_type": "نوع",
+        "col_hours": "ساعت/هفته",
+        "col_cost": "هزینه/ماه",
+        "weights_used": "وزن حوزه‌ها که برای اولویت به کار رفت:",
+        "chart_heading": "اثر و تلاش",
+        "chart_intro": (
+            "هر دایره یک فرصت است. عدد، جایگاه آن در فهرست اولویت‌ها است. "
+            "از دایره‌های بالا و چپ شروع کنید."
+        ),
+        "chart_svg_title": "اثر و تلاش هر فرصت",
+        "chart_quick_wins": "بردهای سریع",
+        "chart_strategic": "پروژه‌های راهبردی",
+        "chart_small": "بهبودهای کوچک",
+        "chart_not_now": "فعلاً نه",
+        "chart_x_axis": "تلاش (1 = کم)",
+        "chart_y_axis": "اثر (5 = زیاد)",
+        "chart_point": "{number}. {title} (اثر {impact}، تلاش {effort})",
+        "details": "جزئیات",
+        "example_tools": "نمونه ابزارها: {tools}",
+        "risks": "ریسک‌ها و بررسی‌ها:",
+        "gdpr_notes": "یادداشت‌های GDPR (این فرصت از داده‌های شخصی استفاده می‌کند):",
+        "time_note": (
+            "تخمین‌های زمان تقریبی هستند. آن‌ها برای یک کسب‌وکار کوچک هستند و\n"
+            "با میزان تناسب تغییر می‌کنند. زمان واقعی را قبل و بعد اندازه بگیرید."
+        ),
+        "gdpr_footer": (
+            "{count} فرصت از {total} فرصت از داده‌های شخصی استفاده می‌کنند.\n"
+            "پیش از شروع، یادداشت‌های GDPR این فرصت‌ها را بخوانید. این یادداشت‌ها\n"
+            "یک چک‌لیست هستند. آن‌ها مشاوره حقوقی نیستند."
+        ),
+        "cost_levels": "سطح‌های هزینه برای هزینه ماهانه ابزار هستند:",
+        "next_step": "گام بعدی",
+        "next_step_text": "با اولین برد سریع شروع کنید. زمانی را که صرفه‌جویی می‌کند 4 هفته اندازه بگیرید.",
+        "quadrant.quick win": "برد سریع",
+        "quadrant.strategic project": "پروژه راهبردی",
+        "quadrant.small improvement": "بهبود کوچک",
+        "quadrant.not now": "فعلاً نه",
+        "cost.low": "کم",
+        "cost.medium": "متوسط",
+        "cost.high": "زیاد",
+        "cost_text.low": "کمتر از 50 یورو",
+        "cost_text.medium": "50 تا 300 یورو",
+        "cost_text.high": "بیشتر از 300 یورو",
+        "plan.heading": "برنامه اقدام 30/60/90 روزه",
+        "plan.goal": "هدف: {goal}",
+        "plan.steps": "گام‌ها:",
+        "plan.none": "فرصت جدیدی نیست. کار قبلی را ادامه دهید.",
+        "plan.1.title": "روزهای 1 تا 30",
+        "plan.1.goal": "یک فرصت را شروع کنید و نتیجه را اندازه بگیرید.",
+        "plan.1.steps": (
+            "زمانی را که کار الان می‌گیرد، به مدت 1 هفته اندازه بگیرید.\n"
+            "یک ابزار انتخاب کنید و آن را روی کار واقعی آزمایش کنید.\n"
+            "بررسی‌هایی را که یک نفر باید روی خروجی هوش مصنوعی انجام دهد، بنویسید."
+        ),
+        "plan.2.title": "روزهای 31 تا 60",
+        "plan.2.goal": "آنچه کار می‌کند را نگه دارید و تغییرهای کوچک اضافه کنید.",
+        "plan.2.steps": (
+            "زمان قبل و بعد از اولین تغییر را مقایسه کنید.\n"
+            "اگر تغییر زمان صرفه‌جویی نمی‌کند یا کیفیت پایین می‌آید، آن را متوقف کنید.\n"
+            "فرصت‌های بعدی فهرست را شروع کنید."
+        ),
+        "plan.3.title": "روزهای 61 تا 90",
+        "plan.3.goal": "یک پروژه بزرگ‌تر را برنامه‌ریزی کنید.",
+        "plan.3.steps": (
+            "یک برنامه کوتاه با هدف، هزینه و مسئول بنویسید.\n"
+            "پیش از تغییر کل فرایند، یک آزمایش کوچک انجام دهید.\n"
+            "ممیزی را دوباره انجام دهید تا فرصت‌های جدید پیدا کنید."
         ),
     },
 }

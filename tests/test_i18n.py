@@ -83,3 +83,41 @@ def test_cli_rejects_unknown_lang(tmp_path):
     answers.write_text('{"answers": {}}')
     with pytest.raises(SystemExit):
         main(["--answers", str(answers), "--lang", "xx"])
+
+
+def test_persian_empty_report():
+    text = render_markdown("Test", [], today=date(2026, 1, 1), lang="fa")
+    assert "# ممیزی فرصت‌های هوش مصنوعی: Test" in text
+    assert "تاریخ: 2026-01-01" in text
+    assert t("fa", "empty_1") in text
+
+
+def test_persian_report_labels():
+    results = score(ANSWERS)
+    text = render_markdown("Shop", results, today=date(2026, 1, 1), lang="fa")
+    assert "## خلاصه" in text
+    assert "## فهرست اولویت‌ها" in text
+    assert "| # | فرصت | حوزه |" in text
+    assert "## " + t("fa", "plan.heading") in text
+    assert "## گام بعدی" in text
+    assert "- کم: کمتر از 50 یورو" in text
+    for name in {t("fa", f"quadrant.{r.quadrant}") for r in results}:
+        assert f"| {name} |" in text
+    # The catalog has no Persian text yet, so the opportunity text is English.
+    assert "Product descriptions and listings" in text
+    # No English heading is left in the report.
+    assert "## Summary" not in text
+
+
+def test_persian_text_uses_western_digits():
+    eastern = set("۰۱۲۳۴۵۶۷۸۹")
+    for key, text in TEXT["fa"].items():
+        assert not eastern & set(text), key
+
+
+def test_cli_lang_persian(tmp_path):
+    answers = tmp_path / "a.json"
+    answers.write_text('{"business_name": "Nanvayi", "answers": {"sells_products": true}}')
+    out = tmp_path / "report.md"
+    assert main(["--answers", str(answers), "--lang", "fa", "--out", str(out)]) == 0
+    assert "# ممیزی فرصت‌های هوش مصنوعی: Nanvayi" in out.read_text(encoding="utf-8")
