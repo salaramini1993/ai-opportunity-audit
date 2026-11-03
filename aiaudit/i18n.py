@@ -10,9 +10,9 @@ chart section of the HTML report, including the labels inside the chart. The tit
 the GDPR notes of each opportunity are translated in the catalog file,
 in the "translations" field of each opportunity.
 
-Persian ("fa") has the fixed text of the reports. The catalog does not
-have Persian text yet, so the opportunity text is in English. Persian is
-written from right to left. The numbers in the Persian text are Western
+Persian ("fa") has the fixed text of the reports. The catalog has the
+Persian title, description, risks and GDPR notes of each opportunity.
+Persian is written from right to left. The numbers in the Persian text are Western
 digits, because the scores and the hours use Western digits.
 
 Keys that start with "plan." are for the action plan. Text with more

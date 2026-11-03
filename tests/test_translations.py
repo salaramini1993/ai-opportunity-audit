@@ -142,3 +142,19 @@ def test_persian_report_and_plan_use_persian_titles():
     assert title in plan
     html = "\n".join(render_action_plan_html(results, "fa"))
     assert title in html
+
+
+def test_each_risk_and_gdpr_note_has_persian_text():
+    for item in CATALOG:
+        fa = item.translations["fa"]
+        assert len(fa.get("risks", ())) == len(item.risks), item.key
+        assert len(fa.get("gdpr_notes", ())) == len(item.gdpr_notes), item.key
+
+
+def test_persian_report_has_persian_risks_and_gdpr_notes():
+    results = score({"support_volume": True, "repeat_questions": True})
+    text = render_markdown("فروشگاه", results, today=date(2026, 1, 1), lang="fa")
+    assert "- به مشتریان بگویید که با یک دستیار هوش مصنوعی صحبت می‌کنند." in text
+    assert "قرارداد پردازش داده (DPA)" in text
+    assert "Tell customers that they talk to an AI assistant." not in text
+    assert "data processing agreement" not in text
