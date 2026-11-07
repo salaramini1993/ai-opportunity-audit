@@ -53,12 +53,12 @@ with `[x]` in the same commit as the change. Add new tasks when you find them.
 - [x] GitHub Actions workflow: run tests on each push
 - [ ] Add ruff lint config and fix warnings
 - [ ] Add type checks with mypy
-- [ ] Tests for the CLI (JSON input, bad input, output file)
+- [x] Tests for the CLI (JSON input, bad input, output file)
 - [ ] Test coverage above 90%
 
 ## Docs
 
 - [ ] Guide: how to run an audit interview with a business owner
-- [ ] Two more example businesses (restaurant, accounting firm)
+- [ ] Two more example businesses (restaurant [done], accounting firm)
 - [ ] CHANGELOG.md
-- [ ] CONTRIBUTING.md
+- [x] CONTRIBUTING.md
