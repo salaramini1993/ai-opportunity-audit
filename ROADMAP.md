@@ -62,5 +62,5 @@ with `[x]` in the same commit as the change. Add new tasks when you find them.
 - [x] Example business: restaurant
 - [x] Example business: accounting firm
 - [ ] Example business: one more (for example, a manufacturer)
-- [ ] CHANGELOG.md
+- [x] CHANGELOG.md
 - [x] CONTRIBUTING.md
