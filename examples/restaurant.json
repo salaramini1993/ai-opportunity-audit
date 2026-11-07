@@ -1,0 +1,25 @@
+{
+  "business_name": "Example Restaurant (lunch and dinner, 2 locations)",
+  "industry": "restaurant",
+  "answers": {
+    "sells_online": true,
+    "gets_reviews": true,
+    "support_volume": 2,
+    "repeat_questions": true,
+    "hires_often": true,
+    "writes_job_ads": true,
+    "many_applicants": 2,
+    "many_meetings": false,
+    "email_heavy": false,
+    "posts_social": true,
+    "small_team": true,
+    "manual_bookkeeping": true,
+    "paper_invoices": true,
+    "monthly_reports": true,
+    "holds_stock": true,
+    "foreign_suppliers": false,
+    "many_documents": true,
+    "staff_ask_same": 3
+  },
+  "area_weights": {"hr": 1.5, "customer_support": 1.2}
+}
