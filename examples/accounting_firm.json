@@ -1,0 +1,25 @@
+{
+  "business_name": "Example Accounting Firm (tax and bookkeeping, 6 staff)",
+  "industry": "services",
+  "answers": {
+    "sells_products": false,
+    "has_leads": true,
+    "uses_crm": true,
+    "writes_quotes": true,
+    "support_volume": true,
+    "repeat_questions": true,
+    "email_heavy": true,
+    "posts_social": false,
+    "small_team": true,
+    "paper_invoices": true,
+    "manual_bookkeeping": true,
+    "monthly_reports": true,
+    "many_meetings": true,
+    "many_documents": true,
+    "staff_ask_same": true,
+    "hires_often": false,
+    "writes_job_ads": false,
+    "many_applicants": false
+  },
+  "area_weights": {"finance": 1.3}
+}

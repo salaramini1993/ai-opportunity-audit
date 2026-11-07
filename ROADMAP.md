@@ -59,6 +59,8 @@ with `[x]` in the same commit as the change. Add new tasks when you find them.
 ## Docs
 
 - [ ] Guide: how to run an audit interview with a business owner
-- [ ] Two more example businesses (restaurant [done], accounting firm)
+- [x] Example business: restaurant
+- [x] Example business: accounting firm
+- [ ] Example business: one more (for example, a manufacturer)
 - [ ] CHANGELOG.md
 - [x] CONTRIBUTING.md
