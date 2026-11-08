@@ -1,0 +1,25 @@
+{
+  "business_name": "Example Manufacturer (metal parts, 40 staff)",
+  "industry": "manufacturing",
+  "answers": {
+    "sells_products": true,
+    "has_leads": true,
+    "uses_crm": false,
+    "writes_quotes": true,
+    "support_volume": true,
+    "repeat_questions": true,
+    "email_heavy": true,
+    "posts_social": false,
+    "small_team": false,
+    "paper_invoices": true,
+    "manual_bookkeeping": false,
+    "monthly_reports": true,
+    "many_meetings": false,
+    "many_documents": true,
+    "staff_ask_same": true,
+    "hires_often": false,
+    "writes_job_ads": false,
+    "many_applicants": false
+  },
+  "area_weights": {"operations": 1.3}
+}
