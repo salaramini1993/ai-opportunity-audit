@@ -12,7 +12,7 @@ import json
 from dataclasses import dataclass, field
 from importlib import resources
 from pathlib import Path
-from typing import Any, Optional, Union
+from typing import Any
 
 
 @dataclass(frozen=True)
@@ -31,10 +31,10 @@ class Opportunity:
     example_tools: tuple[str, ...] = field(default_factory=tuple)
     # Hours saved per week when the task fits fully: (low, high).
     # This is a rough estimate for a small business. None means no estimate.
-    hours_saved_per_week: Optional[tuple[float, float]] = None
+    hours_saved_per_week: tuple[float, float] | None = None
     # Tool cost per month: "low", "medium" or "high". See COST_LEVELS.
     # None means no estimate.
-    cost_per_month: Optional[str] = None
+    cost_per_month: str | None = None
     # Risks to check before and after you start, for example data privacy
     # or human review. Each item is one short sentence.
     risks: tuple[str, ...] = field(default_factory=tuple)
@@ -81,7 +81,7 @@ class Opportunity:
         """Return True if the opportunity has GDPR notes."""
         return bool(self.gdpr_notes)
 
-    def fits_industry(self, industry: Optional[str]) -> bool:
+    def fits_industry(self, industry: str | None) -> bool:
         """Return True if the opportunity applies to this industry.
 
         None means "no industry filter". Then all opportunities apply.
@@ -262,7 +262,7 @@ def _parse_sentences(raw: dict, name: str, where: str) -> tuple[str, ...]:
     return tuple(values)
 
 
-def _parse_hours(raw: Any, where: str) -> Optional[tuple[float, float]]:
+def _parse_hours(raw: Any, where: str) -> tuple[float, float] | None:
     """Check the "hours_saved_per_week" field and return (low, high).
 
     The field is optional. It must be a list of two numbers [low, high].
@@ -331,7 +331,7 @@ def parse_catalog(data: Any) -> tuple[tuple[str, ...], tuple[Opportunity, ...]]:
 
 
 def load_catalog(
-    path: Union[str, Path, None] = None,
+    path: str | Path | None = None,
 ) -> tuple[tuple[str, ...], tuple[Opportunity, ...]]:
     """Load the catalog from a JSON file.
 

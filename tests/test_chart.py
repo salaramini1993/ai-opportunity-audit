@@ -36,7 +36,7 @@ def test_points_in_same_cell_do_not_overlap():
     positions = point_positions(results)
     xs = sorted(x for x, _ in positions)
     assert len({y for _, y in positions}) == 1
-    assert all(b - a >= 20 for a, b in zip(xs, xs[1:]))
+    assert all(b - a >= 20 for a, b in zip(xs, xs[1:], strict=False))
     # The row is centered on the cell.
     assert xs[1] == _x(2)
 

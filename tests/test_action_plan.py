@@ -1,9 +1,9 @@
 from datetime import date
 
 from aiaudit.action_plan import MAX_SECOND_PHASE, build_action_plan, render_action_plan_markdown
+from aiaudit.questions import keys
 from aiaudit.report import render_markdown
 from aiaudit.scoring import score
-from aiaudit.questions import keys
 
 ALL = {key: True for key in keys()}
 

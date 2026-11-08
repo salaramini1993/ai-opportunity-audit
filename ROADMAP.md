@@ -51,7 +51,7 @@ with `[x]` in the same commit as the change. Add new tasks when you find them.
 ## Quality
 
 - [x] GitHub Actions workflow: run tests on each push
-- [ ] Add ruff lint config and fix warnings
+- [x] Add ruff lint config and fix warnings
 - [ ] Add type checks with mypy
 - [x] Tests for the CLI (JSON input, bad input, output file)
 - [ ] Test coverage above 90%

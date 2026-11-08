@@ -48,7 +48,11 @@ def test_tagged_opportunity_fits_only_its_industries():
 
 
 def test_parse_industries_field():
-    data = {"areas": ["sales"], "industries": ["retail"], "opportunities": [item(industries=["retail"])]}
+    data = {
+        "areas": ["sales"],
+        "industries": ["retail"],
+        "opportunities": [item(industries=["retail"])],
+    }
     _, items = parse_catalog(data)
     assert items[0].industries == ("retail",)
 
@@ -56,10 +60,25 @@ def test_parse_industries_field():
 @pytest.mark.parametrize(
     "data, message",
     [
-        ({"areas": ["sales"], "industries": ["retail"], "opportunities": [item(industries=["bank"])]}, "unknown industry"),
-        ({"areas": ["sales"], "opportunities": [item(industries=["retail"])]}, "unknown industry"),
-        ({"areas": ["sales"], "industries": ["retail"], "opportunities": [item(industries="retail")]}, "list of industry names"),
-        ({"areas": ["sales"], "industries": ["retail", "retail"], "opportunities": [item()]}, "duplicate names"),
+        (
+            {"areas": ["sales"], "industries": ["retail"],
+             "opportunities": [item(industries=["bank"])]},
+            "unknown industry",
+        ),
+        (
+            {"areas": ["sales"], "opportunities": [item(industries=["retail"])]},
+            "unknown industry",
+        ),
+        (
+            {"areas": ["sales"], "industries": ["retail"],
+             "opportunities": [item(industries="retail")]},
+            "list of industry names",
+        ),
+        (
+            {"areas": ["sales"], "industries": ["retail", "retail"],
+             "opportunities": [item()]},
+            "duplicate names",
+        ),
         ({"areas": ["sales"], "industries": [], "opportunities": [item()]}, "'industries' must be"),
     ],
 )
@@ -91,7 +110,12 @@ def test_bad_industry_is_rejected(bad):
 
 
 def test_report_shows_industry():
-    text = render_markdown("Cafe", score(ALL_YES, industry="restaurant"), today=date(2026, 1, 1), industry="restaurant")
+    text = render_markdown(
+        "Cafe",
+        score(ALL_YES, industry="restaurant"),
+        today=date(2026, 1, 1),
+        industry="restaurant",
+    )
     assert "Industry: restaurant" in text
     plain = render_markdown("Cafe", score(ALL_YES), today=date(2026, 1, 1))
     assert "Industry:" not in plain
@@ -99,7 +123,8 @@ def test_report_shows_industry():
 
 def write_answers(tmp_path, **extra):
     path = tmp_path / "answers.json"
-    path.write_text(json.dumps({"business_name": "Shop", "answers": ALL_YES, **extra}), encoding="utf-8")
+    data = {"business_name": "Shop", "answers": ALL_YES, **extra}
+    path.write_text(json.dumps(data), encoding="utf-8")
     return path
 
 

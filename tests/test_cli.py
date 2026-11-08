@@ -83,7 +83,8 @@ def test_answers_and_interactive_are_exclusive(tmp_path):
 
 def test_csv_output_has_header(tmp_path):
     out_file = tmp_path / "p.csv"
-    main(["--answers", str(ROOT / "examples" / "online_shop.json"), "--format", "csv", "--out", str(out_file)])
+    answers = str(ROOT / "examples" / "online_shop.json")
+    main(["--answers", answers, "--format", "csv", "--out", str(out_file)])
     first_line = out_file.read_text(encoding="utf-8").splitlines()[0]
     assert first_line.startswith("rank,key,title")
 

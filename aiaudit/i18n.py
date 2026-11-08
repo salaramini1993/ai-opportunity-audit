@@ -6,7 +6,8 @@ reference. All languages must have the same keys.
 Scope: this module translates the fixed text of the Markdown and HTML
 reports (headings, labels, table columns, types, cost levels and the
 30/60/90-day action plan). Keys that start with "chart_" are for the
-chart section of the HTML report, including the labels inside the chart. The title, the description, the risks and
+chart section of the HTML report, including the labels inside the chart.
+The title, the description, the risks and
 the GDPR notes of each opportunity are translated in the catalog file,
 in the "translations" field of each opportunity.
 
@@ -243,7 +244,9 @@ TEXT: dict[str, dict[str, str]] = {
         ),
         "cost_levels": "سطح‌های هزینه برای هزینه ماهانه ابزار هستند:",
         "next_step": "گام بعدی",
-        "next_step_text": "با اولین برد سریع شروع کنید. زمانی را که صرفه‌جویی می‌کند 4 هفته اندازه بگیرید.",
+        "next_step_text": (
+            "با اولین برد سریع شروع کنید. زمانی را که صرفه‌جویی می‌کند 4 هفته اندازه بگیرید."
+        ),
         "quadrant.quick win": "برد سریع",
         "quadrant.strategic project": "پروژه راهبردی",
         "quadrant.small improvement": "بهبود کوچک",

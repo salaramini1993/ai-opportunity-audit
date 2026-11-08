@@ -32,7 +32,7 @@ def test_csv_rows_follow_priority_order():
 
 def test_csv_hours_and_cost_columns():
     results = score(SHOP)
-    for row, r in zip(_rows(render_csv(results)), results):
+    for row, r in zip(_rows(render_csv(results)), results, strict=True):
         if r.hours_saved is None:
             assert row["hours_saved_low"] == row["hours_saved_high"] == ""
         else:

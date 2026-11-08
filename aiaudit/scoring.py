@@ -22,9 +22,8 @@ Score rules:
   industry list applies to all industries.
 """
 
-from dataclasses import dataclass
-
 from collections.abc import Mapping
+from dataclasses import dataclass
 
 from .catalog import AREAS, CATALOG, INDUSTRIES, Opportunity
 from .questions import keys as question_keys

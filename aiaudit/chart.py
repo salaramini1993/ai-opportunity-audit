@@ -111,7 +111,7 @@ def render_svg(results: list[ScoredOpportunity], lang: str = DEFAULT_LANGUAGE) -
         (left + 6, bottom - 6),
         (right - 6, bottom - 6),
     )
-    for (key, anchor), (x, y) in zip(QUADRANT_LABELS, corners):
+    for (key, anchor), (x, y) in zip(QUADRANT_LABELS, corners, strict=True):
         lines.append(
             f'<text x="{x}" y="{y}" text-anchor="{anchor}" font-size="11" '
             f'fill="#555">{escape(t(lang, key))}</text>'
@@ -133,7 +133,8 @@ def render_svg(results: list[ScoredOpportunity], lang: str = DEFAULT_LANGUAGE) -
         + escape(t(lang, "chart_y_axis"))
         + "</text>",
     ]
-    for number, (r, (x, y)) in enumerate(zip(results, point_positions(results)), start=1):
+    positions = point_positions(results)
+    for number, (r, (x, y)) in enumerate(zip(results, positions, strict=True), start=1):
         label = t(
             lang,
             "chart_point",

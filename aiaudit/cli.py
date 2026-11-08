@@ -15,12 +15,12 @@ import json
 import sys
 from pathlib import Path
 
-from .questions import QUESTIONS
+from .catalog import INDUSTRIES
 from .csv_report import render_csv
 from .html_report import render_html
-from .report import render_markdown
-from .catalog import INDUSTRIES
 from .i18n import DEFAULT_LANGUAGE, LANGUAGES
+from .questions import QUESTIONS
+from .report import render_markdown
 from .scoring import MAX_SCALE, score
 
 
