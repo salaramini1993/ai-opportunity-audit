@@ -134,7 +134,7 @@ def render_svg(results: list[ScoredOpportunity], lang: str = DEFAULT_LANGUAGE) -
         + "</text>",
     ]
     positions = point_positions(results)
-    for number, (r, (x, y)) in enumerate(zip(results, positions, strict=True), start=1):
+    for number, (r, (px, py)) in enumerate(zip(results, positions, strict=True), start=1):
         label = t(
             lang,
             "chart_point",
@@ -146,8 +146,8 @@ def render_svg(results: list[ScoredOpportunity], lang: str = DEFAULT_LANGUAGE) -
         lines += [
             "<g>",
             f"<title>{escape(label)}</title>",
-            f'<circle cx="{x}" cy="{y}" r="{RADIUS}" fill="#1565c0"/>',
-            f'<text x="{x}" y="{y + 4}" text-anchor="middle" font-size="11" '
+            f'<circle cx="{px}" cy="{py}" r="{RADIUS}" fill="#1565c0"/>',
+            f'<text x="{px}" y="{py + 4}" text-anchor="middle" font-size="11" '
             f'fill="#fff">{number}</text>',
             "</g>",
         ]

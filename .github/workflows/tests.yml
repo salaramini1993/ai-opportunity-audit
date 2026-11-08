@@ -23,3 +23,18 @@ jobs:
         run: python -m pip install ".[test]"
       - name: Run tests
         run: python -m pytest -q
+
+  # Check the code style and the types. Runs once, on Python 3.10.
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Install lint tools
+        run: python -m pip install ".[test]" ruff mypy
+      - name: Run ruff
+        run: ruff check .
+      - name: Run mypy
+        run: mypy
