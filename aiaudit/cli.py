@@ -15,6 +15,7 @@ import json
 import sys
 from pathlib import Path
 
+from . import __version__
 from .catalog import INDUSTRIES
 from .csv_report import render_csv
 from .html_report import render_html
@@ -86,6 +87,7 @@ def parse_weight(text: str) -> tuple[str, float]:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="aiaudit", description="Run an AI opportunity audit.")
+    parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
     src = parser.add_mutually_exclusive_group(required=True)
     src.add_argument("--answers", type=Path, help="JSON file with answers")
     src.add_argument("--interactive", action="store_true", help="Ask the questions in the terminal")

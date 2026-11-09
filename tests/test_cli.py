@@ -104,3 +104,10 @@ def test_command_line_weight_beats_file_weight(tmp_path):
           "--format", "csv", "--out", str(override)])
     main(["--answers", str(file_high), "--format", "csv", "--out", str(expected)])
     assert override.read_bytes() == expected.read_bytes()
+
+
+def test_version_option_prints_version(capsys):
+    with pytest.raises(SystemExit) as exc:
+        main(["--version"])
+    assert exc.value.code == 0
+    assert capsys.readouterr().out.startswith("aiaudit ")
