@@ -13,6 +13,19 @@ pytest
 
 All tests must pass before you open a pull request.
 
+## Check test coverage
+
+Coverage shows which lines the tests do not run. Run these commands:
+
+```bash
+pip install pytest-cov
+pytest --cov=aiaudit --cov-report=term-missing
+```
+
+The column `Missing` lists the line numbers that no test runs.
+The project goal is more than 90% coverage. Add a test when you change
+a line that has no coverage.
+
 ## Where things are
 
 - `aiaudit/data/catalog.json`: the opportunities, with translations.
