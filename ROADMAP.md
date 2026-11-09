@@ -54,7 +54,7 @@ with `[x]` in the same commit as the change. Add new tasks when you find them.
 - [x] Add ruff lint config and fix warnings
 - [x] Add type checks with mypy
 - [x] Tests for the CLI (JSON input, bad input, output file)
-- [ ] Test coverage above 90%
+- [x] Test coverage above 90%
 
 ## Docs
 
