@@ -31,6 +31,7 @@ a line that has no coverage.
 - `aiaudit/data/catalog.json`: the opportunities, with translations.
 - `aiaudit/questions.py`: the yes/no questions.
 - `aiaudit/scoring.py`: how fit, impact, effort and priority are calculated.
+- `docs/scoring.md`: the scoring rules in plain words. Update it when you change `scoring.py`.
 - `aiaudit/*_report.py`: the Markdown, HTML and CSV output.
 - `tests/`: one file for each feature.
 - `ROADMAP.md`: the list of open tasks.
