@@ -6,6 +6,7 @@ from pathlib import Path
 import pytest
 
 from aiaudit.cli import main
+from aiaudit.questions import QUESTIONS
 
 ROOT = Path(__file__).resolve().parent.parent
 EXAMPLES = sorted((ROOT / "examples").glob("*.json"))
@@ -111,3 +112,22 @@ def test_version_option_prints_version(capsys):
         main(["--version"])
     assert exc.value.code == 0
     assert capsys.readouterr().out.startswith("aiaudit ")
+
+
+def test_list_questions_prints_every_key(capsys):
+    assert main(["--list-questions"]) == 0
+    lines = capsys.readouterr().out.splitlines()
+    assert len(lines) == len(QUESTIONS)
+    assert lines[0] == f"{QUESTIONS[0].key}: {QUESTIONS[0].text}"
+
+
+def test_list_questions_needs_no_answers_file(capsys):
+    assert main(["--list-questions"]) == 0
+    assert "sells_products:" in capsys.readouterr().out
+
+
+def test_missing_source_is_an_error(capsys):
+    with pytest.raises(SystemExit) as exc:
+        main([])
+    assert exc.value.code == 2
+    assert "--answers" in capsys.readouterr().err

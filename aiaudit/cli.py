@@ -8,6 +8,7 @@ Usage:
     python -m aiaudit --answers shop.json --format html --out report.html
     python -m aiaudit --answers shop.json --format csv --out priorities.csv
     python -m aiaudit --answers shop.json --lang sv
+    python -m aiaudit --list-questions
 """
 
 import argparse
@@ -85,12 +86,23 @@ def parse_weight(text: str) -> tuple[str, float]:
     return area.strip(), value
 
 
+def list_questions() -> str:
+    """Return one line for each question: its key, then its text."""
+    return "\n".join(f"{q.key}: {q.text}" for q in QUESTIONS)
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="aiaudit", description="Run an AI opportunity audit.")
     parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
-    src = parser.add_mutually_exclusive_group(required=True)
+    src = parser.add_mutually_exclusive_group()
     src.add_argument("--answers", type=Path, help="JSON file with answers")
     src.add_argument("--interactive", action="store_true", help="Ask the questions in the terminal")
+    parser.add_argument(
+        "--list-questions",
+        action="store_true",
+        help="Print the yes/no questions with their keys and stop. "
+        "Use the keys in an answers file.",
+    )
     parser.add_argument("--name", default=None, help="Business name for the report")
     parser.add_argument("--out", type=Path, default=None, help="Write the report to this file")
     parser.add_argument(
@@ -124,6 +136,12 @@ def main(argv: list[str] | None = None) -> int:
         "The markdown and html formats use this option. The csv format does not.",
     )
     args = parser.parse_args(argv)
+
+    if args.list_questions:
+        print(list_questions())
+        return 0
+    if not args.answers and not args.interactive:
+        parser.error("one of the arguments --answers --interactive is required")
 
     weights: dict[str, object] = {}
     industry: object = None
