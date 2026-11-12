@@ -1,0 +1,38 @@
+{
+  "business_name": "Riverside Dental Clinic",
+  "industry": "services",
+  "answers": {
+    "sells_products": false,
+    "many_products": false,
+    "multi_language": false,
+    "support_volume": 3,
+    "repeat_questions": true,
+    "email_heavy": true,
+    "posts_social": true,
+    "small_team": true,
+    "has_leads": false,
+    "uses_crm": false,
+    "writes_quotes": false,
+    "paper_invoices": true,
+    "manual_bookkeeping": true,
+    "monthly_reports": false,
+    "holds_stock": false,
+    "foreign_suppliers": false,
+    "many_meetings": true,
+    "many_documents": true,
+    "staff_ask_same": true,
+    "hires_often": false,
+    "writes_job_ads": false,
+    "many_applicants": false,
+    "sells_online": false,
+    "gets_reviews": true,
+    "many_returns": false,
+    "ships_parcels": false,
+    "where_is_my_order": false,
+    "ships_abroad": false,
+    "customs_documents": false
+  },
+  "area_weights": {
+    "customer_support": 1.5
+  }
+}
