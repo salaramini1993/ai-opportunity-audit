@@ -67,5 +67,5 @@ with `[x]` in the same commit as the change. Add new tasks when you find them.
 - [x] CHANGELOG.md
 - [x] CONTRIBUTING.md
 - [x] `docs/scoring.md`: the scoring rules, with a test that checks the values
-- [ ] `docs/answers.md`: the answers file format, with a test that checks every question key is listed
+- [x] `docs/answers.md`: the answers file format, with a test that checks every question key is listed
 - [ ] Example business: clinic (services industry)
