@@ -5,6 +5,7 @@ from pathlib import Path
 
 import pytest
 
+from aiaudit.catalog import INDUSTRIES
 from aiaudit.cli import main
 from aiaudit.questions import QUESTIONS
 
@@ -131,3 +132,15 @@ def test_missing_source_is_an_error(capsys):
         main([])
     assert exc.value.code == 2
     assert "--answers" in capsys.readouterr().err
+
+
+def test_list_industries_prints_each_name(capsys):
+    assert main(["--list-industries"]) == 0
+    lines = capsys.readouterr().out.splitlines()
+    assert lines == list(INDUSTRIES)
+    assert "retail" in lines
+
+
+def test_list_industries_needs_no_answers(capsys):
+    assert main(["--list-industries"]) == 0
+    assert "Error" not in capsys.readouterr().err

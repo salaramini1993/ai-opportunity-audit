@@ -8,6 +8,7 @@ The newest changes are at the top.
 ### Added
 
 - `--list-questions` option that prints each question key and text.
+- `--list-industries` option that prints the industry names.
 - `--version` option that prints the toolkit version.
 - Accounting firm example business (`examples/accounting_firm.json`).
 - Guide for running an audit interview with a business owner
