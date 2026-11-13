@@ -5,6 +5,7 @@ from pathlib import Path
 
 import pytest
 
+from aiaudit.catalog import CATALOG
 from aiaudit.cli import main
 from aiaudit.questions import QUESTIONS
 
@@ -131,3 +132,18 @@ def test_missing_source_is_an_error(capsys):
         main([])
     assert exc.value.code == 2
     assert "--answers" in capsys.readouterr().err
+
+
+def test_list_opportunities_prints_every_key(capsys):
+    assert main(["--list-opportunities"]) == 0
+    lines = capsys.readouterr().out.splitlines()
+    assert len(lines) == len(CATALOG)
+    first = CATALOG[0]
+    assert lines[0] == f"{first.key}: {first.area}: {first.title}"
+
+
+def test_list_opportunities_needs_no_answers_file(capsys):
+    assert main(["--list-opportunities"]) == 0
+    out = capsys.readouterr().out
+    assert out.endswith("\n")
+    assert all(item.key + ":" in out for item in CATALOG)

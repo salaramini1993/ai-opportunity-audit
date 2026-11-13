@@ -9,6 +9,7 @@ Usage:
     python -m aiaudit --answers shop.json --format csv --out priorities.csv
     python -m aiaudit --answers shop.json --lang sv
     python -m aiaudit --list-questions
+    python -m aiaudit --list-opportunities
 """
 
 import argparse
@@ -17,7 +18,7 @@ import sys
 from pathlib import Path
 
 from . import __version__
-from .catalog import INDUSTRIES
+from .catalog import CATALOG, INDUSTRIES
 from .csv_report import render_csv
 from .html_report import render_html
 from .i18n import DEFAULT_LANGUAGE, LANGUAGES
@@ -91,6 +92,11 @@ def list_questions() -> str:
     return "\n".join(f"{q.key}: {q.text}" for q in QUESTIONS)
 
 
+def list_opportunities() -> str:
+    """Return one line for each opportunity: its key, area and English title."""
+    return "\n".join(f"{item.key}: {item.area}: {item.title}" for item in CATALOG)
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="aiaudit", description="Run an AI opportunity audit.")
     parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
@@ -102,6 +108,11 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="Print the yes/no questions with their keys and stop. "
         "Use the keys in an answers file.",
+    )
+    parser.add_argument(
+        "--list-opportunities",
+        action="store_true",
+        help="Print the opportunities with their keys, areas and titles and stop.",
     )
     parser.add_argument("--name", default=None, help="Business name for the report")
     parser.add_argument("--out", type=Path, default=None, help="Write the report to this file")
@@ -139,6 +150,9 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.list_questions:
         print(list_questions())
+        return 0
+    if args.list_opportunities:
+        print(list_opportunities())
         return 0
     if not args.answers and not args.interactive:
         parser.error("one of the arguments --answers --interactive is required")
