@@ -20,7 +20,7 @@ with `[x]` in the same commit as the change. Add new tasks when you find them.
 - [x] Add answers with a scale (0-3) in addition to yes/no
 - [x] `--list-questions` option that prints the question keys and text
 - [x] `--list-opportunities` option that prints each opportunity key, area and title
-- [ ] `--list-industries` option that prints the industry names
+- [x] `--list-industries` option that prints the industry names
 
 ## Catalog
 

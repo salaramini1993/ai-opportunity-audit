@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from aiaudit.catalog import CATALOG
+from aiaudit.catalog import CATALOG, INDUSTRIES
 from aiaudit.cli import main
 from aiaudit.questions import QUESTIONS
 
@@ -147,3 +147,16 @@ def test_list_opportunities_needs_no_answers_file(capsys):
     out = capsys.readouterr().out
     assert out.endswith("\n")
     assert all(item.key + ":" in out for item in CATALOG)
+
+
+def test_list_industries_prints_every_industry(capsys):
+    assert main(["--list-industries"]) == 0
+    lines = capsys.readouterr().out.splitlines()
+    assert lines == list(INDUSTRIES)
+
+
+def test_list_industries_output_works_with_industry_option(capsys):
+    assert main(["--list-industries"]) == 0
+    for name in capsys.readouterr().out.splitlines():
+        assert main(["--answers", str(EXAMPLES[0]), "--industry", name]) == 0
+        capsys.readouterr()
