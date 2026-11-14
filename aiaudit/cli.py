@@ -11,6 +11,7 @@ Usage:
     python -m aiaudit --list-questions
     python -m aiaudit --list-opportunities
     python -m aiaudit --list-industries
+    python -m aiaudit --list-areas
 """
 
 import argparse
@@ -19,7 +20,7 @@ import sys
 from pathlib import Path
 
 from . import __version__
-from .catalog import CATALOG, INDUSTRIES
+from .catalog import AREAS, CATALOG, INDUSTRIES
 from .csv_report import render_csv
 from .html_report import render_html
 from .i18n import DEFAULT_LANGUAGE, LANGUAGES
@@ -98,6 +99,11 @@ def list_industries() -> str:
     return "\n".join(INDUSTRIES)
 
 
+def list_areas() -> str:
+    """Return one area name for each line, in the order of the catalog file."""
+    return "\n".join(AREAS)
+
+
 def list_opportunities() -> str:
     """Return one line for each opportunity: its key, area and English title."""
     return "\n".join(f"{item.key}: {item.area}: {item.title}" for item in CATALOG)
@@ -124,6 +130,11 @@ def main(argv: list[str] | None = None) -> int:
         "--list-industries",
         action="store_true",
         help="Print the industry names that you can use with --industry and stop.",
+    )
+    parser.add_argument(
+        "--list-areas",
+        action="store_true",
+        help="Print the area names that you can use with --weight and stop.",
     )
     parser.add_argument("--name", default=None, help="Business name for the report")
     parser.add_argument("--out", type=Path, default=None, help="Write the report to this file")
@@ -167,6 +178,9 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     if args.list_industries:
         print(list_industries())
+        return 0
+    if args.list_areas:
+        print(list_areas())
         return 0
     if not args.answers and not args.interactive:
         parser.error("one of the arguments --answers --interactive is required")
