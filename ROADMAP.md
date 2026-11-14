@@ -70,3 +70,4 @@ with `[x]` in the same commit as the change. Add new tasks when you find them.
 - [x] CHANGELOG.md
 - [x] CONTRIBUTING.md
 - [x] `docs/scoring.md`: the scoring rules, with a test that checks the values
+- [x] `docs/cli.md`: every command-line option, with a test that checks the help text
