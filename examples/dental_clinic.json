@@ -1,0 +1,30 @@
+{
+  "business_name": "Example Dental Clinic (2 dentists, 9 staff)",
+  "industry": "services",
+  "answers": {
+    "sells_products": false,
+    "many_products": false,
+    "multi_language": true,
+    "support_volume": true,
+    "repeat_questions": true,
+    "email_heavy": true,
+    "posts_social": false,
+    "small_team": true,
+    "has_leads": false,
+    "uses_crm": true,
+    "writes_quotes": true,
+    "paper_invoices": true,
+    "manual_bookkeeping": true,
+    "monthly_reports": true,
+    "many_meetings": false,
+    "many_documents": true,
+    "staff_ask_same": true,
+    "hires_often": false,
+    "writes_job_ads": false,
+    "many_applicants": false
+  },
+  "area_weights": {
+    "admin": 1.4,
+    "customer_support": 1.2
+  }
+}

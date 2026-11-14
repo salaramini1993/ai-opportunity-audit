@@ -15,6 +15,8 @@ The newest changes are at the top.
 - Guide for running an audit interview with a business owner
   (`docs/interview.md`).
 - Restaurant example business (`examples/restaurant.json`).
+- Dental clinic example business (`examples/dental_clinic.json`).
+- `--list-areas` option that prints the area names for `--weight`.
 - Tests for the CLI with JSON input, bad input and output files.
 - GitHub Actions workflow that runs the tests on each push.
 - Report in Persian: headings, labels and plan text (`--lang fa`),
