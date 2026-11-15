@@ -16,6 +16,7 @@ The newest changes are at the top.
   (`docs/interview.md`).
 - Restaurant example business (`examples/restaurant.json`).
 - Dental clinic example business (`examples/dental_clinic.json`).
+- Law firm example business (`examples/law_firm.json`).
 - `--list-areas` option that prints the area names for `--weight`.
 - Tests for the CLI with JSON input, bad input and output files.
 - GitHub Actions workflow that runs the tests on each push.

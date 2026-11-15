@@ -1,0 +1,30 @@
+{
+  "business_name": "Example Law Firm (3 lawyers, 4 staff)",
+  "industry": "services",
+  "answers": {
+    "sells_products": false,
+    "many_products": false,
+    "multi_language": false,
+    "support_volume": true,
+    "repeat_questions": true,
+    "email_heavy": true,
+    "posts_social": false,
+    "small_team": true,
+    "has_leads": true,
+    "uses_crm": true,
+    "writes_quotes": true,
+    "paper_invoices": false,
+    "manual_bookkeeping": true,
+    "monthly_reports": true,
+    "many_meetings": true,
+    "many_documents": true,
+    "staff_ask_same": true,
+    "hires_often": false,
+    "writes_job_ads": false,
+    "many_applicants": false
+  },
+  "area_weights": {
+    "admin": 1.3,
+    "sales": 1.1
+  }
+}
