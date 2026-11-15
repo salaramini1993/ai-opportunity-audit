@@ -17,6 +17,8 @@ The newest changes are at the top.
 - Restaurant example business (`examples/restaurant.json`).
 - Dental clinic example business (`examples/dental_clinic.json`).
 - Law firm example business (`examples/law_firm.json`).
+- `docs/examples.md`: the example businesses. A test checks that every
+  example file is listed.
 - `docs/report_formats.md`: the Markdown, HTML and CSV reports, with the
   CSV columns. A test checks that it covers every format and column.
 - `--list-areas` option that prints the area names for `--weight`.
