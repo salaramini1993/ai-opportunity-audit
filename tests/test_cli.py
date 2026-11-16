@@ -200,3 +200,23 @@ def test_top_option_must_be_a_whole_number(capsys):
         main(["--answers", example, "--top", "two"])
     assert excinfo.value.code == 2
     assert "is not a whole number" in capsys.readouterr().err
+
+
+def test_list_languages_prints_every_language(capsys):
+    from aiaudit.i18n import LANGUAGES
+
+    assert main(["--list-languages"]) == 0
+    lines = capsys.readouterr().out.splitlines()
+    assert [line.split(":")[0] for line in lines] == list(LANGUAGES)
+    assert "sv: Swedish" in lines
+
+
+def test_list_languages_output_works_with_lang_option(capsys):
+    from aiaudit.cli import list_languages
+    from aiaudit.i18n import LANGUAGES
+
+    for line in list_languages().splitlines():
+        code = line.split(":")[0]
+        assert code in LANGUAGES
+        assert main(["--answers", str(ROOT / "examples" / "online_shop.json"), "--lang", code]) == 0
+        capsys.readouterr()

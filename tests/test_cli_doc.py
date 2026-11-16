@@ -31,5 +31,11 @@ def test_doc_mentions_every_help_option(capsys):
 
 
 def test_doc_mentions_the_list_options():
-    for name in ("--list-questions", "--list-opportunities", "--list-industries", "--list-areas"):
+    for name in (
+        "--list-questions",
+        "--list-opportunities",
+        "--list-industries",
+        "--list-areas",
+        "--list-languages",
+    ):
         assert f"`{name}`" in DOC

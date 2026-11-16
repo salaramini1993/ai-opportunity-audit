@@ -20,6 +20,8 @@ These options print a list and stop. They do not need an answers file.
 - `--list-opportunities`: print each opportunity key, area and title.
 - `--list-industries`: print the industry names for `--industry`.
 - `--list-areas`: print the area names for `--weight`.
+- `--list-languages`: print the language codes for `--lang`, with their
+  English names.
 
 ## Report options
 
