@@ -38,6 +38,7 @@ with `[x]` in the same commit as the change. Add new tasks when you find them.
 - [x] CSV export of the priority list
 - [x] 30/60/90-day action plan section (Markdown report)
 - [x] 30/60/90-day action plan section in the HTML report
+- [x] `--top NUMBER` option to show only the highest-priority opportunities
 - [x] Report in Swedish
   - [x] Swedish headings and labels in the Markdown report (`--lang sv`)
   - [x] Swedish text for the 30/60/90-day action plan

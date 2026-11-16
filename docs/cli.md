@@ -39,6 +39,9 @@ These options print a list and stop. They do not need an answers file.
   more areas. A value here replaces the same value in the answers file.
 - `--industry NAME`: show only the opportunities for this industry. It
   replaces the industry in the answers file.
+- `--top NUMBER`: show only the NUMBER opportunities with the highest
+  priority. The number must be 1 or more. The default is to show all
+  opportunities that fit.
 
 ## Other options
 

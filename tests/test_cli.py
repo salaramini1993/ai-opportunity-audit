@@ -173,3 +173,30 @@ def test_list_industries_output_works_with_industry_option(capsys):
     for name in capsys.readouterr().out.splitlines():
         assert main(["--answers", str(EXAMPLES[0]), "--industry", name]) == 0
         capsys.readouterr()
+
+
+def test_top_option_limits_the_priority_list(capsys):
+    example = str(ROOT / "examples" / "online_shop.json")
+    assert main(["--answers", example, "--format", "csv"]) == 0
+    full = [line for line in capsys.readouterr().out.splitlines() if line]
+    assert main(["--answers", example, "--format", "csv", "--top", "2"]) == 0
+    top = [line for line in capsys.readouterr().out.splitlines() if line]
+    assert len(full) > 3
+    assert len(top) == 3  # header row and two opportunities
+    assert top == full[:3]
+
+
+def test_top_option_must_be_one_or_more(capsys):
+    example = str(ROOT / "examples" / "online_shop.json")
+    with pytest.raises(SystemExit) as excinfo:
+        main(["--answers", example, "--top", "0"])
+    assert excinfo.value.code == 2
+    assert "must be 1 or more" in capsys.readouterr().err
+
+
+def test_top_option_must_be_a_whole_number(capsys):
+    example = str(ROOT / "examples" / "online_shop.json")
+    with pytest.raises(SystemExit) as excinfo:
+        main(["--answers", example, "--top", "two"])
+    assert excinfo.value.code == 2
+    assert "is not a whole number" in capsys.readouterr().err

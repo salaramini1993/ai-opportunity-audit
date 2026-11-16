@@ -8,6 +8,7 @@ Usage:
     python -m aiaudit --answers shop.json --format html --out report.html
     python -m aiaudit --answers shop.json --format csv --out priorities.csv
     python -m aiaudit --answers shop.json --lang sv
+    python -m aiaudit --answers shop.json --top 3
     python -m aiaudit --list-questions
     python -m aiaudit --list-opportunities
     python -m aiaudit --list-industries
@@ -89,6 +90,17 @@ def parse_weight(text: str) -> tuple[str, float]:
     return area.strip(), value
 
 
+def parse_top(text: str) -> int:
+    """Parse one "--top NUMBER" value. The number must be 1 or more."""
+    try:
+        value = int(text)
+    except ValueError:
+        raise argparse.ArgumentTypeError(f"'{text}' is not a whole number") from None
+    if value < 1:
+        raise argparse.ArgumentTypeError(f"'{text}' must be 1 or more")
+    return value
+
+
 def list_questions() -> str:
     """Return one line for each question: its key, then its text."""
     return "\n".join(f"{q.key}: {q.text}" for q in QUESTIONS)
@@ -168,6 +180,14 @@ def main(argv: list[str] | None = None) -> int:
         help="Language of the report headings and labels. The default is en. "
         "The markdown and html formats use this option. The csv format does not.",
     )
+    parser.add_argument(
+        "--top",
+        type=parse_top,
+        default=None,
+        metavar="NUMBER",
+        help="Show only the N opportunities with the highest priority. "
+        "The default is to show all opportunities that fit.",
+    )
     args = parser.parse_args(argv)
 
     if args.list_questions:
@@ -207,6 +227,9 @@ def main(argv: list[str] | None = None) -> int:
     except ValueError as err:
         print(f"Error: {err}", file=sys.stderr)
         return 2
+
+    if args.top:
+        results = results[: args.top]
 
     # score() checked the industry, so it is a known name or None here.
     if args.format == "csv":
