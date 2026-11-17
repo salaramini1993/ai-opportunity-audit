@@ -27,6 +27,8 @@ Each file has these parts:
   Industry: manufacturing. Weight: operations.
 - `examples/online_shop.json`: an online shop that imports from China and
   sells in the EU. It has no industry and no area weights.
+- `examples/veterinary_clinic.json`: a vet clinic with 3 vets and 8 staff.
+  Industry: services. Weights: customer support and HR.
 - `examples/restaurant.json`: a restaurant with lunch and dinner service
   at 2 locations. Industry: restaurant. Weights: customer support and HR.
 

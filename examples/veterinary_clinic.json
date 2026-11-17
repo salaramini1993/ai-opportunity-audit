@@ -1,0 +1,30 @@
+{
+  "business_name": "Example Veterinary Clinic (3 vets, 8 staff)",
+  "industry": "services",
+  "answers": {
+    "sells_products": true,
+    "many_products": false,
+    "multi_language": false,
+    "support_volume": true,
+    "repeat_questions": true,
+    "email_heavy": true,
+    "posts_social": true,
+    "small_team": true,
+    "has_leads": false,
+    "uses_crm": true,
+    "writes_quotes": true,
+    "paper_invoices": false,
+    "manual_bookkeeping": false,
+    "monthly_reports": true,
+    "many_meetings": false,
+    "many_documents": true,
+    "staff_ask_same": true,
+    "hires_often": true,
+    "writes_job_ads": true,
+    "many_applicants": false
+  },
+  "area_weights": {
+    "customer_support": 1.3,
+    "hr": 1.2
+  }
+}

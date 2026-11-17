@@ -71,6 +71,7 @@ with `[x]` in the same commit as the change. Add new tasks when you find them.
 - [x] Example business: manufacturer
 - [x] Example business: dental clinic
 - [x] Example business: law firm
+- [x] Example business: veterinary clinic
 - [x] CHANGELOG.md
 - [x] CONTRIBUTING.md
 - [x] `docs/scoring.md`: the scoring rules, with a test that checks the values
