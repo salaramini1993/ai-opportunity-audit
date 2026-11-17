@@ -37,5 +37,6 @@ def test_doc_mentions_the_list_options():
         "--list-industries",
         "--list-areas",
         "--list-languages",
+        "--list-formats",
     ):
         assert f"`{name}`" in DOC

@@ -14,6 +14,7 @@ Usage:
     python -m aiaudit --list-industries
     python -m aiaudit --list-areas
     python -m aiaudit --list-languages
+    python -m aiaudit --list-formats
 """
 
 import argparse
@@ -111,6 +112,15 @@ def list_languages() -> str:
     return "\n".join(f"{code}: {LANGUAGE_NAMES[code]}" for code in LANGUAGES)
 
 
+# Report formats that you can use with --format, in the order of the help text.
+FORMATS = ("markdown", "html", "csv")
+
+
+def list_formats() -> str:
+    """Return one format name for each line, in the order of FORMATS."""
+    return "\n".join(FORMATS)
+
+
 def list_questions() -> str:
     """Return one line for each question: its key, then its text."""
     return "\n".join(f"{q.key}: {q.text}" for q in QUESTIONS)
@@ -163,6 +173,11 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="Print the language codes that you can use with --lang and stop.",
     )
+    parser.add_argument(
+        "--list-formats",
+        action="store_true",
+        help="Print the report format names that you can use with --format and stop.",
+    )
     parser.add_argument("--name", default=None, help="Business name for the report")
     parser.add_argument("--out", type=Path, default=None, help="Write the report to this file")
     parser.add_argument(
@@ -183,7 +198,7 @@ def main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument(
         "--format",
-        choices=("markdown", "html", "csv"),
+        choices=FORMATS,
         default="markdown",
         help="Report format. The default is markdown. "
         "csv gives only the priority list, for a spreadsheet.",
@@ -219,6 +234,9 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     if args.list_languages:
         print(list_languages())
+        return 0
+    if args.list_formats:
+        print(list_formats())
         return 0
     if not args.answers and not args.interactive:
         parser.error("one of the arguments --answers --interactive is required")

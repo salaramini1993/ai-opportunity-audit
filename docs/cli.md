@@ -22,6 +22,7 @@ These options print a list and stop. They do not need an answers file.
 - `--list-areas`: print the area names for `--weight`.
 - `--list-languages`: print the language codes for `--lang`, with their
   English names.
+- `--list-formats`: print the report format names for `--format`.
 
 ## Report options
 

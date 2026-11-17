@@ -220,3 +220,21 @@ def test_list_languages_output_works_with_lang_option(capsys):
         assert code in LANGUAGES
         assert main(["--answers", str(ROOT / "examples" / "online_shop.json"), "--lang", code]) == 0
         capsys.readouterr()
+
+
+def test_list_formats_prints_every_format(capsys):
+    from aiaudit.cli import FORMATS
+
+    assert main(["--list-formats"]) == 0
+    lines = capsys.readouterr().out.splitlines()
+    assert lines == list(FORMATS)
+    assert "csv" in lines
+
+
+def test_list_formats_output_works_with_format_option(capsys):
+    from aiaudit.cli import list_formats
+
+    for name in list_formats().splitlines():
+        shop = str(ROOT / "examples" / "online_shop.json")
+        assert main(["--answers", shop, "--format", name]) == 0
+        capsys.readouterr()

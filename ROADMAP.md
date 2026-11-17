@@ -23,6 +23,7 @@ with `[x]` in the same commit as the change. Add new tasks when you find them.
 - [x] `--list-industries` option that prints the industry names
 - [x] `--list-areas` option that prints the area names for `--weight`
 - [x] `--list-languages` option that prints the language codes for `--lang`
+- [x] `--list-formats` option that prints the report format names for `--format`
 
 ## Catalog
 
