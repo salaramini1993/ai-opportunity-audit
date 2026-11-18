@@ -62,6 +62,7 @@ with `[x]` in the same commit as the change. Add new tasks when you find them.
 - [x] Add type checks with mypy
 - [x] Tests for the CLI (JSON input, bad input, output file)
 - [x] Test coverage above 90%
+- [x] Test that every example file uses known industries, areas and questions
 
 ## Docs
 
