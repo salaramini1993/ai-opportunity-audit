@@ -31,6 +31,8 @@ Each file has these parts:
   Industry: services. Weights: customer support and HR.
 - `examples/restaurant.json`: a restaurant with lunch and dinner service
   at 2 locations. Industry: restaurant. Weights: customer support and HR.
+- `examples/real_estate_agency.json`: a real estate agency with 4 agents
+  and 3 staff. Industry: services. Weights: sales and admin.
 
 ## Make your own example
 
