@@ -23,6 +23,8 @@ These options print a list and stop. They do not need an answers file.
 - `--list-languages`: print the language codes for `--lang`, with their
   English names.
 - `--list-formats`: print the report format names for `--format`.
+- `--template`: print a blank answers file with every question key set to
+  false. Save it, change the answers and run it with `--answers`.
 
 ## Report options
 

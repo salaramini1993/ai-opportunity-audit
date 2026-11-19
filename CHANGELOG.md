@@ -11,6 +11,7 @@ The newest changes are at the top.
 - `--list-opportunities` option that prints each opportunity key, area and title.
 - `--list-industries` option that prints the industry names for `--industry`.
 - `--version` option that prints the toolkit version.
+- `--template` option that prints a blank answers file to start your own.
 - Accounting firm example business (`examples/accounting_firm.json`).
 - Guide for running an audit interview with a business owner
   (`docs/interview.md`).

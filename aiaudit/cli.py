@@ -15,6 +15,7 @@ Usage:
     python -m aiaudit --list-areas
     python -m aiaudit --list-languages
     python -m aiaudit --list-formats
+    python -m aiaudit --template > my_business.json
 """
 
 import argparse
@@ -141,6 +142,19 @@ def list_opportunities() -> str:
     return "\n".join(f"{item.key}: {item.area}: {item.title}" for item in CATALOG)
 
 
+def answers_template() -> str:
+    """Return a blank answers file as JSON text.
+
+    Every question key is set to false. Change the answers you know,
+    then run the file with --answers. The business name is a placeholder.
+    """
+    data = {
+        "business_name": "Your business name",
+        "answers": {q.key: False for q in QUESTIONS},
+    }
+    return json.dumps(data, indent=2, ensure_ascii=False)
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="aiaudit", description="Run an AI opportunity audit.")
     parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
@@ -204,6 +218,12 @@ def main(argv: list[str] | None = None) -> int:
         "csv gives only the priority list, for a spreadsheet.",
     )
     parser.add_argument(
+        "--template",
+        action="store_true",
+        help="Print a blank answers file with every question key set to false and stop. "
+        "Save it, change the answers, then run it with the --answers option.",
+    )
+    parser.add_argument(
         "--lang",
         choices=LANGUAGES,
         default=DEFAULT_LANGUAGE,
@@ -237,6 +257,9 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     if args.list_formats:
         print(list_formats())
+        return 0
+    if args.template:
+        print(answers_template())
         return 0
     if not args.answers and not args.interactive:
         parser.error("one of the arguments --answers --interactive is required")
