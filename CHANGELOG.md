@@ -13,6 +13,7 @@ The newest changes are at the top.
 - `--version` option that prints the toolkit version.
 - `--template` option that prints a blank answers file to start your own.
 - Accounting firm example business (`examples/accounting_firm.json`).
+- Travel agency example business (`examples/travel_agency.json`).
 - Guide for running an audit interview with a business owner
   (`docs/interview.md`).
 - Restaurant example business (`examples/restaurant.json`).

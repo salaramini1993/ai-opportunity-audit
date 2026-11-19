@@ -33,6 +33,8 @@ Each file has these parts:
   at 2 locations. Industry: restaurant. Weights: customer support and HR.
 - `examples/real_estate_agency.json`: a real estate agency with 4 agents
   and 3 staff. Industry: services. Weights: sales and admin.
+- `examples/travel_agency.json`: a travel agency with 4 agents
+  and 5 staff. Industry: services. Weights: sales and customer support.
 
 ## Make your own example
 

@@ -1,0 +1,32 @@
+{
+  "business_name": "Example Travel Agency (4 agents, 5 staff)",
+  "industry": "services",
+  "area_weights": {
+    "sales": 1.3,
+    "customer_support": 1.2
+  },
+  "answers": {
+    "sells_products": false,
+    "many_products": true,
+    "multi_language": true,
+    "support_volume": true,
+    "repeat_questions": true,
+    "email_heavy": true,
+    "posts_social": true,
+    "small_team": true,
+    "has_leads": true,
+    "uses_crm": false,
+    "writes_quotes": true,
+    "paper_invoices": false,
+    "manual_bookkeeping": true,
+    "monthly_reports": false,
+    "many_meetings": false,
+    "many_documents": true,
+    "staff_ask_same": true,
+    "hires_often": false,
+    "writes_job_ads": false,
+    "many_applicants": false,
+    "sells_online": true,
+    "gets_reviews": true
+  }
+}
