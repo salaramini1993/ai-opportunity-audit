@@ -7,6 +7,7 @@ The newest changes are at the top.
 
 ### Added
 
+- `--min-priority` option that hides the opportunities with a low priority.
 - `--list-questions` option that prints each question key and text.
 - `--list-opportunities` option that prints each opportunity key, area and title.
 - `--list-industries` option that prints the industry names for `--industry`.

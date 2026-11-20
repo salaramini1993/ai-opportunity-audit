@@ -8,6 +8,7 @@ import pytest
 from aiaudit.catalog import AREAS, CATALOG, INDUSTRIES
 from aiaudit.cli import main
 from aiaudit.questions import QUESTIONS
+from aiaudit.scoring import score
 
 ROOT = Path(__file__).resolve().parent.parent
 EXAMPLES = sorted((ROOT / "examples").glob("*.json"))
@@ -238,3 +239,48 @@ def test_list_formats_output_works_with_format_option(capsys):
         shop = str(ROOT / "examples" / "online_shop.json")
         assert main(["--answers", shop, "--format", name]) == 0
         capsys.readouterr()
+
+
+def test_min_priority_hides_low_priority_opportunities(capsys):
+    example = str(ROOT / "examples" / "online_shop.json")
+    assert main(["--answers", example, "--format", "csv"]) == 0
+    full = [line for line in capsys.readouterr().out.splitlines() if line]
+    assert len(full) > 3
+    data = json.loads((ROOT / "examples" / "online_shop.json").read_text(encoding="utf-8"))
+    results = score(data["answers"], data.get("area_weights"), data.get("industry"))
+    priorities = sorted(r.priority for r in results)
+    threshold = priorities[len(priorities) // 2]
+    assert main(["--answers", example, "--format", "csv", "--min-priority", str(threshold)]) == 0
+    kept = [line for line in capsys.readouterr().out.splitlines() if line]
+    assert 1 < len(kept) < len(full)
+    assert kept[0] == full[0]  # same header row
+
+
+def test_min_priority_above_every_priority_leaves_no_rows(capsys):
+    example = str(ROOT / "examples" / "online_shop.json")
+    assert main(["--answers", example, "--format", "csv", "--min-priority", "1000"]) == 0
+    rows = [line for line in capsys.readouterr().out.splitlines() if line]
+    assert len(rows) == 1  # header row only
+
+
+def test_min_priority_runs_before_top(capsys):
+    example = str(ROOT / "examples" / "online_shop.json")
+    assert main(["--answers", example, "--format", "csv", "--min-priority", "0", "--top", "2"]) == 0
+    rows = [line for line in capsys.readouterr().out.splitlines() if line]
+    assert len(rows) == 3
+
+
+def test_min_priority_must_be_zero_or_more(capsys):
+    example = str(ROOT / "examples" / "online_shop.json")
+    with pytest.raises(SystemExit) as excinfo:
+        main(["--answers", example, "--min-priority", "-1"])
+    assert excinfo.value.code == 2
+    assert "must be 0 or more" in capsys.readouterr().err
+
+
+def test_min_priority_must_be_a_number(capsys):
+    example = str(ROOT / "examples" / "online_shop.json")
+    with pytest.raises(SystemExit) as excinfo:
+        main(["--answers", example, "--min-priority", "high"])
+    assert excinfo.value.code == 2
+    assert "is not a number" in capsys.readouterr().err

@@ -47,6 +47,9 @@ These options print a list and stop. They do not need an answers file.
 - `--top NUMBER`: show only the NUMBER opportunities with the highest
   priority. The number must be 1 or more. The default is to show all
   opportunities that fit.
+- `--min-priority NUMBER`: hide the opportunities with a priority below
+  NUMBER. The number must be 0 or more. The default is to hide none.
+  It runs before `--top`.
 
 ## Other options
 

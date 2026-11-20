@@ -104,6 +104,17 @@ def parse_top(text: str) -> int:
     return value
 
 
+def parse_min_priority(text: str) -> float:
+    """Parse one "--min-priority NUMBER" value. The number must be 0 or more."""
+    try:
+        value = float(text)
+    except ValueError:
+        raise argparse.ArgumentTypeError(f"'{text}' is not a number") from None
+    if value < 0:
+        raise argparse.ArgumentTypeError(f"'{text}' must be 0 or more")
+    return value
+
+
 # English names of the languages, in the same order as LANGUAGES.
 LANGUAGE_NAMES = {"en": "English", "sv": "Swedish", "fa": "Persian"}
 
@@ -238,6 +249,14 @@ def main(argv: list[str] | None = None) -> int:
         help="Show only the N opportunities with the highest priority. "
         "The default is to show all opportunities that fit.",
     )
+    parser.add_argument(
+        "--min-priority",
+        type=parse_min_priority,
+        default=None,
+        metavar="NUMBER",
+        help="Hide the opportunities with a priority below this number. "
+        "The default is to hide none.",
+    )
     args = parser.parse_args(argv)
 
     if args.list_questions:
@@ -287,6 +306,8 @@ def main(argv: list[str] | None = None) -> int:
         print(f"Error: {err}", file=sys.stderr)
         return 2
 
+    if args.min_priority is not None:
+        results = [r for r in results if r.priority >= args.min_priority]
     if args.top:
         results = results[: args.top]
 
