@@ -1,0 +1,39 @@
+{
+  "business_name": "Example Hotel (40 rooms, 12 staff)",
+  "industry": "services",
+  "area_weights": {
+    "customer_support": 1.4,
+    "hr": 1.1
+  },
+  "answers": {
+    "sells_products": false,
+    "many_products": false,
+    "multi_language": true,
+    "support_volume": true,
+    "repeat_questions": true,
+    "email_heavy": true,
+    "posts_social": true,
+    "small_team": false,
+    "has_leads": true,
+    "uses_crm": true,
+    "writes_quotes": true,
+    "paper_invoices": true,
+    "manual_bookkeeping": false,
+    "monthly_reports": true,
+    "holds_stock": false,
+    "foreign_suppliers": true,
+    "many_meetings": false,
+    "many_documents": true,
+    "staff_ask_same": true,
+    "hires_often": true,
+    "writes_job_ads": true,
+    "many_applicants": true,
+    "sells_online": true,
+    "gets_reviews": true,
+    "many_returns": false,
+    "ships_parcels": false,
+    "where_is_my_order": false,
+    "ships_abroad": false,
+    "customs_documents": false
+  }
+}

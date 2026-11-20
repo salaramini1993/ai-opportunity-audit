@@ -35,6 +35,8 @@ Each file has these parts:
   and 3 staff. Industry: services. Weights: sales and admin.
 - `examples/travel_agency.json`: a travel agency with 4 agents
   and 5 staff. Industry: services. Weights: sales and customer support.
+- `examples/hotel.json`: a hotel with 40 rooms and 12 staff.
+  Industry: services. Weights: customer support and HR.
 
 ## Make your own example
 
