@@ -1,0 +1,39 @@
+{
+  "business_name": "Example Construction Firm (5 site crews, 14 staff)",
+  "industry": "services",
+  "area_weights": {
+    "admin": 1.3,
+    "finance": 1.2
+  },
+  "answers": {
+    "sells_products": false,
+    "many_products": false,
+    "multi_language": false,
+    "support_volume": true,
+    "repeat_questions": true,
+    "email_heavy": true,
+    "posts_social": false,
+    "small_team": false,
+    "has_leads": true,
+    "uses_crm": false,
+    "writes_quotes": true,
+    "paper_invoices": true,
+    "manual_bookkeeping": true,
+    "monthly_reports": true,
+    "holds_stock": true,
+    "foreign_suppliers": true,
+    "many_meetings": true,
+    "many_documents": true,
+    "staff_ask_same": false,
+    "hires_often": true,
+    "writes_job_ads": true,
+    "many_applicants": false,
+    "sells_online": false,
+    "gets_reviews": false,
+    "many_returns": false,
+    "ships_parcels": false,
+    "where_is_my_order": false,
+    "ships_abroad": false,
+    "customs_documents": false
+  }
+}
