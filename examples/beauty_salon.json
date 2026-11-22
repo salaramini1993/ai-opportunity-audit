@@ -1,0 +1,39 @@
+{
+  "business_name": "Example Beauty Salon (3 stylists, 6 staff)",
+  "industry": "services",
+  "area_weights": {
+    "marketing": 1.3,
+    "customer_support": 1.2
+  },
+  "answers": {
+    "sells_products": true,
+    "many_products": false,
+    "multi_language": false,
+    "support_volume": true,
+    "repeat_questions": true,
+    "email_heavy": false,
+    "posts_social": true,
+    "small_team": true,
+    "has_leads": false,
+    "uses_crm": false,
+    "writes_quotes": false,
+    "paper_invoices": true,
+    "manual_bookkeeping": true,
+    "monthly_reports": false,
+    "holds_stock": true,
+    "foreign_suppliers": false,
+    "many_meetings": false,
+    "many_documents": false,
+    "staff_ask_same": true,
+    "hires_often": true,
+    "writes_job_ads": false,
+    "many_applicants": false,
+    "sells_online": false,
+    "gets_reviews": true,
+    "many_returns": false,
+    "ships_parcels": false,
+    "where_is_my_order": false,
+    "ships_abroad": false,
+    "customs_documents": false
+  }
+}

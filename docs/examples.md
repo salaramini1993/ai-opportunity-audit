@@ -37,6 +37,8 @@ Each file has these parts:
   and 5 staff. Industry: services. Weights: sales and customer support.
 - `examples/hotel.json`: a hotel with 40 rooms and 12 staff.
   Industry: services. Weights: customer support and HR.
+- `examples/beauty_salon.json`: a beauty salon with 3 stylists and 6 staff.
+  Industry: services. Weights: marketing and customer support.
 - `examples/bakery.json`: a bakery with 2 shops and 9 staff.
   Industry: retail. Weights: marketing and admin.
 - `examples/construction_firm.json`: a construction firm with 5 site crews
