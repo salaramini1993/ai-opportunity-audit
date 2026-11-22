@@ -81,6 +81,15 @@ def load_answers(
     )
 
 
+def missing_question_keys(answers: dict[str, object]) -> list[str]:
+    """Return the question keys that have no answer, in question order.
+
+    A missing answer counts as "no", so the report still runs.
+    The caller can warn the user about these keys.
+    """
+    return [q.key for q in QUESTIONS if q.key not in answers]
+
+
 def parse_weight(text: str) -> tuple[str, float]:
     """Parse one "--weight AREA=NUMBER" value."""
     area, sep, number = text.partition("=")
@@ -288,6 +297,14 @@ def main(argv: list[str] | None = None) -> int:
     try:
         if args.answers:
             name, answers, weights, industry = load_answers(args.answers)
+            missing = missing_question_keys(answers)
+            if missing:
+                # Tell the user, but still make the report. Missing answers count as "no".
+                print(
+                    f"Warning: no answer for {len(missing)} question(s), counted as no: "
+                    + ", ".join(missing),
+                    file=sys.stderr,
+                )
         else:
             name, answers = "Unnamed business", ask_interactive()
     except ValueError as err:
