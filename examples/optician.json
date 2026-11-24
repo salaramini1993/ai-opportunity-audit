@@ -1,0 +1,39 @@
+{
+  "business_name": "Example Optician (2 shops, 8 staff)",
+  "industry": "retail",
+  "area_weights": {
+    "admin": 1.2,
+    "customer_support": 1.1
+  },
+  "answers": {
+    "sells_products": true,
+    "many_products": true,
+    "multi_language": false,
+    "support_volume": true,
+    "repeat_questions": true,
+    "email_heavy": false,
+    "posts_social": false,
+    "small_team": true,
+    "has_leads": false,
+    "uses_crm": true,
+    "writes_quotes": false,
+    "paper_invoices": false,
+    "manual_bookkeeping": true,
+    "monthly_reports": false,
+    "holds_stock": true,
+    "foreign_suppliers": true,
+    "many_meetings": false,
+    "many_documents": false,
+    "staff_ask_same": true,
+    "hires_often": false,
+    "writes_job_ads": false,
+    "many_applicants": false,
+    "sells_online": true,
+    "gets_reviews": true,
+    "many_returns": true,
+    "ships_parcels": true,
+    "where_is_my_order": true,
+    "ships_abroad": false,
+    "customs_documents": false
+  }
+}
