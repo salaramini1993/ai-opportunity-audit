@@ -21,6 +21,7 @@ Usage:
 import argparse
 import json
 import sys
+from collections.abc import Mapping
 from pathlib import Path
 
 from . import __version__
@@ -81,7 +82,7 @@ def load_answers(
     )
 
 
-def missing_question_keys(answers: dict[str, object]) -> list[str]:
+def missing_question_keys(answers: Mapping[str, object]) -> list[str]:
     """Return the question keys that have no answer, in question order.
 
     A missing answer counts as "no", so the report still runs.
