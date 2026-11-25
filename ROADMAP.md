@@ -25,6 +25,7 @@ with `[x]` in the same commit as the change. Add new tasks when you find them.
 - [x] `--list-languages` option that prints the language codes for `--lang`
 - [x] `--list-formats` option that prints the report format names for `--format`
 - [x] `--template` option that prints a blank answers file with every question key
+- [x] `--quiet` option that hides warnings (errors are still printed)
 
 ## Catalog
 

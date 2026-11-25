@@ -53,5 +53,8 @@ These options print a list and stop. They do not need an answers file.
 
 ## Other options
 
+- `--quiet`: do not print warnings. For example, the warning about
+  questions that the answers file leaves out is not shown. Errors are
+  still printed.
 - `--version`: print the version of the toolkit.
 - `-h` or `--help`: print the help text.

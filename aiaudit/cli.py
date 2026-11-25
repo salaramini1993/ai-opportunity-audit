@@ -266,6 +266,11 @@ def main(argv: list[str] | None = None) -> int:
         help="Hide the opportunities with a priority below this number. "
         "The default is to hide none.",
     )
+    parser.add_argument(
+        "--quiet",
+        action="store_true",
+        help="Do not print warnings. Errors are still printed.",
+    )
     args = parser.parse_args(argv)
 
     if args.list_questions:
@@ -298,7 +303,7 @@ def main(argv: list[str] | None = None) -> int:
         if args.answers:
             name, answers, weights, industry = load_answers(args.answers)
             missing = missing_question_keys(answers)
-            if missing:
+            if missing and not args.quiet:
                 # Tell the user, but still make the report. Missing answers count as "no".
                 print(
                     f"Warning: no answer for {len(missing)} question(s), counted as no: "
