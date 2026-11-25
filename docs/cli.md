@@ -50,6 +50,7 @@ These options print a list and stop. They do not need an answers file.
 - `--min-priority NUMBER`: hide the opportunities with a priority below
   NUMBER. The number must be 0 or more. The default is to hide none.
   It runs before `--top`.
+  If the filters hide every opportunity, a warning is printed.
 
 ## Other options
 

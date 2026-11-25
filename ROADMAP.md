@@ -67,6 +67,7 @@ with `[x]` in the same commit as the change. Add new tasks when you find them.
 - [x] Test coverage above 90%
 - [x] Test that every example file uses known industries, areas and questions
 - [x] Warn on stderr when an answers file leaves out questions (missing answers count as no)
+- [x] Warn on stderr when `--min-priority` or `--top` hides every opportunity
 
 ## Docs
 

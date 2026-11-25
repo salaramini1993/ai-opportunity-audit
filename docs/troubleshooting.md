@@ -44,3 +44,8 @@ Errors go to the terminal (stderr). The command then stops with exit code 2.
   the report. It counts each missing answer as `false`.
   Add the missing keys to the answers file if the answer is not `false`.
   Run `python -m aiaudit --template` to get a file with every key.
+- `Warning: no opportunity is left after the filters. Try a lower --min-priority or a higher --top.`
+  The `--min-priority` or `--top` option hid every opportunity. The tool
+  still makes the report, but the report has no opportunity in it.
+  Use a lower number for `--min-priority`, or a higher number for `--top`.
+  Use `--quiet` to hide this warning.

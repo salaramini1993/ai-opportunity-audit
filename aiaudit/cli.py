@@ -328,10 +328,17 @@ def main(argv: list[str] | None = None) -> int:
         print(f"Error: {err}", file=sys.stderr)
         return 2
 
+    shown_before_filters = len(results)
     if args.min_priority is not None:
         results = [r for r in results if r.priority >= args.min_priority]
     if args.top:
         results = results[: args.top]
+    if shown_before_filters and not results and not args.quiet:
+        print(
+            "Warning: no opportunity is left after the filters. "
+            "Try a lower --min-priority or a higher --top.",
+            file=sys.stderr,
+        )
 
     # score() checked the industry, so it is a known name or None here.
     if args.format == "csv":

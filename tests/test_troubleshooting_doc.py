@@ -19,6 +19,7 @@ MESSAGE_PARTS = [
     "'area_weights' must be an object",
     "unknown language '",
     "Warning: no answer for",
+    "Warning: no opportunity is left after the filters",
 ]
 
 
