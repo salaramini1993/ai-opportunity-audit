@@ -2,7 +2,7 @@
 
 The `aiaudit` command makes one report for each audit.
 Use `--format` to choose the type of report:
-`markdown`, `html` or `csv`. The default is `markdown`.
+`markdown`, `html`, `csv` or `json`. The default is `markdown`.
 
 ## Markdown
 
@@ -44,6 +44,15 @@ The first row is the header. The columns are:
 If the catalog has no hours or cost estimate for an opportunity, the
 cell is empty. If no opportunity matches, the CSV report has only the
 header row. The column names and the titles are always in English.
+
+## JSON
+
+The JSON report is a file for other programs. It has the same priority
+list as the CSV report. The file is one JSON object with three keys:
+`business` (the business name), `industry` (the industry, or `null`) and
+`opportunities` (the list). Each item in `opportunities` has the same
+fields as a CSV column, in the same order. An empty CSV cell is `null`
+in the JSON report. Use `--format json --out FILE` to save the file.
 
 ## Example
 

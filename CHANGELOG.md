@@ -13,6 +13,7 @@ The newest changes are at the top.
 - `--list-opportunities` option that prints each opportunity key, area and title.
 - `--list-industries` option that prints the industry names for `--industry`.
 - `--version` option that prints the toolkit version.
+- JSON report (`--format json`) with the priority list.
 - `--template` option that prints a blank answers file to start your own.
 - Accounting firm example business (`examples/accounting_firm.json`).
 - Travel agency example business (`examples/travel_agency.json`).

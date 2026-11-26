@@ -32,8 +32,8 @@ These options print a list and stop. They do not need an answers file.
   the answers file.
 - `--out FILE`: write the report to this file. The folders of the file
   are made if they do not exist. Without this option, the report is printed.
-- `--format {markdown,html,csv}`: the report format. The default is
-  markdown. The csv format gives only the priority list.
+- `--format {markdown,html,csv,json}`: the report format. The default is
+  markdown. The csv and json formats give only the priority list.
 - `--lang {en,sv,fa}`: the language of the headings and labels. The default
   is en. The csv format does not use this option.
 

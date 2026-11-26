@@ -28,8 +28,8 @@ COLUMNS = (
 )
 
 
-def _row(rank: int, r: ScoredOpportunity) -> list[object]:
-    """Return the CSV values for one result.
+def result_values(rank: int, r: ScoredOpportunity) -> list[object]:
+    """Return the values of one result, in the order of COLUMNS.
 
     An empty value means that the catalog has no estimate.
     """
@@ -63,5 +63,5 @@ def render_csv(results: list[ScoredOpportunity]) -> str:
     writer = csv.writer(buffer)
     writer.writerow(COLUMNS)
     for rank, r in enumerate(results, start=1):
-        writer.writerow(_row(rank, r))
+        writer.writerow(result_values(rank, r))
     return buffer.getvalue()

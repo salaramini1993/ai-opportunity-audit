@@ -41,6 +41,7 @@ with `[x]` in the same commit as the change. Add new tasks when you find them.
 - [x] HTML report (`--format html`)
 - [x] Impact/effort chart in the HTML report
 - [x] CSV export of the priority list
+- [x] JSON export of the priority list (`--format json`)
 - [x] 30/60/90-day action plan section (Markdown report)
 - [x] 30/60/90-day action plan section in the HTML report
 - [x] `--top NUMBER` option to show only the highest-priority opportunities

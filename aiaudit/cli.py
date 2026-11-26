@@ -29,6 +29,7 @@ from .catalog import AREAS, CATALOG, INDUSTRIES
 from .csv_report import render_csv
 from .html_report import render_html
 from .i18n import DEFAULT_LANGUAGE, LANGUAGES
+from .json_report import render_json
 from .questions import QUESTIONS
 from .report import render_markdown
 from .scoring import MAX_SCALE, score
@@ -135,7 +136,7 @@ def list_languages() -> str:
 
 
 # Report formats that you can use with --format, in the order of the help text.
-FORMATS = ("markdown", "html", "csv")
+FORMATS = ("markdown", "html", "csv", "json")
 
 
 def list_formats() -> str:
@@ -344,6 +345,8 @@ def main(argv: list[str] | None = None) -> int:
     # score() checked the industry, so it is a known name or None here.
     if args.format == "csv":
         report = render_csv(results)
+    elif args.format == "json":
+        report = render_json(name, results, industry=str(industry) if industry else None)
     elif args.format == "html":
         report = render_html(
             name, results, industry=str(industry) if industry else None, lang=args.lang

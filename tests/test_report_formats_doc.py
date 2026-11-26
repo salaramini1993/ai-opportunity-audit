@@ -24,8 +24,8 @@ def format_choices(capsys) -> list[str]:
 
 def test_doc_covers_every_format(capsys):
     formats = format_choices(capsys)
-    assert set(formats) == {"markdown", "html", "csv"}
-    headings = {"markdown": "Markdown", "html": "HTML", "csv": "CSV"}
+    assert set(formats) == {"markdown", "html", "csv", "json"}
+    headings = {"markdown": "Markdown", "html": "HTML", "csv": "CSV", "json": "JSON"}
     for name in formats:
         assert f"## {headings[name]}" in DOC, f"{name} has no section"
 
