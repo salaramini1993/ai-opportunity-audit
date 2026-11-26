@@ -353,8 +353,14 @@ def main(argv: list[str] | None = None) -> int:
             name, results, industry=str(industry) if industry else None, lang=args.lang
         )
     if args.out:
-        # newline="" keeps the "\r\n" line ends of the CSV text as they are.
-        args.out.write_text(report, encoding="utf-8", newline="")
+        # Make the folders of the file first, so a new folder name works.
+        try:
+            args.out.parent.mkdir(parents=True, exist_ok=True)
+            # newline="" keeps the "\r\n" line ends of the CSV text as they are.
+            args.out.write_text(report, encoding="utf-8", newline="")
+        except OSError as err:
+            print(f"Error: cannot write the report: {err}", file=sys.stderr)
+            return 2
         print(f"Report written to {args.out}")
     else:
         print(report)

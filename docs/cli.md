@@ -30,8 +30,8 @@ These options print a list and stop. They do not need an answers file.
 
 - `--name NAME`: the business name in the report. It replaces the name in
   the answers file.
-- `--out FILE`: write the report to this file. Without this option, the
-  report is printed.
+- `--out FILE`: write the report to this file. The folders of the file
+  are made if they do not exist. Without this option, the report is printed.
 - `--format {markdown,html,csv}`: the report format. The default is
   markdown. The csv format gives only the priority list.
 - `--lang {en,sv,fa}`: the language of the headings and labels. The default
