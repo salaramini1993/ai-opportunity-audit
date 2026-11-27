@@ -7,6 +7,7 @@ The newest changes are at the top.
 
 ### Added
 
+- Pharmacy example business (`examples/pharmacy.json`).
 - `--exclude KEY` option that hides an opportunity by key. It can be repeated.
 - Hotel example business (`examples/hotel.json`).
 - `--min-priority` option that hides the opportunities with a low priority.
