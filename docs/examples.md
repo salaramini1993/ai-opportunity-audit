@@ -47,6 +47,8 @@ Each file has these parts:
   Industry: retail. Weights: admin and customer support.
 - `examples/pharmacy.json`: a pharmacy with 1 shop and 6 staff.
   Industry: retail. Weights: customer support and admin.
+- `examples/gym.json`: a gym with 1 site and 10 staff.
+  Industry: services. Weights: HR and customer support.
 
 ## Make your own example
 

@@ -1,0 +1,39 @@
+{
+  "business_name": "Example Gym (1 site, 10 staff)",
+  "industry": "services",
+  "area_weights": {
+    "hr": 1.2,
+    "customer_support": 1.1
+  },
+  "answers": {
+    "sells_products": false,
+    "many_products": false,
+    "multi_language": false,
+    "support_volume": true,
+    "repeat_questions": true,
+    "email_heavy": false,
+    "posts_social": true,
+    "small_team": true,
+    "has_leads": true,
+    "uses_crm": true,
+    "writes_quotes": false,
+    "paper_invoices": false,
+    "manual_bookkeeping": false,
+    "monthly_reports": true,
+    "holds_stock": false,
+    "foreign_suppliers": false,
+    "many_meetings": false,
+    "many_documents": false,
+    "staff_ask_same": false,
+    "hires_often": true,
+    "writes_job_ads": true,
+    "many_applicants": true,
+    "sells_online": true,
+    "gets_reviews": true,
+    "many_returns": false,
+    "ships_parcels": false,
+    "where_is_my_order": false,
+    "ships_abroad": false,
+    "customs_documents": false
+  }
+}
