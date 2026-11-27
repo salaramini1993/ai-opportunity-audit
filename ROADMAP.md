@@ -26,6 +26,7 @@ with `[x]` in the same commit as the change. Add new tasks when you find them.
 - [x] `--list-formats` option that prints the report format names for `--format`
 - [x] `--template` option that prints a blank answers file with every question key
 - [x] `--quiet` option that hides warnings (errors are still printed)
+- [x] `--exclude KEY` option that hides one opportunity by key (can be repeated)
 - [x] `--out` makes the missing folders of the output file, and prints an error if the file cannot be written
 
 ## Catalog

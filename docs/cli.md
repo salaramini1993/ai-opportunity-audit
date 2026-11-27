@@ -51,6 +51,10 @@ These options print a list and stop. They do not need an answers file.
   NUMBER. The number must be 0 or more. The default is to hide none.
   It runs before `--top`.
   If the filters hide every opportunity, a warning is printed.
+- `--exclude KEY`: hide the opportunity with this key, for example
+  `--exclude support_faq_assistant`. Use `--list-opportunities` to see the keys.
+  Use this option more than one time for more opportunities. The default is
+  to hide none. It runs before `--min-priority` and `--top`.
 
 ## Other options
 

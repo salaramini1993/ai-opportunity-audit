@@ -126,6 +126,16 @@ def parse_min_priority(text: str) -> float:
     return value
 
 
+def parse_exclude(text: str) -> str:
+    """Parse one "--exclude KEY" value. The key must be an opportunity key."""
+    known = {item.key for item in CATALOG}
+    if text not in known:
+        raise argparse.ArgumentTypeError(
+            f"'{text}' is not an opportunity key. Use --list-opportunities to see the keys"
+        )
+    return text
+
+
 # English names of the languages, in the same order as LANGUAGES.
 LANGUAGE_NAMES = {"en": "English", "sv": "Swedish", "fa": "Persian"}
 
@@ -269,6 +279,15 @@ def main(argv: list[str] | None = None) -> int:
         "The default is to hide none.",
     )
     parser.add_argument(
+        "--exclude",
+        type=parse_exclude,
+        action="append",
+        default=[],
+        metavar="KEY",
+        help="Hide the opportunity with this key. Use this option more than one time "
+        "for more opportunities. The default is to hide none.",
+    )
+    parser.add_argument(
         "--quiet",
         action="store_true",
         help="Do not print warnings. Errors are still printed.",
@@ -331,6 +350,8 @@ def main(argv: list[str] | None = None) -> int:
         return 2
 
     shown_before_filters = len(results)
+    if args.exclude:
+        results = [r for r in results if r.opportunity.key not in args.exclude]
     if args.min_priority is not None:
         results = [r for r in results if r.priority >= args.min_priority]
     if args.top:
