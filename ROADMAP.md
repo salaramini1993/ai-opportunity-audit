@@ -27,6 +27,7 @@ with `[x]` in the same commit as the change. Add new tasks when you find them.
 - [x] `--template` option that prints a blank answers file with every question key
 - [x] `--quiet` option that hides warnings (errors are still printed)
 - [x] `--exclude KEY` option that hides one opportunity by key (can be repeated)
+- [x] `--quadrant NAME` option that shows only one quadrant (quick win, strategic project, small improvement, not now)
 - [x] `--out` makes the missing folders of the output file, and prints an error if the file cannot be written
 
 ## Catalog

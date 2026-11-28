@@ -32,7 +32,7 @@ from .i18n import DEFAULT_LANGUAGE, LANGUAGES
 from .json_report import render_json
 from .questions import QUESTIONS
 from .report import render_markdown
-from .scoring import MAX_SCALE, score
+from .scoring import MAX_SCALE, QUADRANTS, score
 
 
 def parse_interactive_answer(raw: str) -> bool | int | None:
@@ -288,6 +288,12 @@ def main(argv: list[str] | None = None) -> int:
         "for more opportunities. The default is to hide none.",
     )
     parser.add_argument(
+        "--quadrant",
+        choices=QUADRANTS,
+        default=None,
+        help="Show only the opportunities in this quadrant. The default is to show all.",
+    )
+    parser.add_argument(
         "--quiet",
         action="store_true",
         help="Do not print warnings. Errors are still printed.",
@@ -352,6 +358,8 @@ def main(argv: list[str] | None = None) -> int:
     shown_before_filters = len(results)
     if args.exclude:
         results = [r for r in results if r.opportunity.key not in args.exclude]
+    if args.quadrant:
+        results = [r for r in results if r.quadrant == args.quadrant]
     if args.min_priority is not None:
         results = [r for r in results if r.priority >= args.min_priority]
     if args.top:

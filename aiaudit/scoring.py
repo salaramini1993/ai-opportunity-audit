@@ -30,6 +30,8 @@ from .questions import keys as question_keys
 
 MIN_FIT = 0.5
 MAX_SCALE = 3
+# The quadrant names, in the order of the table in docs/scoring.md.
+QUADRANTS = ("quick win", "strategic project", "small improvement", "not now")
 MIN_WEIGHT = 0.1
 MAX_WEIGHT = 5.0
 

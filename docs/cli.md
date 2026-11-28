@@ -55,6 +55,11 @@ These options print a list and stop. They do not need an answers file.
   `--exclude support_faq_assistant`. Use `--list-opportunities` to see the keys.
   Use this option more than one time for more opportunities. The default is
   to hide none. It runs before `--min-priority` and `--top`.
+- `--quadrant NAME`: show only the opportunities in this quadrant. The names
+  are `quick win`, `strategic project`, `small improvement` and `not now`.
+  Use quotation marks for a name with a space, for example
+  `--quadrant "quick win"`. The default is to show all quadrants. It runs
+  before `--min-priority` and `--top`. See [scoring](scoring.md#quadrant).
 
 ## Other options
 
