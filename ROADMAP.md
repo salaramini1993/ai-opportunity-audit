@@ -97,4 +97,5 @@ with `[x]` in the same commit as the change. Add new tasks when you find them.
 - [x] `docs/cli.md`: every command-line option, with a test that checks the help text
 - [x] `docs/report_formats.md`: the report formats and CSV columns, with a test that checks them
 - [x] `docs/examples.md`: each example file and its industry, with a test that checks the list
+- [x] `docs/catalog.md`: every catalog field, the checks and the translations, with a test that checks the fields and the example
 - [x] `docs/troubleshooting.md`: each error and warning message and its fix, with a test that checks the messages

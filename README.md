@@ -238,6 +238,7 @@ protection expert if you are not sure.
 
 The catalog is in the file `aiaudit/data/catalog.json`. To add or change
 an opportunity, edit this file. You do not need to change Python code.
+See [docs/catalog.md](docs/catalog.md) for every field, the checks the tool makes and the translations.
 
 Each opportunity has these fields:
 
